@@ -39,6 +39,14 @@
         <entry key="..\:/Users/USER/AndroidStudioProjects/WellinkAlarmApplication/app/src/main/res/layouts/setAlarm/layout/fragment_set_name.xml" value="0.29257246376811596" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/WellinkAlarmApplication/app/src/main/res/layouts/setAlarm/layout/fragment_set_user_name.xml" value="0.2" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/WellinkAlarmApplication/app/src/main/res/menu/appbar_home.xml" value="0.22552083333333334" />
+        <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/drawable/calendar_item_border.xml" value="0.15625" />
+        <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/home/layout-v23/home_calendar_item.xml" value="0.14010416666666667" />
+        <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/home/layout/activity_home.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/home/layout/calendar_item_border.xml" value="0.14010416666666667" />
+        <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/home/layout/fragment_home_calendar.xml" value="0.72" />
+        <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/home/layout/home_calendar_item.xml" value="0.4" />
+        <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/home/layout/home_calendar_item_empty_next.xml" value="0.14010416666666667" />
+        <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/home/layout/home_calendar_item_empty_prev.xml" value="0.14010416666666667" />
       </map>
     </option>
   </component>

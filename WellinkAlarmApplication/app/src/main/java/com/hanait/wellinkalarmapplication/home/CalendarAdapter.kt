@@ -7,13 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hanait.wellinkalarmapplication.R
-import com.hanait.wellinkalarmapplication.databinding.HomeCalendarItemBinding
 
 
-class CalendarAdapter(var context: Context, var data: Array<Pair<String, Int>?>) :
+class CalendarAdapter(var context: Context, var data: Array<Pair<String, Int>?>, var link: HomeCalendarFragment) :
     RecyclerView.Adapter<CalendarAdapter.VH>() {
 
     private val DAY_TYPE = 0
@@ -26,30 +24,25 @@ class CalendarAdapter(var context: Context, var data: Array<Pair<String, Int>?>)
     private val DAY_EMPTY_BLUE_PREV_TYPE = 7
     private val DAY_EMPTY_RED_PREV_TYPE = 8
 
-
     inner class VH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private lateinit var dayTextView: TextView
         fun setDayTextView(day: String?, color:Int) {
             dayTextView = itemView.findViewById(R.id.homeCalendarItem_textView)
             dayTextView.setTextColor(ContextCompat.getColor(context, color))
             dayTextView.text = day
-
+            dayTextView.setOnClickListener {
+                dayTextView.setBackgroundResource(R.drawable.calendar_item_border)
+            }
         }
         fun setEmptyDayNextTextView(day: String?, color:Int) {
             dayTextView = itemView.findViewById(R.id.homeCalendarItemEmptyNext_textView)
             dayTextView.setTextColor(ContextCompat.getColor(context, color))
             dayTextView.text = day
-            dayTextView.setOnClickListener {
-
-            }
         }
         fun setEmptyDayPrevTextView(day: String?, color:Int) {
             dayTextView = itemView.findViewById(R.id.homeCalendarItemEmptyPrev_textView)
             dayTextView.setTextColor(ContextCompat.getColor(context, color))
             dayTextView.text = day
-            dayTextView.setOnClickListener {
-                HomeCalendarFragment().binding.homeCalendarPrevBtn.performClick()
-            }
         }
     }
 
