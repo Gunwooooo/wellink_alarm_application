@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ps_bold"
+            android:layout_gravity="center_horizontal|top"
+            android:layout_marginTop="100dp"
+            android:text="어떤 종류의 약을 드시나요?"
+            android:textColor="@color/toss_black_700"
+            android:textSize="28sp" />
+
+        <EditText
+            android:id="@+id/setAlarmName_editText_alarmName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:layout_gravity="center_horizontal|top"
+            android:layout_marginTop="230dp"
+            android:hint="감기약"
+            android:inputType="text"
+            android:textSize="50sp"
+            android:importantForAutofill="no" >
+            <requestFocus />
+        </EditText>
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/setAlarmName_btn_next"
+        android:layout_width="380dp"
+        android:layout_height="73dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/btn_border_blue"
+        android:fontFamily="@font/ps_regular"
+        android:stateListAnimator="@null"
+        android:text="다음"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+</LinearLayout>
