@@ -1,17 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <shape
-            android:shape="rectangle">
-            <stroke
-                android:width="1dp"
-                android:color="@color/toss_blue_200" />
-            <solid android:color="#FFFFFFFF" />
-            <corners
-                android:topLeftRadius="3dp"
-                android:topRightRadius="3dp"
-                android:bottomLeftRadius="3dp"
-                android:bottomRightRadius="3dp"/>
-        </shape>
-    </item>
 </layer-list>

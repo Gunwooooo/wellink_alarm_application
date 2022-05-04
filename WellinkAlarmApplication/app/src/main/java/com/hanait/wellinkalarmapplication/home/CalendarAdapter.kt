@@ -2,6 +2,7 @@ package com.hanait.wellinkalarmapplication.home
 
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,25 +25,48 @@ class CalendarAdapter(var context: Context, var data: Array<Pair<String, Int>?>,
     private val DAY_EMPTY_BLUE_PREV_TYPE = 7
     private val DAY_EMPTY_RED_PREV_TYPE = 8
 
+    //adapter 클릭 리스너 외부 처리를 위한 인터페이스
+    private var mListener: OnItemClickListener? = null
+    public interface OnItemClickListener {
+        fun onDayItemClick(v:View, pos:Int)
+        fun onEmptyDayNextItemClick(v:View, pos:Int)
+        fun onEmptyDayPrevItemClick(v:View, pos:Int)
+    }
+    public fun setOnItemClickListener(listener: OnItemClickListener) {
+        this.mListener = listener
+    }
+    /////////
+
+
     inner class VH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private lateinit var dayTextView: TextView
+
         fun setDayTextView(day: String?, color:Int) {
             dayTextView = itemView.findViewById(R.id.homeCalendarItem_textView)
             dayTextView.setTextColor(ContextCompat.getColor(context, color))
             dayTextView.text = day
             dayTextView.setOnClickListener {
-                dayTextView.setBackgroundResource(R.drawable.calendar_item_border)
+                val pos = adapterPosition
+                if (pos != RecyclerView.NO_POSITION) mListener?.onDayItemClick(it, pos)
             }
         }
         fun setEmptyDayNextTextView(day: String?, color:Int) {
             dayTextView = itemView.findViewById(R.id.homeCalendarItemEmptyNext_textView)
             dayTextView.setTextColor(ContextCompat.getColor(context, color))
             dayTextView.text = day
+            dayTextView.setOnClickListener {
+                val pos = adapterPosition
+                if (pos != RecyclerView.NO_POSITION) mListener?.onEmptyDayNextItemClick(it, pos)
+            }
         }
         fun setEmptyDayPrevTextView(day: String?, color:Int) {
             dayTextView = itemView.findViewById(R.id.homeCalendarItemEmptyPrev_textView)
             dayTextView.setTextColor(ContextCompat.getColor(context, color))
             dayTextView.text = day
+            dayTextView.setOnClickListener {
+                val pos = adapterPosition
+                if (pos != RecyclerView.NO_POSITION) mListener?.onEmptyDayPrevItemClick(it, pos)
+            }
         }
     }
 
@@ -92,4 +116,6 @@ class CalendarAdapter(var context: Context, var data: Array<Pair<String, Int>?>,
             else -> 0
         }
     }
+
+
 }

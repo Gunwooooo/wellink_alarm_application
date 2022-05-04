@@ -3,29 +3,29 @@ package com.hanait.wellinkalarmapplication.home
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import com.hanait.wellinkalarmapplication.databinding.FragmentHomeCalendarBinding
 import com.hanait.wellinkalarmapplication.utils.BaseFragment
 import java.util.*
-import android.view.ViewTreeObserver
-import android.view.ViewTreeObserver.OnGlobalLayoutListener
-import android.widget.TextView
 import com.hanait.wellinkalarmapplication.R
-import kotlinx.coroutines.NonDisposableHandle.parent
 
 
 class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentHomeCalendarBinding::inflate), View.OnClickListener{
     val mCalendarList = arrayOfNulls<Pair<String, Int>>(42)
     lateinit var cal: GregorianCalendar
-
+    var prevChoiceDay = 0
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.homeCalendarNextBtn.setOnClickListener(this)
         binding.homeCalendarPrevBtn.setOnClickListener(this)
-
         initCalendarList()
+
+        val week =
+            GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), 1, 0, 0, 0).get(Calendar.DAY_OF_WEEK) - 1 + cal.get(Calendar.DAY_OF_MONTH)
+        Log.d("로그", "HomeCalendarFragment - setCalendarList : 오늘 일 $week")
+        binding.homeCalendarRecyclerView.layoutManager?.findViewByPosition(week)?.setBackgroundResource(R.drawable.calendar_choice_item_border)
+        prevChoiceDay = week
     }
 
     private fun initCalendarList() {
@@ -62,6 +62,7 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
             GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) - 1, 1, 0, 0, 0)
         //앞에 빈 공간
         val week = calendar.get(Calendar.DAY_OF_WEEK) - 1
+        prevChoiceDay = week + 1
         //뒤에 빈 공간
         val max = calendar.getActualMaximum(Calendar.DAY_OF_MONTH) - 1
         for (i: Int in mCalendarList.indices) {
@@ -90,12 +91,27 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
         val calendarView = binding.homeCalendarRecyclerView
         val calendarAdapter =
             context?.let { CalendarAdapter(it, mCalendarList, HomeCalendarFragment()) }
+
+        calendarAdapter?.setOnItemClickListener(
+            object : CalendarAdapter.OnItemClickListener {
+                override fun onDayItemClick(v: View, pos: Int) {
+                    binding.homeCalendarRecyclerView.layoutManager?.findViewByPosition(pos)?.setBackgroundResource(R.drawable.calendar_choice_item_border)
+                    binding.homeCalendarRecyclerView.layoutManager?.findViewByPosition(prevChoiceDay)?.setBackgroundResource(R.drawable.calendar_item_border)
+                    prevChoiceDay = pos
+                }
+
+                override fun onEmptyDayNextItemClick(v: View, pos: Int) {
+                    binding.homeCalendarNextBtn.performClick()
+                }
+
+                override fun onEmptyDayPrevItemClick(v: View, pos: Int) {
+                    binding.homeCalendarPrevBtn.performClick()
+                }
+            })
         val layoutManager = GridLayoutManager(context, 7)
         calendarView.layoutManager = layoutManager
         calendarView.adapter = calendarAdapter
     }
-
-
 }
 
 
