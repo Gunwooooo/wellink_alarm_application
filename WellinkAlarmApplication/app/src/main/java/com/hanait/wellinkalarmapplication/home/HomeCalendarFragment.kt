@@ -9,28 +9,40 @@ import com.hanait.wellinkalarmapplication.databinding.FragmentHomeCalendarBindin
 import com.hanait.wellinkalarmapplication.utils.BaseFragment
 import java.util.*
 import com.hanait.wellinkalarmapplication.R
+import android.view.MotionEvent
+
+import android.view.GestureDetector
+import android.view.View.OnTouchListener
+import kotlin.math.abs
 
 
-class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentHomeCalendarBinding::inflate), View.OnClickListener{
+class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentHomeCalendarBinding::inflate), View.OnClickListener {
     val mCalendarList = arrayOfNulls<Pair<String, Int>>(42)
     lateinit var cal: GregorianCalendar
     var prevChoiceDay = 0
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
+        initCalendarList()
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun initView() {
         binding.homeCalendarNextBtn.setOnClickListener(this)
         binding.homeCalendarPrevBtn.setOnClickListener(this)
-        initCalendarList()
-
-        val week =
-            GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), 1, 0, 0, 0).get(Calendar.DAY_OF_WEEK) - 1 + cal.get(Calendar.DAY_OF_MONTH)
-        Log.d("로그", "HomeCalendarFragment - setCalendarList : 오늘 일 $week")
-        binding.homeCalendarRecyclerView.layoutManager?.findViewByPosition(week)?.setBackgroundResource(R.drawable.calendar_choice_item_border)
-        prevChoiceDay = week
     }
 
     private fun initCalendarList() {
         cal = GregorianCalendar()
         binding.homeCalendarTextView.text = "${cal.get(Calendar.YEAR)}년 ${cal.get(Calendar.MONTH) + 1}월"
+
+        //오늘 날짜 테두리 표시
+        val week =
+            GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), 1, 0, 0, 0).get(Calendar.DAY_OF_WEEK) - 1 + cal.get(Calendar.DAY_OF_MONTH)
+        binding.homeCalendarRecyclerView.layoutManager?.findViewByPosition(week)?.setBackgroundResource(R.drawable.calendar_choice_item_border)
+        prevChoiceDay = week
+
         setCalendarList(cal)
     }
 
@@ -95,8 +107,9 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
         calendarAdapter?.setOnItemClickListener(
             object : CalendarAdapter.OnItemClickListener {
                 override fun onDayItemClick(v: View, pos: Int) {
-                    binding.homeCalendarRecyclerView.layoutManager?.findViewByPosition(pos)?.setBackgroundResource(R.drawable.calendar_choice_item_border)
+                    //테두리 구현 부분
                     binding.homeCalendarRecyclerView.layoutManager?.findViewByPosition(prevChoiceDay)?.setBackgroundResource(R.drawable.calendar_item_border)
+                    binding.homeCalendarRecyclerView.layoutManager?.findViewByPosition(pos)?.setBackgroundResource(R.drawable.calendar_choice_item_border)
                     prevChoiceDay = pos
                 }
 
@@ -113,5 +126,3 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
         calendarView.adapter = calendarAdapter
     }
 }
-
-
