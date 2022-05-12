@@ -15,7 +15,7 @@ import android.view.LayoutInflater
 
 
 
-class DialogFragment : DialogFragment() {
+class CustomDialogfragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
         val inflater = requireActivity().layoutInflater

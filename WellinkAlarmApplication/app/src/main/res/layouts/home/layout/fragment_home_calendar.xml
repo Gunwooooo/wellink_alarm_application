@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:clickable="true"
+    android:id="@+id/homeCalendar_linearLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginEnd="16dp"
     android:layout_marginStart="16dp"
     android:weightSum="1"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:focusable="true">
 
     <!--헤더-->
     <LinearLayout
@@ -110,7 +113,6 @@
             android:layout_weight="1"
             android:fontFamily="@font/ps_bold"
             android:gravity="left|center_vertical"
-
             android:text="목"
             android:textColor="@color/toss_black_500"
             android:textSize="16sp" />
@@ -140,6 +142,7 @@
 
     <!--달력뷰-->
     <androidx.recyclerview.widget.RecyclerView
+        android:overScrollMode="never"
         android:id="@+id/homeCalendar_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

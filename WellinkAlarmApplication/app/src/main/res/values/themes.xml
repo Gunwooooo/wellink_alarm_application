@@ -21,4 +21,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="Widget.BottomNavigationView"
+        parent="Widget.Design.BottomNavigationView">
+        <item name="fontFamily">@font/ps_regular</item>
+    </style>
+
 </resources>

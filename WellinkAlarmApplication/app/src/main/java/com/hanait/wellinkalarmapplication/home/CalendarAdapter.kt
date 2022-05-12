@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -40,12 +41,14 @@ class CalendarAdapter(var context: Context, var data: Array<Pair<String, Int>?>,
 
     inner class VH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private lateinit var dayTextView: TextView
-
+        private lateinit var dayView: LinearLayout
         fun setDayTextView(day: String?, color:Int) {
             dayTextView = itemView.findViewById(R.id.homeCalendarItem_textView)
             dayTextView.setTextColor(ContextCompat.getColor(context, color))
             dayTextView.text = day
-            dayTextView.setOnClickListener {
+//            val view = itemView.findViewById(R.id.homeCalendarItem_view)
+            dayView = itemView.findViewById(R.id.homeCalendarItem_view)
+            dayView.setOnClickListener {
                 val pos = adapterPosition
                 if (pos != RecyclerView.NO_POSITION) mListener?.onDayItemClick(it, pos)
             }

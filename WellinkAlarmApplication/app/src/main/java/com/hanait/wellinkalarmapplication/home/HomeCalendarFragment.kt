@@ -5,22 +5,18 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
+import com.hanait.wellinkalarmapplication.R
 import com.hanait.wellinkalarmapplication.databinding.FragmentHomeCalendarBinding
 import com.hanait.wellinkalarmapplication.utils.BaseFragment
+import com.hanait.wellinkalarmapplication.utils.CustomDialogfragment
+import com.hanait.wellinkalarmapplication.utils.OnSwipeTouchListener
 import java.util.*
-import com.hanait.wellinkalarmapplication.R
-import android.view.MotionEvent
-
-import android.view.GestureDetector
-import android.view.View.OnTouchListener
-import kotlin.math.abs
-
 
 class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentHomeCalendarBinding::inflate), View.OnClickListener {
     val mCalendarList = arrayOfNulls<Pair<String, Int>>(42)
     lateinit var cal: GregorianCalendar
     var prevChoiceDay = 0
-    @SuppressLint("ClickableViewAccessibility")
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
@@ -31,18 +27,24 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
     private fun initView() {
         binding.homeCalendarNextBtn.setOnClickListener(this)
         binding.homeCalendarPrevBtn.setOnClickListener(this)
+        binding.homeCalendarRecyclerView.setOnTouchListener(object: OnSwipeTouchListener(context) {
+            override fun onSwipeLeft() {
+                binding.homeCalendarNextBtn.performClick()
+            }
+            override fun onSwipeRight() {
+                binding.homeCalendarPrevBtn.performClick()
+            }
+        })
     }
 
     private fun initCalendarList() {
         cal = GregorianCalendar()
         binding.homeCalendarTextView.text = "${cal.get(Calendar.YEAR)}년 ${cal.get(Calendar.MONTH) + 1}월"
-
         //오늘 날짜 테두리 표시
         val week =
             GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), 1, 0, 0, 0).get(Calendar.DAY_OF_WEEK) - 1 + cal.get(Calendar.DAY_OF_MONTH)
         binding.homeCalendarRecyclerView.layoutManager?.findViewByPosition(week)?.setBackgroundResource(R.drawable.calendar_choice_item_border)
         prevChoiceDay = week
-
         setCalendarList(cal)
     }
 
@@ -51,13 +53,11 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
         when(v) {
             binding.homeCalendarPrevBtn -> {
                 cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) -1 , 1)
-                Log.d("로그", "HomeCalendarFragment - onClick : 이전 달")
                 setCalendarList(cal)
                 binding.homeCalendarTextView.text = "${cal.get(Calendar.YEAR)}년 ${cal.get(Calendar.MONTH) + 1}월"
             }
             binding.homeCalendarNextBtn -> {
                 cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, 1)
-                Log.d("로그", "HomeCalendarFragment - onClick : 다음 달")
                 setCalendarList(cal)
                 binding.homeCalendarTextView.text = "${cal.get(Calendar.YEAR)}년 ${cal.get(Calendar.MONTH) + 1}월"
             }
@@ -65,7 +65,7 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
     }
 
     //캘리넏 날짜 데이터 셋팅
-    fun setCalendarList(cal: GregorianCalendar) {
+    private fun setCalendarList(cal: GregorianCalendar) {
         //현재 날짜의 1일
         val calendar =
             GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), 1, 0, 0, 0)
@@ -99,7 +99,7 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
         recyclerViewCreate()
     }
 
-    fun recyclerViewCreate() {
+    private fun recyclerViewCreate() {
         val calendarView = binding.homeCalendarRecyclerView
         val calendarAdapter =
             context?.let { CalendarAdapter(it, mCalendarList, HomeCalendarFragment()) }
@@ -111,6 +111,7 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
                     binding.homeCalendarRecyclerView.layoutManager?.findViewByPosition(prevChoiceDay)?.setBackgroundResource(R.drawable.calendar_item_border)
                     binding.homeCalendarRecyclerView.layoutManager?.findViewByPosition(pos)?.setBackgroundResource(R.drawable.calendar_choice_item_border)
                     prevChoiceDay = pos
+                    showDialog()
                 }
 
                 override fun onEmptyDayNextItemClick(v: View, pos: Int) {
@@ -124,5 +125,10 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
         val layoutManager = GridLayoutManager(context, 7)
         calendarView.layoutManager = layoutManager
         calendarView.adapter = calendarAdapter
+    }
+
+    fun showDialog() {
+        val customDialog = CustomDialogfragment()
+        fragmentManager?.let { customDialog.show(it, "loginDialog") }
     }
 }
