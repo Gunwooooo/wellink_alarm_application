@@ -35,13 +35,14 @@
         app:layout_constraintTop_toBottomOf="@+id/home_toolbar" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_nav"
+        android:id="@+id/home_bottomNav"
         app:itemBackground="@color/StatusBarColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="60dp"
         android:layout_gravity="bottom"
-        app:itemIconTint="@color/toss_black_500"
-        app:itemTextColor="@color/toss_black_500"
+        app:itemIconTint="@color/menu_selector_color"
+        app:itemTextColor="@color/menu_selector_color"
         app:menu="@menu/bottom_navbar"
         app:layout_constraintBottom_toBottomOf="parent"/>
 

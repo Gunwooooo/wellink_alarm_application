@@ -47,10 +47,14 @@
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/drawable/ic_baseline_manage_accounts_24.xml" value="0.22083333333333333" />
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/drawable/ic_baseline_navigate_before_24.xml" value="0.2765625" />
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/drawable/layout_bottom_border.xml" value="0.35" />
+        <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/drawable/menu_selector_color.xml" value="0.35" />
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/home/layout-v23/home_calendar_item.xml" value="0.14010416666666667" />
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/home/layout/activity_home.xml" value="0.264" />
+        <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/home/layout/activity_home_account.xml" value="0.240625" />
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/home/layout/calendar_item_border.xml" value="0.14010416666666667" />
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/home/layout/fragment_home_calendar.xml" value="0.2" />
+        <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/home/layout/fragment_home_medicine.xml" value="0.28306159420289856" />
+        <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/home/layout/fragment_home_search.xml" value="0.28306159420289856" />
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/home/layout/home_calendar_dialog.xml" value="0.264" />
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/home/layout/home_calendar_item.xml" value="0.2" />
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/home/layout/home_calendar_item_empty_next.xml" value="0.176" />
