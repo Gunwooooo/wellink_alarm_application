@@ -19,13 +19,13 @@ class SetAlarmActivity : AppCompatActivity() {
         progressBar = binding.setAlarmProgressBar
         progressBar.indeterminateDrawable
 
-        //toolbar 표시
+        //toolbar 생성
         setSupportActionBar(binding.setAlarmToolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
         supportActionBar?.title = ""
 
         //첫 프래그먼트 이름 입력받는 인플레이트
-        supportFragmentManager.beginTransaction().replace(R.id.setAlarm_frameId, SetUserNameFragment()).commitAllowingStateLoss()
+        supportFragmentManager.beginTransaction().replace(R.id.setAlarm_frameId, SetAlarmNameFragment()).commitAllowingStateLoss()
     }
 
     //프래그먼트 이동 메서드

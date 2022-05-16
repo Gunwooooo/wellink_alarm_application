@@ -1,13 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home.HomeSearchFragment">
+    tools:context=".home.HomeSearchFragment"
+    android:orientation="vertical"
+    android:weightSum="1"
+    android:layout_margin="16dp">
 
-    <TextView
+
+    <EditText
+        android:padding="13dp"
+        android:textSize="18sp"
+        android:drawableEnd="@drawable/ic_baseline_search_24"
+        android:fontFamily="@font/ps_regular"
+        android:hint="의약품명을 입력해주세요(ex 아스피린)"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="약 약물 검색 프래그먼트" />
+        android:layout_height="50dp"
+        android:background="@drawable/search_edittext_border"/>
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@drawable/layout_bottom_border"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="크롤링 정보 출력 리스트 뷰"/>
+    </LinearLayout>
+
+
+
+</LinearLayout>

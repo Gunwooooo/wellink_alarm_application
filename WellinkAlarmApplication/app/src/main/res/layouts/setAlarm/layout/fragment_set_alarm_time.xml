@@ -108,7 +108,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:backgroundTint="@color/toss_blue_100"
+            android:backgroundTint="@color/toss_blue_200"
             app:cardCornerRadius="10dp"
             app:cardElevation="0dp">
             <LinearLayout
@@ -129,7 +129,7 @@
                         android:layout_height="match_parent"
                         android:text="점심"
                         android:gravity="center"
-                        android:textColor="@color/toss_black_700"
+                        android:textColor="@color/white"
                         android:fontFamily="@font/ps_bold"
                         android:textSize="20sp" />
                 </LinearLayout>
@@ -146,7 +146,7 @@
                         android:layout_height="match_parent"
                         android:text="오후 12:30"
                         android:gravity="left|center_vertical"
-                        android:textColor="@color/toss_black_700"
+                        android:textColor="@color/white"
                         android:fontFamily="@font/ps_bold"
                         android:textSize="24sp" />
                 </LinearLayout>
@@ -312,7 +312,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="매일 알림을 울려드릴게요!"
+            android:text="아침, 점심에 알려드릴게요!"
             android:fontFamily="@font/ps_regular"
             android:textColor="@color/toss_black_500"
             android:textSize="18sp"/>

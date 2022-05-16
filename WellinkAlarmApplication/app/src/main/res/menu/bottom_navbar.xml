@@ -7,7 +7,7 @@
         android:title="복약 달력"/>
 
     <item
-        android:id="@+id/bottomNav_medication"
+        android:id="@+id/bottomNav_alarm"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_medication_24"
         android:title="내 약 관리"/>

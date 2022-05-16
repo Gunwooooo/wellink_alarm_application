@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WellinkAlarmApplication.NoActionBar">
         <activity
+            android:name=".SetUserNameActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".home.HomeAccountActivity"
             android:exported="true" />
         <activity

@@ -12,8 +12,11 @@ class SetAlarmNameFragment : BaseFragment<FragmentSetAlarmNameBinding>(FragmentS
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        prevFragment = SetUserNameFragment()
+        prevFragment = SetAlarmNameFragment()
         progressBar.progress = 20
+
+        val mActivity = activity as SetAlarmActivity
+        mActivity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
         binding.setAlarmNameBtnNext.setOnClickListener(this)
     }

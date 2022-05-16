@@ -8,106 +8,79 @@
     tools:context=".home.HomeMedicineFragment"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/homeAccount_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="15dp"/>
-
-
-    <TextView
-        android:layout_marginStart="16dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="OOO님의 정보"
-        android:fontFamily="@font/ps_bold"
-        android:textSize="24sp"
-        android:textColor="@color/toss_black_700"/>
-
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/StatusBarColor"
-        app:cardCornerRadius="16dp"
+        app:cardUseCompatPadding="true"
         app:cardElevation="13dp"
-        app:cardUseCompatPadding="true">
+        app:cardCornerRadius="16dp">
 
         <LinearLayout
+            android:padding="16dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="16dp">
-
+            android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="1">
-
                 <LinearLayout
                     android:layout_width="0dip"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.6">
-
+                    android:layout_weight="0.4">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:text="복용중인 약"
+                        android:textSize="18sp"
                         android:fontFamily="@font/ps_bold"
-                        android:text="관심 약/약물 정보"
-                        android:textColor="@color/toss_black_500"
-                        android:textSize="18sp" />
+                        android:textColor="@color/toss_black_500"/>
                 </LinearLayout>
-
                 <LinearLayout
                     android:layout_width="0dip"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.4" />
-
+                    android:layout_weight="0.6"/>
                 <ImageView
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:id="@+id/homeMedicine_addMedicine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_baseline_add_24"
                     app:tint="@color/toss_blue_200" />
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="15dp" />
-
+                android:layout_height="15dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/ps_regular"
                     android:text="0개"
-                    android:textColor="@color/toss_black_700"
-                    android:textSize="34sp" />
+                    android:textSize="34sp"
+                    android:fontFamily="@font/ps_regular"
+                    android:textColor="@color/toss_black_700"/>
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="15dp" />
-
+                android:layout_height="15dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="현재 복용중인 약이 없어요"
+                    android:textSize="13sp"
                     android:fontFamily="@font/ps_regular"
-                    android:text="저장된 약이 없어요"
-                    android:textColor="@color/toss_black_500"
-                    android:textSize="13sp" />
+                    android:textColor="@color/toss_black_500"/>
             </LinearLayout>
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+</androidx.cardview.widget.CardView>
+
+
 </LinearLayout>

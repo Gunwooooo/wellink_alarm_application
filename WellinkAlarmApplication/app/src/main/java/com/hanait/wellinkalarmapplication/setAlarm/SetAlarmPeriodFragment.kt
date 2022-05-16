@@ -16,6 +16,9 @@ class SetAlarmPeriodFragment : BaseFragment<FragmentSetAlarmPeriodBinding>(Fragm
         prevFragment = SetAlarmNameFragment()
         progressBar.progress = 40
 
+        val mActivity = activity as SetAlarmActivity
+        mActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         binding.setAlarmPeriodBtnNext.setOnClickListener(this)
     }
 

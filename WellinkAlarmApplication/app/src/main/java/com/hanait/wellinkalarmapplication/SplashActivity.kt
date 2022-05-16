@@ -8,6 +8,7 @@ import android.os.Handler
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
+
     private val SPLASH_TIME_OUT:Long = 2000 //2초
 
     override fun onCreate(savedInstanceState: Bundle?) {
