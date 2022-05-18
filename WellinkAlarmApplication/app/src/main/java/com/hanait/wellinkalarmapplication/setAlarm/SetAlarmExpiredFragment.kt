@@ -2,6 +2,8 @@ package com.hanait.wellinkalarmapplication.setAlarm
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
+import com.hanait.wellinkalarmapplication.R
 import com.hanait.wellinkalarmapplication.utils.BaseFragment
 import com.hanait.wellinkalarmapplication.utils.Constants.prevFragment
 import com.hanait.wellinkalarmapplication.utils.Constants.progressBar
@@ -16,6 +18,14 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
         progressBar.progress = 60
 
         binding.setAlarmExpiredBtnNext.setOnClickListener(this)
+        binding.setAlarmExpiredBtnFirst.setOnClickListener(this)
+        binding.setAlarmExpiredBtnSecond.setOnClickListener(this)
+
+        binding.setAlarmExpiredNumberPicker.maxValue = 100
+        binding.setAlarmExpiredNumberPicker.minValue = 2
+        binding.setAlarmExpiredNumberPicker.setOnValueChangedListener { p0, oldVal, newVal ->
+            binding.setAlarmExpiredTextViewExplain.text = "${newVal}회분으로 알림을 설정할게요!"
+        }
     }
 
     override fun onClick(v: View?) {
@@ -23,6 +33,29 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
             binding.setAlarmExpiredBtnNext -> {
                 val mActivity = activity as SetAlarmActivity
                 mActivity.changeFragment("SetAlarmTimeFragment")
+            }
+
+            binding.setAlarmExpiredBtnSecond -> {
+                binding.setAlarmPeriodTextViewExplain.text = "2회분으로 알림을 설정할게요!"
+
+                binding.setAlarmExpiredSpaceLayout.visibility = View.GONE
+                binding.setAlarmExpiredNumberPickerLayout.visibility = View.VISIBLE
+                binding.setAlarmExpiredBtnSecond.setBackgroundResource(R.drawable.btn_border_blue)
+                binding.setAlarmExpiredBtnSecond.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                binding.setAlarmExpiredBtnFirst.setBackgroundResource(R.drawable.btn_border_gray)
+                binding.setAlarmExpiredBtnFirst.setTextColor(ContextCompat.getColor(requireContext(), R.color.toss_black_200))
+            }
+            binding.setAlarmExpiredBtnFirst -> {
+                binding.setAlarmExpiredNumberPicker.value = 2
+
+                binding.setAlarmExpiredSpaceLayout.visibility = View.VISIBLE
+                binding.setAlarmExpiredNumberPickerLayout.visibility = View.GONE
+                binding.setAlarmExpiredBtnFirst.setBackgroundResource(R.drawable.btn_border_blue)
+                binding.setAlarmExpiredBtnFirst.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                binding.setAlarmExpiredBtnSecond.setBackgroundResource(R.drawable.btn_border_gray)
+                binding.setAlarmExpiredBtnSecond.setTextColor(ContextCompat.getColor(requireContext(), R.color.toss_black_200))
+
+                binding.setAlarmExpiredTextViewExplain.text = "기간에 제한없이 알림을 울려드릴게요!"
             }
         }
     }

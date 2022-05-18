@@ -26,4 +26,10 @@
         <item name="fontFamily">@font/ps_regular</item>
     </style>
 
+    <style name="numberPickerCustomSize">
+        <item name="android:textSize">24sp</item>
+        <item name="android:editTextColor">@color/toss_black_700</item>
+    </style>
+
+
 </resources>

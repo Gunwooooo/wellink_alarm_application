@@ -48,6 +48,7 @@
             android:layout_width="0dip"
             android:layout_height="match_parent">
             <Button
+                android:id="@+id/setAlarmExpired_btn_first"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/btn_border_blue"
@@ -66,6 +67,7 @@
             android:layout_width="0dip"
             android:layout_height="match_parent">
             <Button
+                android:id="@+id/setAlarmExpired_btn_second"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/btn_border_gray"
@@ -82,10 +84,33 @@
     </LinearLayout>
 
     <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/setAlarmExpired_numberPicker_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.384"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <NumberPicker
+            android:theme="@style/numberPickerCustomSize"
+            android:id="@+id/setAlarmExpired_numberPicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="    회분"
+            android:textSize="32sp"
+            android:fontFamily="@font/ps_regular"
+            android:textColor="@color/toss_black_500"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="0.125">
         <TextView
+            android:id="@+id/setAlarmExpired_textView_explain"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -96,9 +121,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/setAlarmExpired_space_layout"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.384"/>
+        android:layout_weight="0.384"
+        android:orientation="horizontal"/>
     <Button
         android:id="@+id/setAlarmExpired_btn_next"
         android:layout_width="380dp"
