@@ -1,14 +1,17 @@
 package com.hanait.wellinkalarmapplication
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.View
 import android.widget.Toast
-import com.afollestad.materialdialogs.MaterialDialog
-import com.hanait.wellinkalarmapplication.setAlarm.SetAlarmActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.hanait.wellinkalarmapplication.databinding.ActivityMainBinding
+import com.hanait.wellinkalarmapplication.home.HomeActivity
+import com.hanait.wellinkalarmapplication.utils.Constants
+import com.hanait.wellinkalarmapplication.utils.Constants.dbManager
+import com.hanait.wellinkalarmapplication.utils.Constants.userName
+import com.hanait.wellinkalarmapplication.db.DatabaseManager
+import com.hanait.wellinkalarmapplication.db.PreferenceManager
 import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -22,6 +25,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(binding.root)
 
         binding.mainBtnStart.setOnClickListener(this)
+
+        //데이터 베이스 가져오기
+        Constants.prefs = PreferenceManager(applicationContext)
+        dbManager = DatabaseManager(applicationContext, "alarm.db", null, 1)
     }
 
     @Override
@@ -39,7 +46,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v) {
             binding.mainBtnStart -> {
-                val intent = Intent(this, SetUserNameActivity::class.java)
+                userName = Constants.prefs.getString("user_name", "")
+                if(userName == "") {
+                    val intent = Intent(this, SetUserNameActivity::class.java)
+                    startActivity(intent)
+                    return
+                }
+                val intent = Intent(this, HomeActivity::class.java)
+                Toast.makeText(this, "${userName}님 환영합니다.", Toast.LENGTH_SHORT).show()
                 startActivity(intent)
             }
         }

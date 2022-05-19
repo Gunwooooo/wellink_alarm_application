@@ -4,26 +4,21 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.hanait.wellinkalarmapplication.beans.AlarmData
 import com.hanait.wellinkalarmapplication.utils.BaseFragment
 import com.hanait.wellinkalarmapplication.utils.Constants.prevFragment
 import com.hanait.wellinkalarmapplication.utils.Constants.progressBar
 import com.hanait.wellinkalarmapplication.databinding.FragmentSetAlarmNameBinding
-import com.hanait.wellinkalarmapplication.utils.AlarmData
+import com.hanait.wellinkalarmapplication.utils.Constants.tempAlarmData
 
 class SetAlarmNameFragment : BaseFragment<FragmentSetAlarmNameBinding>(FragmentSetAlarmNameBinding::inflate), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        prevFragment = SetAlarmNameFragment()
-        progressBar.progress = 20
-        AlarmData.name = ""
-        binding.setAlarmNameEditTextAlarmName.setText(AlarmData.name)
+        init()
 
-
-        val mActivity = activity as SetAlarmActivity
-        mActivity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
-
-        binding.setAlarmNameBtnNext.setOnClickListener(this)
+        //임시 전역 변수 선언
+        tempAlarmData = AlarmData()
     }
 
     override fun onClick(v: View?) {
@@ -34,10 +29,21 @@ class SetAlarmNameFragment : BaseFragment<FragmentSetAlarmNameBinding>(FragmentS
                     Toast.makeText(context, "약 이름을 입력해주세요", Toast.LENGTH_SHORT).show()
                     return
                 }
-                AlarmData.name = binding.setAlarmNameEditTextAlarmName.text.toString()
+                tempAlarmData.name = binding.setAlarmNameEditTextAlarmName.text.toString()
                 val mActivity = activity as SetAlarmActivity
                 mActivity.changeFragment("SetAlarmPeriodFragment")
             }
         }
+    }
+
+    private fun init() {
+        prevFragment = SetAlarmNameFragment()
+        progressBar.progress = 20
+
+        //액션바 안보이게 하기(뒤로가기)
+        val mActivity = activity as SetAlarmActivity
+        mActivity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+
+        binding.setAlarmNameBtnNext.setOnClickListener(this)
     }
 }

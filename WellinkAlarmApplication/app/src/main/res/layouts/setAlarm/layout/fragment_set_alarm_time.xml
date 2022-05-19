@@ -25,7 +25,7 @@
             android:fontFamily="@font/ps_bold"
             android:gravity="center"
             android:textSize="28sp"/>
-    </LinearLayout>
+    </LinearLayout>w
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -291,7 +291,7 @@
                     android:id="@+id/setAlarmTime_textView_nTime"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="오후 10:30"
+                    android:text="오후 10:00"
                     android:gravity="left|center_vertical"
                     android:textColor="@color/toss_black_700"
                     android:fontFamily="@font/ps_bold"

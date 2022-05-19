@@ -21,6 +21,7 @@
 
 
     <TextView
+        android:id="@+id/homeAccount_textView_title"
         android:layout_marginStart="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -164,6 +165,7 @@
                     android:layout_width="0dip"
                     android:layout_height="match_parent">
                     <Button
+                        android:id="@+id/homeAccount_btn_reset"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/btn_border_gray"

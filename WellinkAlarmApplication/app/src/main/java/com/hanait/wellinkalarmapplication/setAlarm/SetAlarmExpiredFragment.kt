@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.hanait.wellinkalarmapplication.R
+import com.hanait.wellinkalarmapplication.databinding.FragmentSetAlarmExpiredBinding
 import com.hanait.wellinkalarmapplication.utils.BaseFragment
 import com.hanait.wellinkalarmapplication.utils.Constants.prevFragment
 import com.hanait.wellinkalarmapplication.utils.Constants.progressBar
-import com.hanait.wellinkalarmapplication.databinding.FragmentSetAlarmExpiredBinding
-import com.hanait.wellinkalarmapplication.utils.AlarmData
+import com.hanait.wellinkalarmapplication.utils.Constants.tempAlarmData
 
 
 class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(FragmentSetAlarmExpiredBinding::inflate), View.OnClickListener {
@@ -17,27 +17,14 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        prevFragment = SetAlarmPeriodFragment()
-        progressBar.progress = 60
-        binding.setAlarmExpiredTextViewQuestion.text = "${AlarmData.name}의\n회분이 정해져 있나요?"
-        alarmDataNumber = 0
 
-        binding.setAlarmExpiredBtnNext.setOnClickListener(this)
-        binding.setAlarmExpiredBtnFirst.setOnClickListener(this)
-        binding.setAlarmExpiredBtnSecond.setOnClickListener(this)
-
-        binding.setAlarmExpiredNumberPicker.maxValue = 100
-        binding.setAlarmExpiredNumberPicker.minValue = 2
-        binding.setAlarmExpiredNumberPicker.setOnValueChangedListener { _, _, newVal ->
-            binding.setAlarmExpiredTextViewExplain.text = "${newVal}회분으로 알림을 설정할게요!"
-            alarmDataNumber = newVal
-        }
+        init()
     }
 
     override fun onClick(v: View?) {
         when(v) {
             binding.setAlarmExpiredBtnNext -> {
-                AlarmData.expired = alarmDataNumber
+                tempAlarmData.expired = alarmDataNumber
 
                 val mActivity = activity as SetAlarmActivity
                 mActivity.changeFragment("SetAlarmTimeFragment")
@@ -68,6 +55,25 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
 
                 binding.setAlarmExpiredTextViewExplain.text = "기간에 제한없이 알림을 울려드릴게요!"
             }
+        }
+    }
+
+    private fun init() {
+        prevFragment = SetAlarmPeriodFragment()
+        progressBar.progress = 60
+        binding.setAlarmExpiredTextViewQuestion.text = "${tempAlarmData.name}의\n회분이 정해져 있나요?"
+        alarmDataNumber = 0
+
+        binding.setAlarmExpiredBtnNext.setOnClickListener(this)
+        binding.setAlarmExpiredBtnFirst.setOnClickListener(this)
+        binding.setAlarmExpiredBtnSecond.setOnClickListener(this)
+
+        //넘버 픽커 설정
+        binding.setAlarmExpiredNumberPicker.maxValue = 100
+        binding.setAlarmExpiredNumberPicker.minValue = 2
+        binding.setAlarmExpiredNumberPicker.setOnValueChangedListener { _, _, newVal ->
+            binding.setAlarmExpiredTextViewExplain.text = "${newVal}회분으로 알림을 설정할게요!"
+            alarmDataNumber = newVal
         }
     }
 }

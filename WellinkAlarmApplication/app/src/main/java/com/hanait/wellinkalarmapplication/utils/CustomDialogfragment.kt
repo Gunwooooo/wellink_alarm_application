@@ -12,9 +12,7 @@ import android.graphics.Rect
 import android.view.*
 import android.view.LayoutInflater
 
-
-
-
+//달력 상세 화면 다이어로그
 class CustomDialogfragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
