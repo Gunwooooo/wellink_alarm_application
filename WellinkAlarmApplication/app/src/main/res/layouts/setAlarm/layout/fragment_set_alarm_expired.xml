@@ -19,6 +19,7 @@
         android:layout_weight="0.125">
 
         <TextView
+            android:id="@+id/setAlarmExpired_textView_question"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/ps_bold"
