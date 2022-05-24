@@ -19,9 +19,6 @@ object Constants {
     //사용자 이름 저장을 위한 프리퍼런스
     lateinit var prefs: PreferenceManager
 
-    //알림 및 캘린더 정보 저장을 위한 sqlite manager
-    lateinit var dbManager: DatabaseManager
-
     //알림 설정 시 사용하는 임시 데이터
     lateinit var tempAlarmData: AlarmData
 }

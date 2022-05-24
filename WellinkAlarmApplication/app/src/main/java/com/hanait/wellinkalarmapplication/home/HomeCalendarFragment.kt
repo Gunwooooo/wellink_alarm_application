@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.hanait.wellinkalarmapplication.R
 import com.hanait.wellinkalarmapplication.databinding.FragmentHomeCalendarBinding
 import com.hanait.wellinkalarmapplication.utils.BaseFragment
-import com.hanait.wellinkalarmapplication.utils.CustomDialogfragment
+import com.hanait.wellinkalarmapplication.utils.CustomDialogFragment
 import com.hanait.wellinkalarmapplication.utils.OnSwipeTouchListener
 import java.util.*
 
@@ -19,12 +19,12 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView()
+        init()
         initCalendarList()
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private fun initView() {
+    private fun init() {
         binding.homeCalendarNextBtn.setOnClickListener(this)
         binding.homeCalendarPrevBtn.setOnClickListener(this)
         binding.homeCalendarRecyclerView.setOnTouchListener(object: OnSwipeTouchListener(context) {
@@ -128,7 +128,7 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
     }
 
     fun showDialog() {
-        val customDialog = CustomDialogfragment()
+        val customDialog = CustomDialogFragment(R.layout.home_calendar_dialog)
         fragmentManager?.let { customDialog.show(it, "loginDialog") }
     }
 }

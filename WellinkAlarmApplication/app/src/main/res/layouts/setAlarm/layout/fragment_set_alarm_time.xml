@@ -25,7 +25,7 @@
             android:fontFamily="@font/ps_bold"
             android:gravity="center"
             android:textSize="28sp"/>
-    </LinearLayout>w
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

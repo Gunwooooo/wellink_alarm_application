@@ -1,5 +1,6 @@
 package com.hanait.wellinkalarmapplication.setAlarm
 
+import android.R
 import android.annotation.SuppressLint
 import android.app.TimePickerDialog
 import android.content.Intent
@@ -8,10 +9,9 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import com.hanait.wellinkalarmapplication.databinding.FragmentSetAlarmTimeBinding
+import com.hanait.wellinkalarmapplication.db.DatabaseManager
 import com.hanait.wellinkalarmapplication.home.HomeActivity
 import com.hanait.wellinkalarmapplication.utils.BaseFragment
-import com.hanait.wellinkalarmapplication.utils.Constants
-import com.hanait.wellinkalarmapplication.utils.Constants.dbManager
 import com.hanait.wellinkalarmapplication.utils.Constants.prevFragment
 import com.hanait.wellinkalarmapplication.utils.Constants.progressBar
 import com.hanait.wellinkalarmapplication.utils.Constants.tempAlarmData
@@ -38,7 +38,8 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
                 saveSwitchData()
                 Log.d("로그", "SetAlarmTimeFragment - onClick : $tempAlarmData")
 
-                dbManager.insert(tempAlarmData)
+                DatabaseManager.getInstance(requireContext(), "Alarms.db").insert(tempAlarmData)
+
                 Toast.makeText(context, "약이 추가되었습니다.", Toast.LENGTH_SHORT).show()
                 val intent = Intent(context, HomeActivity::class.java)
                 startActivity(intent)
@@ -77,8 +78,8 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
 
         }
         //스피너형 다이어로그 생성
-        val timePickerDialog = TimePickerDialog(context, android.R.style.Theme_Holo_Dialog_NoActionBar, timeSetListener, cHour, cMinute, false)
-        timePickerDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        val timePickerDialog = TimePickerDialog(context, R.style.Theme_Holo_Dialog_NoActionBar, timeSetListener, cHour, cMinute, false)
+        timePickerDialog.window?.setBackgroundDrawableResource(R.color.transparent)
         timePickerDialog.show()
     }
 

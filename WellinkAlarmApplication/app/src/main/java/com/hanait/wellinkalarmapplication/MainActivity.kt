@@ -6,12 +6,10 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.hanait.wellinkalarmapplication.databinding.ActivityMainBinding
+import com.hanait.wellinkalarmapplication.db.PreferenceManager
 import com.hanait.wellinkalarmapplication.home.HomeActivity
 import com.hanait.wellinkalarmapplication.utils.Constants
-import com.hanait.wellinkalarmapplication.utils.Constants.dbManager
 import com.hanait.wellinkalarmapplication.utils.Constants.userName
-import com.hanait.wellinkalarmapplication.db.DatabaseManager
-import com.hanait.wellinkalarmapplication.db.PreferenceManager
 import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -26,9 +24,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         binding.mainBtnStart.setOnClickListener(this)
 
-        //데이터 베이스 가져오기
+        //sharedPreference에 있는 사용자 이름 가져오기
         Constants.prefs = PreferenceManager(applicationContext)
-        dbManager = DatabaseManager(applicationContext, "alarm.db", null, 1)
     }
 
     @Override
