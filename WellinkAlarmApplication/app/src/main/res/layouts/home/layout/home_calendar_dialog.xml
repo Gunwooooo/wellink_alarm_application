@@ -13,10 +13,12 @@
         android:background="@drawable/layout_bottom_border">
 
         <TextView
+            android:id="@+id/homeCalendarDialog_textView_dayOfMonth"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="O일"
             android:textSize="31sp"
+            android:textColor="@color/text_red_200"
             android:fontFamily="@font/ps_regular"/>
     </LinearLayout>
     <LinearLayout

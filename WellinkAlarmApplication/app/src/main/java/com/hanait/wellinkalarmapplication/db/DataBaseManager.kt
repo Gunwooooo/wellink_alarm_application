@@ -21,42 +21,30 @@ class DatabaseManager(context: Context, fileName: String) :
 
 
     override fun onCreate(db: SQLiteDatabase) {
-        db.execSQL("CREATE TABLE ALARMS(name TEXT PRIMARY KEY, period INTEGER, expired INTEGER, " +
-                "mampm INTEGER, mhour INTEGER, mminute INTEGER, mswitch INTEGER," +
-                "aampm INTEGER, ahour INTEGER, aminute INTEGER, aswitch INTEGER," +
-                "eampm INTEGER, ehour INTEGER, eminute INTEGER, eswitch INTEGER," +
-                "nampm INTEGER, nhour INTEGER, nminute INTEGER, nswitch INTEGER);")
+        db.execSQL("CREATE TABLE ALARMS(date TEXT, name TEXT PRIMARY KEY, period INTEGER, expired INTEGER, " +
+                "mampm INTEGER, mhour INTEGER, mminute INTEGER, mswitch INTEGER, mtaken INTEGER," +
+                "aampm INTEGER, ahour INTEGER, aminute INTEGER, aswitch INTEGER, ataken INTEGER," +
+                "eampm INTEGER, ehour INTEGER, eminute INTEGER, eswitch INTEGER, etaken INTEGER," +
+                "nampm INTEGER, nhour INTEGER, nminute INTEGER, nswitch INTEGER, ntaken INTEGER);")
         Log.d("로그", "DatabaseManager - insert : DB 생성")
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {}
 
-    fun insert(alarmData: AlarmData) {
+    fun insertAlarm(alarmData: AlarmData) {
         val db = writableDatabase
-//        db.execSQL("insert into ALARMS values('" + alarmData.name + "','" + alarmData.period.toString() + "', '" + alarmData.expired.toString() + "','"
-//                + alarmData.mampm.toString() + "', '" + alarmData.mhour.toString() + "','" + alarmData.mminute + "','" + alarmData.mswitch + "','"
-//                + alarmData.aampm.toString() + "', '" + alarmData.ahour.toString() + "','" + alarmData.aminute + "','" + alarmData.aswitch + "','"
-//                + alarmData.eampm.toString() + "', '" + alarmData.ehour.toString() + "','" + alarmData.eminute + "','" + alarmData.eswitch + "','"
-//                + alarmData.nampm.toString() + "', '" + alarmData.nhour.toString() + "','" + alarmData.nminute + "','" + alarmData.nswitch + "');")
-
-        db.execSQL("insert into ALARMS values('" + alarmData.name + "'," + alarmData.period.toString() + "," + alarmData.expired.toString() + ","
-                + alarmData.mampm.toString() + "," + alarmData.mhour.toString() + "," + alarmData.mminute + "," + alarmData.mswitch + ","
-                + alarmData.aampm.toString() + "," + alarmData.ahour.toString() + "," + alarmData.aminute + "," + alarmData.aswitch + ","
-                + alarmData.eampm.toString() + "," + alarmData.ehour.toString() + "," + alarmData.eminute + "," + alarmData.eswitch + ","
-                + alarmData.nampm.toString() + "," + alarmData.nhour.toString() + "," + alarmData.nminute + "," + alarmData.nswitch + ");")
+        db.execSQL("insert into ALARMS values(datetime('now', 'localtime'),'" + alarmData.name + "'," + alarmData.period + "," + alarmData.expired + ","
+                + alarmData.mampm + "," + alarmData.mhour + "," + alarmData.mminute + "," + alarmData.mswitch + "," + alarmData.mtaken + ","
+                + alarmData.aampm + "," + alarmData.ahour + "," + alarmData.aminute + "," + alarmData.aswitch + "," + alarmData.ataken + ","
+                + alarmData.eampm + "," + alarmData.ehour + "," + alarmData.eminute + "," + alarmData.eswitch + "," + alarmData.etaken + ","
+                + alarmData.nampm + "," + alarmData.nhour + "," + alarmData.nminute + "," + alarmData.nswitch + "," + alarmData.ntaken + ");")
         db.close()
         Log.d("로그", "DatabaseManager - insert : DB에 알람 저장됨")
     }
-//
-//    fun delete(schedules: Schedules) {
-//        val db = writableDatabase
-//        db.execSQL("delete from SCHEDULE where code = '" + schedules.code.toString() + "';")
-//    }
-//
 
     //모든 알람 데이터 가져오기
-    @SuppressLint("Recycle")
-    fun selectAll(): ArrayList<AlarmData> {
+    @SuppressLint("Recycle", "Range")
+    fun selectAlarmAll(): ArrayList<AlarmData> {
         val db = readableDatabase
         val list: ArrayList<AlarmData> = ArrayList()
         val cursor = db.rawQuery(
@@ -65,33 +53,39 @@ class DatabaseManager(context: Context, fileName: String) :
         )
         while (cursor.moveToNext()) {
             val mAlarmData = AlarmData()
-            mAlarmData.name = cursor.getString(0)
-            mAlarmData.period = cursor.getInt(1)
-            mAlarmData.expired = cursor.getInt(2)
-            mAlarmData.mampm = cursor.getInt(3)
-            mAlarmData.mhour = cursor.getInt(4)
-            mAlarmData.mminute = cursor.getInt(5)
-            mAlarmData.mswitch = cursor.getInt(6)
-            mAlarmData.aampm = cursor.getInt(7)
-            mAlarmData.ahour = cursor.getInt(8)
-            mAlarmData.aminute = cursor.getInt(9)
-            mAlarmData.aswitch = cursor.getInt(10)
-            mAlarmData.eampm = cursor.getInt(11)
-            mAlarmData.ehour = cursor.getInt(12)
-            mAlarmData.eminute = cursor.getInt(13)
-            mAlarmData.eswitch = cursor.getInt(14)
-            mAlarmData.nampm = cursor.getInt(15)
-            mAlarmData.nhour = cursor.getInt(16)
-            mAlarmData.nminute = cursor.getInt(17)
-            mAlarmData.nswitch = cursor.getInt(18)
+            mAlarmData.date = cursor.getString(cursor.getColumnIndex("date"))
+            mAlarmData.name = cursor.getString(cursor.getColumnIndex("name"))
+            mAlarmData.period = cursor.getInt((cursor.getColumnIndex("period")))
+            mAlarmData.expired = cursor.getInt((cursor.getColumnIndex("expired")))
+            mAlarmData.mampm = cursor.getInt((cursor.getColumnIndex("mampm")))
+            mAlarmData.mhour = cursor.getInt((cursor.getColumnIndex("mhour")))
+            mAlarmData.mminute = cursor.getInt((cursor.getColumnIndex("mminute")))
+            mAlarmData.mswitch = cursor.getInt((cursor.getColumnIndex("mswitch")))
+            mAlarmData.mtaken = cursor.getInt((cursor.getColumnIndex("mtaken")))
+            mAlarmData.aampm = cursor.getInt((cursor.getColumnIndex("aampm")))
+            mAlarmData.ahour = cursor.getInt((cursor.getColumnIndex("ahour")))
+            mAlarmData.aminute = cursor.getInt((cursor.getColumnIndex("aminute")))
+            mAlarmData.aswitch = cursor.getInt((cursor.getColumnIndex("aswitch")))
+            mAlarmData.ataken = cursor.getInt((cursor.getColumnIndex("ataken")))
+            mAlarmData.eampm = cursor.getInt((cursor.getColumnIndex("eampm")))
+            mAlarmData.ehour = cursor.getInt((cursor.getColumnIndex("ehour")))
+            mAlarmData.eminute = cursor.getInt((cursor.getColumnIndex("eminute")))
+            mAlarmData.eswitch = cursor.getInt((cursor.getColumnIndex("eswitch")))
+            mAlarmData.etaken = cursor.getInt((cursor.getColumnIndex("etaken")))
+            mAlarmData.nampm = cursor.getInt((cursor.getColumnIndex("nampm")))
+            mAlarmData.nhour = cursor.getInt((cursor.getColumnIndex("nhour")))
+            mAlarmData.nminute = cursor.getInt((cursor.getColumnIndex("nminute")))
+            mAlarmData.nswitch = cursor.getInt((cursor.getColumnIndex("nswitch")))
+            mAlarmData.ntaken = cursor.getInt((cursor.getColumnIndex("ntaken")))
             list.add(mAlarmData)
         }
         return list
     }
 
     //특정 알람 데이터 가져오기
-    @SuppressLint("Recycle")
-    fun select(alarmDataName: String): AlarmData {
+    @SuppressLint("Range")
+
+    fun selectAlarm(alarmDataName: String): AlarmData {
         val db = readableDatabase
         val cursor = db.rawQuery(
             "select * from ALARMS where name = '$alarmDataName'",
@@ -99,33 +93,78 @@ class DatabaseManager(context: Context, fileName: String) :
         )
         val mAlarmData = AlarmData()
         while (cursor.moveToNext()) {
-            mAlarmData.name = cursor.getString(0)
-            mAlarmData.period = cursor.getInt(1)
-            mAlarmData.expired = cursor.getInt(2)
-            mAlarmData.mampm = cursor.getInt(3)
-            mAlarmData.mhour = cursor.getInt(4)
-            mAlarmData.mminute = cursor.getInt(5)
-            mAlarmData.mswitch = cursor.getInt(6)
-            mAlarmData.aampm = cursor.getInt(7)
-            mAlarmData.ahour = cursor.getInt(8)
-            mAlarmData.aminute = cursor.getInt(9)
-            mAlarmData.aswitch = cursor.getInt(10)
-            mAlarmData.eampm = cursor.getInt(11)
-            mAlarmData.ehour = cursor.getInt(12)
-            mAlarmData.eminute = cursor.getInt(13)
-            mAlarmData.eswitch = cursor.getInt(14)
-            mAlarmData.nampm = cursor.getInt(15)
-            mAlarmData.nhour = cursor.getInt(16)
-            mAlarmData.nminute = cursor.getInt(17)
-            mAlarmData.nswitch = cursor.getInt(18)
+            mAlarmData.date = cursor.getString(cursor.getColumnIndex("date"))
+            mAlarmData.name = cursor.getString(cursor.getColumnIndex("name"))
+            mAlarmData.period = cursor.getInt((cursor.getColumnIndex("period")))
+            mAlarmData.expired = cursor.getInt((cursor.getColumnIndex("expired")))
+            mAlarmData.mampm = cursor.getInt((cursor.getColumnIndex("mampm")))
+            mAlarmData.mhour = cursor.getInt((cursor.getColumnIndex("mhour")))
+            mAlarmData.mminute = cursor.getInt((cursor.getColumnIndex("mminute")))
+            mAlarmData.mswitch = cursor.getInt((cursor.getColumnIndex("mswitch")))
+            mAlarmData.mtaken = cursor.getInt((cursor.getColumnIndex("mtaken")))
+            mAlarmData.aampm = cursor.getInt((cursor.getColumnIndex("aampm")))
+            mAlarmData.ahour = cursor.getInt((cursor.getColumnIndex("ahour")))
+            mAlarmData.aminute = cursor.getInt((cursor.getColumnIndex("aminute")))
+            mAlarmData.aswitch = cursor.getInt((cursor.getColumnIndex("aswitch")))
+            mAlarmData.ataken = cursor.getInt((cursor.getColumnIndex("ataken")))
+            mAlarmData.eampm = cursor.getInt((cursor.getColumnIndex("eampm")))
+            mAlarmData.ehour = cursor.getInt((cursor.getColumnIndex("ehour")))
+            mAlarmData.eminute = cursor.getInt((cursor.getColumnIndex("eminute")))
+            mAlarmData.eswitch = cursor.getInt((cursor.getColumnIndex("eswitch")))
+            mAlarmData.etaken = cursor.getInt((cursor.getColumnIndex("etaken")))
+            mAlarmData.nampm = cursor.getInt((cursor.getColumnIndex("nampm")))
+            mAlarmData.nhour = cursor.getInt((cursor.getColumnIndex("nhour")))
+            mAlarmData.nminute = cursor.getInt((cursor.getColumnIndex("nminute")))
+            mAlarmData.nswitch = cursor.getInt((cursor.getColumnIndex("nswitch")))
+            mAlarmData.ntaken = cursor.getInt((cursor.getColumnIndex("ntaken")))
         }
         return mAlarmData
     }
 
     //알람 삭제하기
-    fun delete(alarmData: AlarmData) {
+    fun deleteAlarm(alarmData: AlarmData) {
         val db = writableDatabase
         db.execSQL("delete from ALARMS where name = '" + alarmData.name + "';")
     }
 
+    @SuppressLint("Range", "Recycle")
+    fun selectCalendarItemAlarm(clickedDate: String): ArrayList<AlarmData> {
+        val db = readableDatabase
+        val list: ArrayList<AlarmData> = ArrayList()
+        val cursor = db.rawQuery(
+            "select * from ALARMS " +
+                    "where (strftime('%s', clickedDate) - strftime('%s', date) > 0)" +
+                    "and (expired != 0 and (strftime('%s', clickedDate) - (strftime('%s', date) + expired) < 0))",
+            null
+        )
+        while (cursor.moveToNext()) {
+            val mAlarmData = AlarmData()
+            mAlarmData.date = cursor.getString(cursor.getColumnIndex("date"))
+            mAlarmData.name = cursor.getString(cursor.getColumnIndex("name"))
+            mAlarmData.period = cursor.getInt((cursor.getColumnIndex("period")))
+            mAlarmData.expired = cursor.getInt((cursor.getColumnIndex("expired")))
+            mAlarmData.mampm = cursor.getInt((cursor.getColumnIndex("mampm")))
+            mAlarmData.mhour = cursor.getInt((cursor.getColumnIndex("mhour")))
+            mAlarmData.mminute = cursor.getInt((cursor.getColumnIndex("mminute")))
+            mAlarmData.mswitch = cursor.getInt((cursor.getColumnIndex("mswitch")))
+            mAlarmData.mtaken = cursor.getInt((cursor.getColumnIndex("mtaken")))
+            mAlarmData.aampm = cursor.getInt((cursor.getColumnIndex("aampm")))
+            mAlarmData.ahour = cursor.getInt((cursor.getColumnIndex("ahour")))
+            mAlarmData.aminute = cursor.getInt((cursor.getColumnIndex("aminute")))
+            mAlarmData.aswitch = cursor.getInt((cursor.getColumnIndex("aswitch")))
+            mAlarmData.ataken = cursor.getInt((cursor.getColumnIndex("ataken")))
+            mAlarmData.eampm = cursor.getInt((cursor.getColumnIndex("eampm")))
+            mAlarmData.ehour = cursor.getInt((cursor.getColumnIndex("ehour")))
+            mAlarmData.eminute = cursor.getInt((cursor.getColumnIndex("eminute")))
+            mAlarmData.eswitch = cursor.getInt((cursor.getColumnIndex("eswitch")))
+            mAlarmData.etaken = cursor.getInt((cursor.getColumnIndex("etaken")))
+            mAlarmData.nampm = cursor.getInt((cursor.getColumnIndex("nampm")))
+            mAlarmData.nhour = cursor.getInt((cursor.getColumnIndex("nhour")))
+            mAlarmData.nminute = cursor.getInt((cursor.getColumnIndex("nminute")))
+            mAlarmData.nswitch = cursor.getInt((cursor.getColumnIndex("nswitch")))
+            mAlarmData.ntaken = cursor.getInt((cursor.getColumnIndex("ntaken")))
+            list.add(mAlarmData)
+        }
+        return list
+    }
 }

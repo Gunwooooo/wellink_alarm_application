@@ -30,7 +30,7 @@ class HomeAlarmFragment : BaseFragment<FragmentHomeAlarmBinding>(FragmentHomeAla
     }
     
     private fun getAlarmList() {
-        mAlarmList = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectAll()
+        mAlarmList = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectAlarmAll()
         Log.d("로그", "HomeAlarmFragment - getAlarmList : 알람 갯수 : ${mAlarmList.size}")
         setTextAlarmCountAndExplain()
     }
@@ -76,12 +76,12 @@ class HomeAlarmFragment : BaseFragment<FragmentHomeAlarmBinding>(FragmentHomeAla
 
     //알람 삭제 다이어로그
     fun showDialog(alarmAdapter:AlarmAdapter, pos:Int) {
-        val customDialog = CustomDialogFragment(R.layout.home_alarm_delete_dialog)
+        val customDialog = CustomDialogFragment(R.layout.home_alarm_delete_dialog, null)
         customDialog.setDialogListener(object:CustomDialogFragment.CustomDialogListener {
             @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
             //삭제 예 버튼 클릭
             override fun onPositiveClicked() {
-                DatabaseManager.getInstance(requireContext(), "Alarms.db").delete(mAlarmList[pos - 1])
+                DatabaseManager.getInstance(requireContext(), "Alarms.db").deleteAlarm(mAlarmList[pos - 1])
                 mAlarmList.removeAt(pos - 1)
                 setTextAlarmCountAndExplain()
                 alarmAdapter.notifyDataSetChanged()

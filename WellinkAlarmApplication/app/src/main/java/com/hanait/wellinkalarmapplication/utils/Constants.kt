@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import com.hanait.wellinkalarmapplication.beans.AlarmData
 import com.hanait.wellinkalarmapplication.db.DatabaseManager
 import com.hanait.wellinkalarmapplication.db.PreferenceManager
+import java.text.SimpleDateFormat
 
 @SuppressLint("StaticFieldLeak")
 object Constants {
@@ -21,4 +22,8 @@ object Constants {
 
     //알림 설정 시 사용하는 임시 데이터
     lateinit var tempAlarmData: AlarmData
+
+    //simpleDateFormat
+    @SuppressLint("SimpleDateFormat")
+    val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 }

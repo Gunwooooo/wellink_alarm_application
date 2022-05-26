@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import androidx.core.view.doOnPreDraw
 import androidx.recyclerview.widget.GridLayoutManager
 import com.hanait.wellinkalarmapplication.R
@@ -114,7 +115,9 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
                     binding.homeCalendarRecyclerView.layoutManager?.findViewByPosition(prevChoiceDay)?.setBackgroundResource(R.drawable.calendar_item_border)
                     binding.homeCalendarRecyclerView.layoutManager?.findViewByPosition(pos)?.setBackgroundResource(R.drawable.calendar_choice_item_border)
                     prevChoiceDay = pos
-                    showDialog()
+
+                    val dayOfMonth = binding.homeCalendarRecyclerView.layoutManager?.findViewByPosition(pos)?.findViewById(R.id.homeCalendarItem_textView) as TextView
+                    showDialog(dayOfMonth.text.toString().replace(" ", "").toInt())
                 }
 
                 override fun onEmptyDayNextItemClick(v: View, pos: Int) {
@@ -131,8 +134,10 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
         calendarView.adapter = calendarAdapter
     }
 
-    fun showDialog() {
-        val customDialog = CustomDialogFragment(R.layout.home_calendar_dialog)
+    fun showDialog(dayOfMonth: Int) {
+        Log.d("로그", "day - showDialog : dayofMonth : $dayOfMonth")
+        val calendar = GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), dayOfMonth, 0, 0, 0)
+        val customDialog = CustomDialogFragment(R.layout.home_calendar_dialog, calendar)
         fragmentManager?.let { customDialog.show(it, "home_calendar_dialog") }
     }
 }

@@ -36,9 +36,8 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
                 }
 
                 saveSwitchData()
-                Log.d("로그", "SetAlarmTimeFragment - onClick : $tempAlarmData")
 
-                DatabaseManager.getInstance(requireContext(), "Alarms.db").insert(tempAlarmData)
+                DatabaseManager.getInstance(requireContext(), "Alarms.db").insertAlarm(tempAlarmData)
 
                 Toast.makeText(context, "약이 추가되었습니다.", Toast.LENGTH_SHORT).show()
                 val intent = Intent(context, HomeActivity::class.java)
