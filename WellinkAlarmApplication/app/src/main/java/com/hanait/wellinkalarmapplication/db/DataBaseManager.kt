@@ -21,7 +21,7 @@ class DatabaseManager(context: Context, fileName: String) :
 
 
     override fun onCreate(db: SQLiteDatabase) {
-        db.execSQL("CREATE TABLE ALARMS(date TEXT, name TEXT PRIMARY KEY, period INTEGER, expired INTEGER, " +
+        db.execSQL("CREATE TABLE ALARMS(date TEXT, name TEXT PRIMARY KEY, period INTEGER, expired TEXT, " +
                 "mampm INTEGER, mhour INTEGER, mminute INTEGER, mswitch INTEGER, mtaken INTEGER," +
                 "aampm INTEGER, ahour INTEGER, aminute INTEGER, aswitch INTEGER, ataken INTEGER," +
                 "eampm INTEGER, ehour INTEGER, eminute INTEGER, eswitch INTEGER, etaken INTEGER," +
@@ -33,7 +33,7 @@ class DatabaseManager(context: Context, fileName: String) :
 
     fun insertAlarm(alarmData: AlarmData) {
         val db = writableDatabase
-        db.execSQL("insert into ALARMS values(datetime('now', 'localtime'),'" + alarmData.name + "'," + alarmData.period + "," + alarmData.expired + ","
+        db.execSQL("insert into ALARMS values(strftime('%Y-%m-%d', 'now', 'localtime'),'" + alarmData.name + "'," + alarmData.period + "," + alarmData.expired + ","
                 + alarmData.mampm + "," + alarmData.mhour + "," + alarmData.mminute + "," + alarmData.mswitch + "," + alarmData.mtaken + ","
                 + alarmData.aampm + "," + alarmData.ahour + "," + alarmData.aminute + "," + alarmData.aswitch + "," + alarmData.ataken + ","
                 + alarmData.eampm + "," + alarmData.ehour + "," + alarmData.eminute + "," + alarmData.eswitch + "," + alarmData.etaken + ","
@@ -56,7 +56,7 @@ class DatabaseManager(context: Context, fileName: String) :
             mAlarmData.date = cursor.getString(cursor.getColumnIndex("date"))
             mAlarmData.name = cursor.getString(cursor.getColumnIndex("name"))
             mAlarmData.period = cursor.getInt((cursor.getColumnIndex("period")))
-            mAlarmData.expired = cursor.getInt((cursor.getColumnIndex("expired")))
+            mAlarmData.expired = cursor.getString((cursor.getColumnIndex("expired")))
             mAlarmData.mampm = cursor.getInt((cursor.getColumnIndex("mampm")))
             mAlarmData.mhour = cursor.getInt((cursor.getColumnIndex("mhour")))
             mAlarmData.mminute = cursor.getInt((cursor.getColumnIndex("mminute")))
@@ -96,7 +96,7 @@ class DatabaseManager(context: Context, fileName: String) :
             mAlarmData.date = cursor.getString(cursor.getColumnIndex("date"))
             mAlarmData.name = cursor.getString(cursor.getColumnIndex("name"))
             mAlarmData.period = cursor.getInt((cursor.getColumnIndex("period")))
-            mAlarmData.expired = cursor.getInt((cursor.getColumnIndex("expired")))
+            mAlarmData.expired = cursor.getString((cursor.getColumnIndex("expired")))
             mAlarmData.mampm = cursor.getInt((cursor.getColumnIndex("mampm")))
             mAlarmData.mhour = cursor.getInt((cursor.getColumnIndex("mhour")))
             mAlarmData.mminute = cursor.getInt((cursor.getColumnIndex("mminute")))
@@ -133,8 +133,9 @@ class DatabaseManager(context: Context, fileName: String) :
         val list: ArrayList<AlarmData> = ArrayList()
         val cursor = db.rawQuery(
             "select * from ALARMS " +
-                    "where (strftime('%s', clickedDate) - strftime('%s', date) > 0)" +
-                    "and (expired != 0 and (strftime('%s', clickedDate) - (strftime('%s', date) + expired) < 0))",
+                    "where (strftime('%s', '$clickedDate') - strftime('%s', date) > 0)" +
+                    "and (expired != 0 and (strftime('%s', '$clickedDate') - (strftime('%s', date) + expired) < 0))" +
+                    "and (((strftime('%s', '$clickedDate') - strftime('%s', date)) % period) == 0)",
             null
         )
         while (cursor.moveToNext()) {
@@ -142,7 +143,7 @@ class DatabaseManager(context: Context, fileName: String) :
             mAlarmData.date = cursor.getString(cursor.getColumnIndex("date"))
             mAlarmData.name = cursor.getString(cursor.getColumnIndex("name"))
             mAlarmData.period = cursor.getInt((cursor.getColumnIndex("period")))
-            mAlarmData.expired = cursor.getInt((cursor.getColumnIndex("expired")))
+            mAlarmData.expired = cursor.getString((cursor.getColumnIndex("expired")))
             mAlarmData.mampm = cursor.getInt((cursor.getColumnIndex("mampm")))
             mAlarmData.mhour = cursor.getInt((cursor.getColumnIndex("mhour")))
             mAlarmData.mminute = cursor.getInt((cursor.getColumnIndex("mminute")))

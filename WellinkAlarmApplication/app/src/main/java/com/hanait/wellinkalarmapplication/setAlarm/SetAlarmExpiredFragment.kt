@@ -1,6 +1,7 @@
 package com.hanait.wellinkalarmapplication.setAlarm
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.hanait.wellinkalarmapplication.R
@@ -9,6 +10,7 @@ import com.hanait.wellinkalarmapplication.utils.BaseFragment
 import com.hanait.wellinkalarmapplication.utils.Constants.prevFragment
 import com.hanait.wellinkalarmapplication.utils.Constants.progressBar
 import com.hanait.wellinkalarmapplication.utils.Constants.tempAlarmData
+import java.util.*
 
 
 class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(FragmentSetAlarmExpiredBinding::inflate), View.OnClickListener {
@@ -24,7 +26,8 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
     override fun onClick(v: View?) {
         when(v) {
             binding.setAlarmExpiredBtnNext -> {
-                tempAlarmData.expired = alarmDataNumber
+
+                tempAlarmData.expired = getExpiredDate()
 
                 val mActivity = activity as SetAlarmActivity
                 mActivity.changeFragment("SetAlarmTimeFragment")
@@ -56,6 +59,20 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
                 binding.setAlarmExpiredTextViewExplain.text = "기간에 제한없이 알림을 울려드릴게요!"
             }
         }
+    }
+
+    //만기날짜 가져오기
+    private fun getExpiredDate(): String {
+        if(alarmDataNumber == 0) {
+            return ""
+        }
+        val cal = Calendar.getInstance()
+        var expiredDate = ""
+        cal.add(Calendar.MONTH, 1)
+        cal.add(Calendar.DAY_OF_MONTH, alarmDataNumber)
+        expiredDate = "${cal.get(Calendar.YEAR)}-${cal.get(Calendar.MONTH)}-${cal.get(Calendar.DAY_OF_MONTH)}"
+        Log.d("로그", "오늘 날짜 : ${cal.get(Calendar.YEAR)}-${cal.get(Calendar.MONTH)}-${cal.get(Calendar.DAY_OF_MONTH)}")
+        return expiredDate
     }
 
     private fun init() {

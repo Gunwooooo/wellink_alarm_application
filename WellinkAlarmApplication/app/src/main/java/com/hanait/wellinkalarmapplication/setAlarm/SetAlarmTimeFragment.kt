@@ -50,6 +50,7 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
             binding.setAlarmTimeCardViewNight -> makeDialog(binding.setAlarmTimeTextViewNTime, 22, 0)
         }
     }
+
     //스위치 변화 이벤트 감지
     override fun onCheckedChanged(v: CompoundButton?, isChecked: Boolean) {
         makeExplainText()

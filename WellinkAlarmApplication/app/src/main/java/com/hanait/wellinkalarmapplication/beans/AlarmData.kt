@@ -3,7 +3,7 @@ package com.hanait.wellinkalarmapplication.beans
 data class AlarmData(var date: String = "",
                  var name: String = "",
                  var period: Int = 1,
-                 var expired: Int = 0,
+                 var expired: String = "",
 
                  var mampm: Int = 0,
                  var mhour: Int = 7,
