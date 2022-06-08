@@ -1,7 +1,6 @@
 package com.hanait.wellinkalarmapplication.utils
 
 import android.annotation.SuppressLint
-import android.app.ActionBar
 import android.app.AlertDialog
 import android.app.Dialog
 import android.graphics.Color
@@ -13,9 +12,8 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.hanait.wellinkalarmapplication.R
-import com.hanait.wellinkalarmapplication.beans.AlarmData
+import com.hanait.wellinkalarmapplication.model.AlarmData
 import com.hanait.wellinkalarmapplication.db.DatabaseManager
-import com.hanait.wellinkalarmapplication.home.AlarmAdapter
 import com.hanait.wellinkalarmapplication.utils.Constants.sdf
 import java.util.*
 
@@ -49,17 +47,34 @@ class CustomDialogFragment(private val layout: Int, private val cal: GregorianCa
                 negativeButton.setOnClickListener(this)
             }
             R.layout.home_calendar_dialog -> {
+                val morningTextView =
+                    view.findViewById(R.id.homeCalendarDialog_textView_morning) as TextView
+                val afternoonTextView =
+                    view.findViewById(R.id.homeCalendarDialog_textView_afternoon) as TextView
+                val eveningTextView =
+                    view.findViewById(R.id.homeCalendarDialog_textView_evening) as TextView
+                val nightTextView =
+                    view.findViewById(R.id.homeCalendarDialog_textView_night) as TextView
+                morningTextView.text = ""
+                afternoonTextView.text = ""
+                eveningTextView.text = ""
+                nightTextView.text = ""
+                
                 //상단 일 표시
-                Log.d("로그", "${cal?.get(Calendar.YEAR)}  ${cal?.get(Calendar.MONTH)}   ${cal?.get(Calendar.DAY_OF_MONTH)} : ")
                 val monthTextView = view.findViewById(R.id.homeCalendarDialog_textView_dayOfMonth) as TextView
                 monthTextView.text = "${cal?.get(Calendar.DAY_OF_MONTH).toString()}일"
                 //DB에서 해당하는 약 데이터 가져오기
                 val strDate = cal?.time?.let { sdf.format(it) }
-                Log.d("로그", " - onCreateDialog : strdate :  $strDate")
                 var mAlarmList: ArrayList<AlarmData> = ArrayList()
                 mAlarmList = context?.let { DatabaseManager.getInstance(it, "Alarms.db").selectCalendarItemAlarm(strDate!!) }!!
+
+                //스위치 온인 부분에 표시
                 for(i in 0 until mAlarmList.size ) {
-                    Log.d("로그", "mAlarmList : $i     ${mAlarmList[i].name}")
+                    Log.d("로그", "mAlarmList : ${i+1}     $mAlarmList")
+                    if(mAlarmList[i].mswitch == 1) morningTextView.text = "${morningTextView.text}  ${mAlarmList[i].name}"
+                    if(mAlarmList[i].aswitch == 1) afternoonTextView.text = "${afternoonTextView.text}  ${mAlarmList[i].name}"
+                    if(mAlarmList[i].eswitch == 1) eveningTextView.text = "${eveningTextView.text}  ${mAlarmList[i].name}"
+                    if(mAlarmList[i].nswitch == 1) nightTextView.text = "${nightTextView.text}  ${mAlarmList[i].name}"
                 }
             }
         }

@@ -4,11 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hanait.wellinkalarmapplication.R
-import com.hanait.wellinkalarmapplication.beans.AlarmData
+import com.hanait.wellinkalarmapplication.model.AlarmData
 
 
 class AlarmAdapter(var context: Context, var data: ArrayList<AlarmData>, var link: HomeAlarmFragment) :
@@ -33,6 +34,7 @@ class AlarmAdapter(var context: Context, var data: ArrayList<AlarmData>, var lin
         private lateinit var alarmEveningTextView: TextView
         private lateinit var alarmNightTextView: TextView
         private lateinit var alarmDeleteImageView: ImageView
+        private lateinit var alarmItemLayout: LinearLayout
         fun setAlarmTextView(alarmData: AlarmData, position: Int) {
             alarmNumTextView = itemView.findViewById(R.id.homeAlarmItem_textView_num)
             alarmNameTextView = itemView.findViewById(R.id.homeAlarmItem_textView_name)
@@ -53,8 +55,12 @@ class AlarmAdapter(var context: Context, var data: ArrayList<AlarmData>, var lin
 
 
             alarmDeleteImageView = itemView.findViewById(R.id.homeAlarmItem_imageView_delete)
+            alarmItemLayout = itemView.findViewById(R.id.homeAlarmItem_layout)
             alarmDeleteImageView.setOnClickListener {
                 mListener?.onDeleteItem(it, position)
+            }
+            alarmItemLayout.setOnClickListener {
+                mListener?.onItemClick(it, position)
             }
         }
     }

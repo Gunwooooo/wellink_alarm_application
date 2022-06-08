@@ -5,39 +5,36 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hanait.wellinkalarmapplication.R
-import com.hanait.wellinkalarmapplication.beans.AlarmData
 import com.hanait.wellinkalarmapplication.databinding.FragmentHomeAlarmBinding
 import com.hanait.wellinkalarmapplication.db.DatabaseManager
+import com.hanait.wellinkalarmapplication.model.AlarmData
 import com.hanait.wellinkalarmapplication.setAlarm.SetAlarmActivity
 import com.hanait.wellinkalarmapplication.utils.BaseFragment
+import com.hanait.wellinkalarmapplication.utils.Constants.mAlarmList
+import com.hanait.wellinkalarmapplication.utils.Constants.tempAlarmData2
 import com.hanait.wellinkalarmapplication.utils.CustomDialogFragment
 
 
 class HomeAlarmFragment : BaseFragment<FragmentHomeAlarmBinding>(FragmentHomeAlarmBinding::inflate), View.OnClickListener {
-    private var mAlarmList: ArrayList<AlarmData> = ArrayList()
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.homeAlarmAddAlarm.setOnClickListener(this)
-
-        getAlarmList()
-
-        recyclerViewCreate()
-    }
-    
-    private fun getAlarmList() {
-        mAlarmList = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectAlarmAll()
-        Log.d("로그", "HomeAlarmFragment - getAlarmList : 알람 갯수 : ${mAlarmList.size}")
         setTextAlarmCountAndExplain()
+        recyclerViewCreate()
+        for(i in 0 until mAlarmList.size) {
+            Log.d("로그", "HomeAlarmFragment - onViewCreated : ${mAlarmList[i]}")
+        }
     }
 
     override fun onClick(v: View?) {
         when(v) {
             binding.homeAlarmAddAlarm -> {
+                tempAlarmData2 = null
                 val intent = Intent(context, SetAlarmActivity::class.java)
                 startActivity(intent)
             }
@@ -51,8 +48,13 @@ class HomeAlarmFragment : BaseFragment<FragmentHomeAlarmBinding>(FragmentHomeAla
         alarmAdapter?.setOnItemClickListener(
             object : AlarmAdapter.OnItemClickListener {
                 override fun onItemClick(v: View, pos: Int) {
-                    //아이템 클릭 리스너
-                    Log.d("로그", "HomeAlarmFragment - onItemClick : 아이템 클릭됨!  $pos")
+                    //알람 데이터 수정하기
+                    Log.d("로그", "HomeAlarmFragment - onItemClick : ${mAlarmList[pos - 1]}")
+
+                    val intent = Intent(context, SetAlarmActivity::class.java)
+                    tempAlarmData2 = AlarmData()
+                    tempAlarmData2 = mAlarmList[pos - 1]
+                    startActivity(intent)
                 }
                 override fun onDeleteItem(v: View, pos: Int) {
                     showDialog(alarmAdapter, pos)

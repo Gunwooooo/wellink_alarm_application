@@ -1,5 +1,6 @@
 package com.hanait.wellinkalarmapplication.setAlarm
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,6 +13,7 @@ import com.hanait.wellinkalarmapplication.utils.Constants.progressBar
 import com.hanait.wellinkalarmapplication.databinding.FragmentSetAlarmPeriodBinding
 import com.hanait.wellinkalarmapplication.utils.Constants
 import com.hanait.wellinkalarmapplication.utils.Constants.tempAlarmData
+import com.hanait.wellinkalarmapplication.utils.Constants.tempAlarmData2
 
 
 class SetAlarmPeriodFragment : BaseFragment<FragmentSetAlarmPeriodBinding>(FragmentSetAlarmPeriodBinding::inflate), View.OnClickListener {
@@ -62,6 +64,7 @@ class SetAlarmPeriodFragment : BaseFragment<FragmentSetAlarmPeriodBinding>(Fragm
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun init() {
         prevFragment = SetAlarmNameFragment()
         progressBar.progress = 40
@@ -83,6 +86,14 @@ class SetAlarmPeriodFragment : BaseFragment<FragmentSetAlarmPeriodBinding>(Fragm
         binding.setAlarmPeriodNumberPicker.setOnValueChangedListener { _, _, newVal ->
             binding.setAlarmPeriodTextViewExplain.text = "${newVal}일마다 알림을 울려드릴게요!"
             alarmDataNumber = newVal
+        }
+
+        //알람 수정 시 기존 값 넣어놓기
+        if(tempAlarmData2 != null && tempAlarmData2!!.period != 1) {
+            binding.setAlarmPeriodBtnSecond.performClick()
+            alarmDataNumber = tempAlarmData2!!.period
+            binding.setAlarmPeriodNumberPicker.value = tempAlarmData2!!.period
+            binding.setAlarmPeriodTextViewExplain.text = "${tempAlarmData2!!.period}일마다 알림을 울려드릴게요!"
         }
     }
 
