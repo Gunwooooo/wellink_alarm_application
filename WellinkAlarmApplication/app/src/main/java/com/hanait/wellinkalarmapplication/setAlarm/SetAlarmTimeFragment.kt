@@ -5,7 +5,9 @@ import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.app.TimePickerDialog
+import android.content.ComponentName
 import android.content.Intent
+import android.content.Intent.FLAG_INCLUDE_STOPPED_PACKAGES
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -139,6 +141,7 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
         val intent = Intent(context, AlarmReceiver::class.java)
         intent.putExtra("intentType", ADD_INTENT)
         intent.putExtra("PendingId", alarmId)
+
         val alarmIntent = PendingIntent.getBroadcast(context, alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         val alarmManager = context?.let { getSystemService(it, AlarmManager::class.java) }
 

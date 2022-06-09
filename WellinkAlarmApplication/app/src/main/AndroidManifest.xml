@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hanait.wellinkalarmapplication">
-
     <!-- You need the permission to set the alarm -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -14,6 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WellinkAlarmApplication.NoActionBar">
+        <activity
+            android:name=".setAlarm.SetAlarmPopupActivitiy"
+            android:exported="true"
+            android:launchMode="singleInstance"/>
         <activity
             android:name=".SetUserNameActivity"
             android:exported="true"
@@ -36,16 +40,24 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <receiver android:name=".receiver.AlarmReceiver"
+        <receiver
+            android:name=".receiver.AlarmReceiver"
             android:enabled="true"
-            android:exported="true"/>
-        <service android:name=".service.AlarmService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.sec" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".service.AlarmService"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
     </application>
 
 </manifest>
