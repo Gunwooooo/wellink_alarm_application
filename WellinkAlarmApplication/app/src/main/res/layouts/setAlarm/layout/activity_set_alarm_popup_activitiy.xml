@@ -8,12 +8,15 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="133dp"
-        android:layout_marginTop="330dp"
-        android:layout_marginEnd="191dp"
-        android:text="Button"
+        android:layout_width="176dp"
+        android:layout_height="147dp"
+        android:layout_marginTop="256dp"
+        android:layout_marginBottom="256dp"
+        android:text="복용했어요"
+        android:background="@color/toss_blue_200"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

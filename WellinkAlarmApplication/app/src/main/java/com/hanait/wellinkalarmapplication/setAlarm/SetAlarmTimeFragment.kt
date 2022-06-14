@@ -5,9 +5,7 @@ import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.app.TimePickerDialog
-import android.content.ComponentName
 import android.content.Intent
-import android.content.Intent.FLAG_INCLUDE_STOPPED_PACKAGES
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -65,27 +63,19 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
 
     //스위치에 따른 알람 울리게 설정 및 취소 설정
     private fun setAllAlarm() {
-        val alarmId = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectAlarmId(tempAlarmData.name)
-        if(binding.setAlarmTimeSwitchMorning.isChecked) {
+        val alarmId = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectAlarmIdAsName(tempAlarmData.name) * 4
+        if(binding.setAlarmTimeSwitchMorning.isChecked)
             setAlarm(alarmId, tempAlarmData.mampm, tempAlarmData.mhour, tempAlarmData.mminute)
-        } else {
-            deleteAlarm(alarmId)
-        }
-        if(binding.setAlarmTimeSwitchAfternoon.isChecked) {
+        else deleteAlarm(alarmId)
+        if(binding.setAlarmTimeSwitchAfternoon.isChecked)
             setAlarm(alarmId + 1, tempAlarmData.aampm, tempAlarmData.ahour, tempAlarmData.aminute)
-        } else {
-            deleteAlarm(alarmId + 1)
-        }
-        if(binding.setAlarmTimeSwitchEvening.isChecked) {
+        else deleteAlarm(alarmId + 1)
+        if(binding.setAlarmTimeSwitchEvening.isChecked)
             setAlarm(alarmId + 2, tempAlarmData.eampm, tempAlarmData.ehour, tempAlarmData.eminute)
-        } else {
-            deleteAlarm(alarmId + 2)
-        }
-        if(binding.setAlarmTimeSwitchNight.isChecked) {
+        else deleteAlarm(alarmId + 2)
+        if(binding.setAlarmTimeSwitchNight.isChecked)
             setAlarm(alarmId + 3, tempAlarmData.nampm, tempAlarmData.nhour, tempAlarmData.nminute)
-        } else {
-            deleteAlarm(alarmId + 3)
-        }
+        else deleteAlarm(alarmId + 3)
     }
 
     //약 이름 중복 체크
@@ -138,28 +128,31 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
     //실제 알람 설정
     @SuppressLint("UnspecifiedImmutableFlag")
     private fun setAlarm(alarmId: Int, ampm:Int, hour: Int, minute: Int) {
-        val intent = Intent(context, AlarmReceiver::class.java)
-        intent.putExtra("intentType", ADD_INTENT)
-        intent.putExtra("PendingId", alarmId)
 
-        val alarmIntent = PendingIntent.getBroadcast(context, alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-        val alarmManager = context?.let { getSystemService(it, AlarmManager::class.java) }
+
+
 
         val myCalendar = Calendar.getInstance()
         val calendar = myCalendar.clone() as Calendar
-        if(ampm == 1)
+        if(ampm == 1 && calendar.get(Calendar.HOUR_OF_DAY) != 12)
             calendar.set(Calendar.HOUR_OF_DAY, hour + 12)
         else calendar.set(Calendar.HOUR_OF_DAY, hour)
         calendar.set(Calendar.MINUTE, minute)
         calendar.set(Calendar.SECOND, 0)
-//        if(calendar <= myCalendar) {
-//            calendar.add(Calendar.DATE, 1)
-//        }
+        if(calendar <= myCalendar) {
+            calendar.add(Calendar.DATE, 1)
+        }
         Log.d(
             "로그",
             "setAlarm: 캘린더 시간 : " + calendar[Calendar.YEAR] + "-" + calendar[Calendar.MONTH] + "-" + calendar[Calendar.DAY_OF_MONTH] + "   " + calendar[Calendar.HOUR_OF_DAY] + ":" + calendar[Calendar.MINUTE] + ":" + calendar[Calendar.SECOND]
         )
 
+        val intent = Intent(context, AlarmReceiver::class.java)
+        intent.putExtra("intentType", ADD_INTENT)
+        intent.putExtra("PendingId", alarmId)
+        val alarmIntent = PendingIntent.getBroadcast(context, alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val alarmManager = context?.let { getSystemService(it, AlarmManager::class.java) }
+        alarmManager?.cancel(alarmIntent)
         alarmManager?.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, alarmIntent)
     }
     //알람 취소
@@ -167,7 +160,7 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
     private fun deleteAlarm(alarmId: Int) {
         val alarmManager = context?.let { getSystemService(it, AlarmManager::class.java) }
         val intent = Intent(context, AlarmReceiver::class.java)
-        val alarmIntent = PendingIntent.getBroadcast(context, alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val alarmIntent = PendingIntent.getBroadcast(context, alarmId, intent, 0)
         alarmManager?.cancel(alarmIntent)
     }
     //마지막에 모든 스위치 데이터 tempAlarmData에 저장

@@ -7,8 +7,10 @@ import android.content.Intent
 import android.os.Build
 import android.os.PowerManager
 import android.util.Log
-import com.hanait.wellinkalarmapplication.SplashActivity
+import androidx.core.content.ContextCompat.startActivity
+import com.hanait.wellinkalarmapplication.db.DatabaseManager
 import com.hanait.wellinkalarmapplication.service.AlarmService
+import com.hanait.wellinkalarmapplication.setAlarm.SetAlarmPopupActivitiy
 import com.hanait.wellinkalarmapplication.utils.Constants.ADD_INTENT
 import com.hanait.wellinkalarmapplication.utils.Constants.OFF_INTENT
 
@@ -19,29 +21,32 @@ class AlarmReceiver : BroadcastReceiver(){
         var pendingId = 0
     }
     override fun onReceive(context: Context?, intent: Intent?) {
+        this.context = context
         Log.d("로그", "AlarmReceiver - onReceive : 리시버 호출됨")
-        Log.d("로그", "AlarmReceiver - onReceive : intent : $intent")
+        // this hold information to service
+        val intentToService = Intent(context, AlarmService::class.java)
         if(intent != null)     {
-            val intentToService = Intent("android.intent.action.sec")
             try {
                 val intentType = intent.extras?.getString("intentType")
                 when(intentType) {
                     ADD_INTENT -> {
                         //데이터 전달받기
                         pendingId = intent.extras?.getInt("PendingId")!!
-                        Log.d("로그", "AlarmReceiver - onReceive : AAAAAA")
+                        val alarmData = context?.let { DatabaseManager.getInstance(it, "Alarms.db").selectAlarmAsId(pendingId/4) }
+                        Log.d("로그", "AlarmReceiver - onReceive : $pendingId : $alarmData")
                         //화면 깨우기
-                        this.context = context
-                        turnOnScreen()
-                        Log.d("로그", "AlarmReceiver - onReceive : BBBBBB")
-                        //서비스 인텐트 구성
 
-                        intentToService.setClass(context!!, AlarmService::class.java)
+                        turnOnScreen()
+
+                        //서비스 인텐트 구성
                         intentToService.putExtra("ON_OFF", ADD_INTENT)
-                        intentToService.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                        Log.d("로그", "AlarmReceiver - onReceive : CCCCC")
                         //버전 체크 후 서비스 불러오기
                         startService(intentToService)
+
+//                        val popupIntent = Intent(context, SetAlarmPopupActivitiy::class.java )
+//                        popupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                        context?.startActivity(popupIntent)
+
                         Log.d("로그", "AlarmReceiver - onReceive : DDDDDD")
                     }
                     OFF_INTENT -> {
@@ -54,7 +59,7 @@ class AlarmReceiver : BroadcastReceiver(){
                     }
                 }
             } catch (e: Exception) {
-                Log.d("로그", "AlarmReceiver - onReceive : ${e}")
+                Log.d("로그", "AlarmReceiver - onReceive : $e")
                 e.printStackTrace()
             }
         }
@@ -67,7 +72,7 @@ class AlarmReceiver : BroadcastReceiver(){
     }
 
     //화면 깨우기
-    fun turnOnScreen() {
+    private fun turnOnScreen() {
         val powerManager = this.context?.getSystemService(POWER_SERVICE) as PowerManager
         val wakeLock = powerManager.newWakeLock(
             PowerManager.SCREEN_BRIGHT_WAKE_LOCK or
