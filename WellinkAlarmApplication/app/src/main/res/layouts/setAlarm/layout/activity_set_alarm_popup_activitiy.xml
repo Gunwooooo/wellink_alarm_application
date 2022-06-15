@@ -7,7 +7,7 @@
     tools:context=".setAlarm.SetAlarmPopupActivitiy">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/SetAlarmPopup_btn_check"
         android:layout_width="176dp"
         android:layout_height="147dp"
         android:layout_marginTop="256dp"

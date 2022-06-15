@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         } else {
             moveTaskToBack(true); // 태스크를 백그라운드로 이동
             finishAffinity()
-            exitProcess(0);
+            exitProcess(0)
         }
     }
 

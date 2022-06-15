@@ -47,13 +47,13 @@ class AlarmService: Service() {
 
                 val fullScreenIntent = Intent(this, SetAlarmPopupActivitiy::class.java)
                 val fullScreenPendingIntent = PendingIntent.getActivity(this, 0, fullScreenIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-                val message = "약 드실 시간이에요!"
+                val message = "배너를 클릭하고 '복용' 버튼을 꼭 눌러주세요."
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     createNotificationChannel()
                     val notification = NotificationCompat.Builder(this, CHANNEL_ID)
                         .apply {
                             setSmallIcon(R.drawable.ic_alarm)
-                            setContentTitle("MyService is running")
+                            setContentTitle("오전 OO:OO OO약 먹을 시간이에요!")
                             setContentText(message)
                             priority = NotificationCompat.PRIORITY_HIGH
                             setCategory(NotificationCompat.CATEGORY_ALARM)
@@ -77,15 +77,6 @@ class AlarmService: Service() {
                 val uri = Settings.System.DEFAULT_ALARM_ALERT_URI
                 mediaPlayer = MediaPlayer.create(this, uri)
                 mediaPlayer.start()
-
-//                val powerManager = getSystemService(POWER_SERVICE) as PowerManager
-//                val isScreenOn = powerManager.isInteractive
-//
-//                if(isScreenOn) {
-//                    Log.d("로그", "AlarmService - onStartCommand : screen on")
-//                } else {
-//                    Log.d("로그", "AlarmService - onStartCommand : screen off")
-//                }
             }
             OFF_INTENT -> {
                 val alarmId = intent.extras?.getInt("AlarmId")
