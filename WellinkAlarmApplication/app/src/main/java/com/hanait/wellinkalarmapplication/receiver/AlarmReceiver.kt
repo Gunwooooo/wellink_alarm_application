@@ -32,24 +32,19 @@ class AlarmReceiver : BroadcastReceiver(){
                     ADD_INTENT -> {
                         //데이터 전달받기
                         pendingId = intent.extras?.getInt("PendingId")!!
-                        val alarmData = context?.let { DatabaseManager.getInstance(it, "Alarms.db").selectAlarmAsId(pendingId/4) }
-                        Log.d("로그", "AlarmReceiver - onReceive : $pendingId : $alarmData")
-                        //화면 깨우기
 
+                        //화면 깨우기
                         turnOnScreen()
 
                         //서비스 인텐트 구성
+//                        intentToService.putExtra("PendingId", pendingId)
                         intentToService.putExtra("ON_OFF", ADD_INTENT)
+
                         //버전 체크 후 서비스 불러오기
                         startService(intentToService)
-
-//                        val popupIntent = Intent(context, SetAlarmPopupActivitiy::class.java )
-//                        popupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                        context?.startActivity(popupIntent)
-
-                        Log.d("로그", "AlarmReceiver - onReceive : DDDDDD")
                     }
                     OFF_INTENT -> {
+                        Log.d("로그", "AlarmReceiver - onReceive : Reciever Off_intent 호출됨")
                         val alarmId = intent.extras?.getInt("AlarmId")
                         intentToService.putExtra("ON_OFF", OFF_INTENT)
                         intentToService.putExtra("AlarmId", alarmId)

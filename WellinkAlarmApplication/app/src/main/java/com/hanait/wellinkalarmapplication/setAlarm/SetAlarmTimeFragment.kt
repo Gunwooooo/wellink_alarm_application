@@ -128,10 +128,7 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
     //실제 알람 설정
     @SuppressLint("UnspecifiedImmutableFlag")
     private fun setAlarm(alarmId: Int, ampm:Int, hour: Int, minute: Int) {
-
-
-
-
+        
         val myCalendar = Calendar.getInstance()
         val calendar = myCalendar.clone() as Calendar
         if(ampm == 1 && calendar.get(Calendar.HOUR_OF_DAY) != 12)
