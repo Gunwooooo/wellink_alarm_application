@@ -1,7 +1,10 @@
 package com.hanait.wellinkalarmapplication.service
 
 import android.annotation.SuppressLint
-import android.app.*
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -15,8 +18,6 @@ import androidx.core.app.NotificationCompat
 import com.hanait.wellinkalarmapplication.R
 import com.hanait.wellinkalarmapplication.db.DatabaseManager
 import com.hanait.wellinkalarmapplication.model.AlarmData
-import com.hanait.wellinkalarmapplication.receiver.AlarmReceiver
-import com.hanait.wellinkalarmapplication.receiver.AlarmReceiver.Companion.pendingId
 import com.hanait.wellinkalarmapplication.setAlarm.SetAlarmPopupActivitiy
 import com.hanait.wellinkalarmapplication.utils.Constants.ADD_INTENT
 import com.hanait.wellinkalarmapplication.utils.Constants.OFF_INTENT
@@ -28,7 +29,7 @@ class AlarmService: Service() {
 
     companion object {
         const val CHANNEL_ID = "primary_notification_channel"
-        const val NOTIFICATION_ID = 1001
+        var NOTIFICATION_ID = 0
     }
 
     private lateinit var mediaPlayer: MediaPlayer
@@ -41,23 +42,26 @@ class AlarmService: Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d("로그", "AlarmService - onStartCommand : 서비스 호출됨")
         val onOff = intent?.extras?.getString("ON_OFF")
+        val pendingId = intent?.extras?.getInt("PendingId")!!
+        NOTIFICATION_ID = pendingId
 
         when(onOff) {
             ADD_INTENT -> {
+
                 //알람 id 받기
                 val alarmData = DatabaseManager.getInstance(this, "Alarms.db").selectAlarmAsId(pendingId / 4)
-                Log.d("로그", "AlarmReceiver - onReceive : $pendingId : $alarmData")
+                Log.d("로그", "AlarmReceiver - onReceive : NOT_ID : $NOTIFICATION_ID  pendingId : $pendingId : $alarmData")
 
                 //팝업 인텐트 설정
                 val popupIntent = Intent(this, SetAlarmPopupActivitiy::class.java).apply {
                     this.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 }
-                popupIntent.putExtra("alarmId", pendingId)
+                popupIntent.putExtra("PendingId", pendingId)
                 val popupPendingIntent = PendingIntent.getActivity(this, 0, popupIntent, 0)
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     createNotificationChannel()
-                    val title = makeNotificationTitle(alarmData)
+                    val title = makeNotificationTitle(alarmData, pendingId)
                     val message = "배너를 클릭하고 '복용' 버튼을 꼭 눌러주세요."
                     val notification = NotificationCompat.Builder(this, CHANNEL_ID)
                         .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -79,9 +83,10 @@ class AlarmService: Service() {
                 mediaPlayer = MediaPlayer.create(this, uri)
                 mediaPlayer.start()
             }
+
             OFF_INTENT -> {
                 Log.d("로그", "AlarmReceiver - onReceive : Service Off_intent 호출됨")
-                val alarmId = intent.extras?.getInt("AlarmId")
+                val alarmId = intent.extras?.getInt("PendingId")
                 if(mediaPlayer.isPlaying && alarmId == pendingId) {
                     mediaPlayer.stop()
                     mediaPlayer.reset()
@@ -114,7 +119,7 @@ class AlarmService: Service() {
 
     //노티 알람 타이틀 만들기
     @SuppressLint("SimpleDateFormat")
-    fun makeNotificationTitle(alarmData: AlarmData):  String {
+    fun makeNotificationTitle(alarmData: AlarmData, pendingId: Int):  String {
         var maen = ""
         var ampm = "오전"
         val cal = Calendar.getInstance()

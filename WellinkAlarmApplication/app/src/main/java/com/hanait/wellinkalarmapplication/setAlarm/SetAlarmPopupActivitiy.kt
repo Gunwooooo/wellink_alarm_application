@@ -24,9 +24,6 @@ class SetAlarmPopupActivitiy : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding : ActivitySetAlarmPopupActivitiyBinding
 
-    private val decorView: View? = null
-    private var uiOption = 0
-
     @RequiresApi(Build.VERSION_CODES.O_MR1)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +31,8 @@ class SetAlarmPopupActivitiy : AppCompatActivity(), View.OnClickListener {
         binding = ActivitySetAlarmPopupActivitiyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        val pendingId = intent.extras?.getInt("PendingId")
+        Log.d("로그", "SetAlarmPopupActivitiy - onCreate : 111111    $pendingId")
         binding.SetAlarmPopupBtnCheck.setOnClickListener(this)
         Log.d("로그", "SetAlarmPopupActivitiy - onCreate : 팝업 액티비티 호출됨!")
     }
@@ -60,12 +58,12 @@ class SetAlarmPopupActivitiy : AppCompatActivity(), View.OnClickListener {
             binding.SetAlarmPopupBtnCheck -> {
                 Toast.makeText(this, "약을 복용하였습니다.", Toast.LENGTH_SHORT).show()
 
-                val alarmId = intent.extras?.getInt("alarmId")
-                Log.d("로그", "SetAlarmPopupActivitiy - onClick : $alarmId")
+                val pendingId = intent.extras?.getInt("PendingId")
+                Log.d("로그", "SetAlarmPopupActivitiy - onClick : 222222  $pendingId")
                 //알림 끄는 broadcast
                 val intent = Intent(this, AlarmReceiver::class.java)
                 intent.putExtra("intentType", Constants.OFF_INTENT)
-                intent.putExtra("AlarmId", alarmId)
+                intent.putExtra("PendingId", pendingId)
                 sendBroadcast(intent)
 
                 moveTaskToBack(true); // 태스크를 백그라운드로 이동

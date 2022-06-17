@@ -17,9 +17,6 @@ import com.hanait.wellinkalarmapplication.utils.Constants.OFF_INTENT
 class AlarmReceiver : BroadcastReceiver(){
     var context : Context? = null
 
-    companion object {
-        var pendingId = 0
-    }
     override fun onReceive(context: Context?, intent: Intent?) {
         this.context = context
         Log.d("로그", "AlarmReceiver - onReceive : 리시버 호출됨")
@@ -31,7 +28,7 @@ class AlarmReceiver : BroadcastReceiver(){
                 when(intentType) {
                     ADD_INTENT -> {
                         //데이터 전달받기
-                        pendingId = intent.extras?.getInt("PendingId")!!
+                        val pendingId = intent.extras?.getInt("PendingId")!!
 
                         //화면 깨우기
                         turnOnScreen()
@@ -39,13 +36,14 @@ class AlarmReceiver : BroadcastReceiver(){
                         //서비스 인텐트 구성
 //                        intentToService.putExtra("PendingId", pendingId)
                         intentToService.putExtra("ON_OFF", ADD_INTENT)
+                        intentToService.putExtra("PendingId", pendingId)
 
                         //버전 체크 후 서비스 불러오기
                         startService(intentToService)
                     }
                     OFF_INTENT -> {
                         Log.d("로그", "AlarmReceiver - onReceive : Reciever Off_intent 호출됨")
-                        val alarmId = intent.extras?.getInt("AlarmId")
+                        val alarmId = intent.extras?.getInt("PendingId")
                         intentToService.putExtra("ON_OFF", OFF_INTENT)
                         intentToService.putExtra("AlarmId", alarmId)
 
