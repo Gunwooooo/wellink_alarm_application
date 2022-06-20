@@ -7,10 +7,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.PowerManager
 import android.util.Log
-import androidx.core.content.ContextCompat.startActivity
-import com.hanait.wellinkalarmapplication.db.DatabaseManager
 import com.hanait.wellinkalarmapplication.service.AlarmService
-import com.hanait.wellinkalarmapplication.setAlarm.SetAlarmPopupActivitiy
 import com.hanait.wellinkalarmapplication.utils.Constants.ADD_INTENT
 import com.hanait.wellinkalarmapplication.utils.Constants.OFF_INTENT
 

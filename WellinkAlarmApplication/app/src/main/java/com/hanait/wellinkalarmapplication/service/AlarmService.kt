@@ -18,7 +18,7 @@ import androidx.core.app.NotificationCompat
 import com.hanait.wellinkalarmapplication.R
 import com.hanait.wellinkalarmapplication.db.DatabaseManager
 import com.hanait.wellinkalarmapplication.model.AlarmData
-import com.hanait.wellinkalarmapplication.setAlarm.SetAlarmPopupActivitiy
+import com.hanait.wellinkalarmapplication.setAlarm.SetAlarmPopupActivity
 import com.hanait.wellinkalarmapplication.utils.Constants.ADD_INTENT
 import com.hanait.wellinkalarmapplication.utils.Constants.OFF_INTENT
 import java.text.SimpleDateFormat
@@ -53,11 +53,13 @@ class AlarmService: Service() {
                 Log.d("로그", "AlarmReceiver - onReceive : NOT_ID : $NOTIFICATION_ID  pendingId : $pendingId : $alarmData")
 
                 //팝업 인텐트 설정
-                val popupIntent = Intent(this, SetAlarmPopupActivitiy::class.java).apply {
+                val popupIntent = Intent(this, SetAlarmPopupActivity::class.java).apply {
                     this.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 }
+
                 popupIntent.putExtra("PendingId", pendingId)
-                val popupPendingIntent = PendingIntent.getActivity(this, 0, popupIntent, 0)
+
+                val popupPendingIntent = PendingIntent.getActivity(this, 0, popupIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     createNotificationChannel()

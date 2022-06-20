@@ -1,23 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".setAlarm.SetAlarmPopupActivitiy">
-
-    <Button
-        android:id="@+id/SetAlarmPopup_btn_check"
-        android:layout_width="176dp"
-        android:layout_height="147dp"
-        android:layout_marginTop="256dp"
-        android:layout_marginBottom="256dp"
-        android:text="복용했어요"
-        android:background="@color/toss_blue_200"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    tools:context=".setAlarm.SetAlarmPopupActivity"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:backgroundTint="@color/toss_blue_200"
+    android:weightSum="1">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.05"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.18">
+        <TextView
+            android:id="@+id/setAlarmPopup_textView_time"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="12:32"
+            android:textSize="90sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/ps_regular"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.06">
+        <TextView
+            android:id="@+id/setAlarmPopup_textView_date"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/white"
+            android:text="6월 20일 월요일"
+            android:textSize="21sp"
+            android:fontFamily="@font/ps_regular"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.15"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.1">
+        <TextView
+            android:id="@+id/setAlarmPopup_textView_explain"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="OO 드실 시간이에요!"
+            android:textColor="@color/white"
+            android:textSize="21sp"
+            android:fontFamily="@font/ps_bold"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.12">
+        <Button
+            android:id="@+id/setAlarmPopup_btn_check"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn_border_gray"
+            android:fontFamily="@font/ps_regular"
+            android:stateListAnimator="@null"
+            android:text="복용했어요!"
+            android:textColor="@color/toss_black_700"
+            android:textSize="21sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.34"/>
+</LinearLayout>

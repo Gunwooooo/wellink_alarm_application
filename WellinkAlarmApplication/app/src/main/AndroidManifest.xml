@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WellinkAlarmApplication.NoActionBar">
         <activity
-            android:name=".setAlarm.SetAlarmPopupActivitiy"
+            android:name=".setAlarm.SetAlarmPopupActivity"
             android:exported="true"
             android:launchMode="singleInstance"/>
         <activity

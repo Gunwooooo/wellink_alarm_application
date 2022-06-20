@@ -1,9 +1,6 @@
 package com.hanait.wellinkalarmapplication.setAlarm
 
 import android.annotation.SuppressLint
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -13,17 +10,22 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.hanait.wellinkalarmapplication.R
-import com.hanait.wellinkalarmapplication.databinding.ActivitySetAlarmBinding
 import com.hanait.wellinkalarmapplication.databinding.ActivitySetAlarmPopupActivitiyBinding
+import com.hanait.wellinkalarmapplication.db.DatabaseManager
+import com.hanait.wellinkalarmapplication.model.AlarmData
 import com.hanait.wellinkalarmapplication.receiver.AlarmReceiver
 import com.hanait.wellinkalarmapplication.utils.Constants
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.system.exitProcess
 
-class SetAlarmPopupActivitiy : AppCompatActivity(), View.OnClickListener {
+class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding : ActivitySetAlarmPopupActivitiyBinding
+    private var pendingId = 0
+    private lateinit var alarmData: AlarmData
 
+    @SuppressLint("SetTextI18n", "SimpleDateFormat")
     @RequiresApi(Build.VERSION_CODES.O_MR1)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +33,22 @@ class SetAlarmPopupActivitiy : AppCompatActivity(), View.OnClickListener {
         binding = ActivitySetAlarmPopupActivitiyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val pendingId = intent.extras?.getInt("PendingId")
-        Log.d("로그", "SetAlarmPopupActivitiy - onCreate : 111111    $pendingId")
-        binding.SetAlarmPopupBtnCheck.setOnClickListener(this)
+        //pendingId 가져오기
+        pendingId = intent.getIntExtra("PendingId", 0)
+        Log.d("로그", "SetAlarmPopupActivitiy - onCreate : create에서 로그 pendingId : $pendingId")
+
+        //DB에서 알림 데이터 가져오기
+        alarmData = DatabaseManager.getInstance(applicationContext, "Alarms.db").selectAlarmAsId(pendingId / 4)
+        Log.d("로그", "SetAlarmPopupActivitiy - onCreate : $alarmData")
+        binding.setAlarmPopupTextViewExplain.text = "${alarmData.name} 드실 시간이에요!"
+
+
+        //현재 시간 및 날짜 가져오기
+        val myCalendar = Calendar.getInstance()
+        binding.setAlarmPopupTextViewTime.text = SimpleDateFormat("HH:mm").format(myCalendar.time)
+        binding.setAlarmPopupTextViewDate.text = "${myCalendar.get(Calendar.MONTH)}월 ${myCalendar.get(Calendar.DAY_OF_MONTH)}일"
+
+            binding.setAlarmPopupBtnCheck.setOnClickListener(this)
         Log.d("로그", "SetAlarmPopupActivitiy - onCreate : 팝업 액티비티 호출됨!")
     }
 
@@ -55,20 +70,16 @@ class SetAlarmPopupActivitiy : AppCompatActivity(), View.OnClickListener {
     @SuppressLint("UnspecifiedImmutableFlag")
     override fun onClick(v: View?) {
         when(v) {
-            binding.SetAlarmPopupBtnCheck -> {
+            binding.setAlarmPopupBtnCheck -> {
                 Toast.makeText(this, "약을 복용하였습니다.", Toast.LENGTH_SHORT).show()
 
-                val pendingId = intent.extras?.getInt("PendingId")
-                Log.d("로그", "SetAlarmPopupActivitiy - onClick : 222222  $pendingId")
                 //알림 끄는 broadcast
                 val intent = Intent(this, AlarmReceiver::class.java)
                 intent.putExtra("intentType", Constants.OFF_INTENT)
                 intent.putExtra("PendingId", pendingId)
                 sendBroadcast(intent)
 
-                moveTaskToBack(true); // 태스크를 백그라운드로 이동
-                finishAndRemoveTask(); // 액티비티 종료 + 태스크 리스트에서 지우기
-                exitProcess(0);
+                finishAndRemoveTask() // 액티비티 종료 + 태스크 리스트에서 지우기
             }
         }
     }
