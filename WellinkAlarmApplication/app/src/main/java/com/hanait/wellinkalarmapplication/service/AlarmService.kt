@@ -10,11 +10,14 @@ import android.content.Intent
 import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Build
+import android.os.Handler
 import android.os.IBinder
 import android.provider.Settings
 import android.util.Log
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import com.hanait.wellinkalarmapplication.MainActivity
 import com.hanait.wellinkalarmapplication.R
 import com.hanait.wellinkalarmapplication.db.DatabaseManager
 import com.hanait.wellinkalarmapplication.model.AlarmData
@@ -27,7 +30,10 @@ import java.util.*
 
 class AlarmService: Service() {
 
+    lateinit var alarmData: AlarmData
+
     companion object {
+        const val SERVICE_TIME_OUT: Long = 60000 //1분
         const val CHANNEL_ID = "primary_notification_channel"
         var NOTIFICATION_ID = 0
     }
@@ -47,63 +53,82 @@ class AlarmService: Service() {
 
         when(onOff) {
             ADD_INTENT -> {
-
+                //벨소리 실행
+                startMedia()
+                
                 //알람 id 받기
-                val alarmData = DatabaseManager.getInstance(this, "Alarms.db").selectAlarmAsId(pendingId / 4)
+                alarmData = DatabaseManager.getInstance(this, "Alarms.db").selectAlarmAsId(pendingId / 4)
                 Log.d("로그", "AlarmReceiver - onReceive : NOT_ID : $NOTIFICATION_ID  pendingId : $pendingId : $alarmData")
 
-                //팝업 인텐트 설정
-                val popupIntent = Intent(this, SetAlarmPopupActivity::class.java).apply {
-                    this.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                }
+                startNotification(pendingId)
 
-                popupIntent.putExtra("PendingId", pendingId)
-
-                val popupPendingIntent = PendingIntent.getActivity(this, 0, popupIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    createNotificationChannel()
-                    val title = makeNotificationTitle(alarmData, pendingId)
-                    val message = "배너를 클릭하고 '복용' 버튼을 꼭 눌러주세요."
-                    val notification = NotificationCompat.Builder(this, CHANNEL_ID)
-                        .setPriority(NotificationCompat.PRIORITY_HIGH)
-                        .setSmallIcon(R.drawable.ic_alarm)
-                        .setContentTitle(title)
-                        .setContentText(message)
-                        .setContentIntent(popupPendingIntent)
-                        .setAutoCancel(true)
-                        .setStyle(
-                            NotificationCompat.BigTextStyle().bigText(message)
-                        )
-                    Log.d("Test", "start foreground")
-                    val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-                    notificationManager.notify(NOTIFICATION_ID, notification.build())
-                }
-
-                //알람 소리 플레이
-                val uri = Settings.System.DEFAULT_ALARM_ALERT_URI
-                mediaPlayer = MediaPlayer.create(this, uri)
-                mediaPlayer.start()
+                //서비스 시간 정해놓기 (미복용)
+                Handler().postDelayed({
+                    Log.d("로그", "AlarmService - onStartCommand : 알람 시간 종료!!!!")
+                    Toast.makeText(this, "약을 미복용했어요", Toast.LENGTH_SHORT).show()
+                    stopSelf()
+                }, SERVICE_TIME_OUT)
             }
-
             OFF_INTENT -> {
-                Log.d("로그", "AlarmReceiver - onReceive : Service Off_intent 호출됨")
-                val alarmId = intent.extras?.getInt("PendingId")
-                if(mediaPlayer.isPlaying && alarmId == pendingId) {
-                    mediaPlayer.stop()
-                    mediaPlayer.reset()
-                }
+                Log.d("로그", "Alarmeceiver - onReceive : Service Off_intent 호출됨")
+                stopSelf()
+                stopMedia(intent, pendingId)
             }
         }
         return START_STICKY
     }
 
+    //알림 소리 끄기
+    private fun stopMedia(intent: Intent, pendingId: Int) {
+        val alarmId = intent.extras?.getInt("PendingId")
+        if(mediaPlayer.isPlaying && alarmId == pendingId) {
+            mediaPlayer.stop()
+            mediaPlayer.reset()
+        }
+    }
+
+    //알림 소리 켜기
+    private fun startMedia() {
+        //알람 소리 플레이
+        val uri = Settings.System.DEFAULT_ALARM_ALERT_URI
+        mediaPlayer = MediaPlayer.create(this, uri)
+        mediaPlayer.start()
+    }
+    
     override fun onDestroy() {
         super.onDestroy()
+        Log.d("로그", "AlarmService - onDestroy : 디스트로이 호출됨!!")
         mediaPlayer.stop()
         mediaPlayer.reset()
     }
     override fun onBind(intent: Intent?): IBinder? { return null}
+
+    //노티 만들기
+    private fun startNotification(pendingId: Int) {
+        //팝업 인텐트 설정
+        val popupIntent = Intent(this, SetAlarmPopupActivity::class.java).apply {
+            this.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        popupIntent.putExtra("PendingId", pendingId)
+        val popupPendingIntent = PendingIntent.getActivity(this, 0, popupIntent, 0)
+        val title = makeNotificationTitle(alarmData, pendingId)
+        val message = "배너를 클릭하고 '복용' 버튼을 꼭 눌러주세요."
+        val notification = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setSmallIcon(R.drawable.drug)
+            .setContentTitle(title)
+            .setContentText(message)
+            .setContentIntent(popupPendingIntent)
+            .setAutoCancel(true)
+            .setStyle(
+                NotificationCompat.BigTextStyle().bigText(message)
+            )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createNotificationChannel()
+            Log.d("로그", "AlarmService - startNotification : 오레오 if문 걸림")
+        }
+        startForeground(NOTIFICATION_ID, notification.build())
+    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel() {

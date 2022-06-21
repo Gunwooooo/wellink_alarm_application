@@ -82,5 +82,10 @@ dependencies {
     //noinspection GradleCompatible
     implementation 'com.android.support:recyclerview-v7:21.0.3'
 
+    //서클 버튼
+    implementation 'com.github.markushi:circlebutton:1.1'
+
+    //rippleBackground
+    implementation 'com.skyfishjy.ripplebackground:library:1.0.1'
 
 }
