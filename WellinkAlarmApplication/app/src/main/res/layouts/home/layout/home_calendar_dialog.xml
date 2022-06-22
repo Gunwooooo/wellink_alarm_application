@@ -3,14 +3,13 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@drawable/calendar_dialog_background"
-    android:padding="30dp"
-    android:backgroundTint="@color/toss_black_100">
+    android:padding="25dp"
+    android:backgroundTint="@color/white">
 
     <LinearLayout
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/layout_bottom_border">
+        android:layout_height="40dp">
 
         <TextView
             android:id="@+id/homeCalendarDialog_textView_dayOfMonth"
@@ -18,15 +17,19 @@
             android:layout_height="match_parent"
             android:text="O일"
             android:textSize="31sp"
-            android:textColor="@color/text_red_200"
+            android:textColor="@color/toss_black_700"
             android:fontFamily="@font/ps_regular"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="15dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:orientation="horizontal"
         android:weightSum="1">
         <TextView
+            android:textColor="@color/toss_black_700"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.15"
@@ -38,35 +41,44 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.03"/>
-        <TextView
-            android:id="@+id/homeCalendarDialog_textView_morning"
+        <LinearLayout
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:text="OO약, OO약"
-            android:layout_weight="0.61"
-            android:gravity="left|center_vertical"
-            android:fontFamily="@font/ps_regular"
-            android:textSize="18sp"/>
-<!--        <Button-->
-<!--            android:clickable="false"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_marginBottom="10dp"-->
-<!--            android:layout_width="0dip"-->
-<!--            android:layout_weight="0.21"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:background="@drawable/btn_border_blue"-->
-<!--            android:fontFamily="@font/ps_regular"-->
-<!--            android:stateListAnimator="@null"-->
-<!--            android:text="완료"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="18sp" />-->
+            android:layout_weight="0.82"
+            android:orientation="vertical"
+            android:weightSum="1">
+            <TextView
+                android:id="@+id/homeCalendarDialog_textView_notTaken_morning"
+                android:gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="0.5"
+                android:text="미복용  >"
+                android:textSize="18sp"
+                android:textColor="@color/toss_black_150"
+                android:fontFamily="@font/ps_regular"/>
+            <TextView
+                android:id="@+id/homeCalendarDialog_textView_taken_morning"
+                android:gravity="top"
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="0.5"
+                android:text="복용  >"
+                android:textSize="18sp"
+                android:textColor="@color/toss_blue_200"
+                android:fontFamily="@font/ps_bold"/>
+        </LinearLayout>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:orientation="horizontal"
         android:weightSum="1">
         <TextView
+            android:textColor="@color/toss_black_700"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.15"
@@ -78,35 +90,45 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.03"/>
-        <TextView
-            android:id="@+id/homeCalendarDialog_textView_afternoon"
+
+        <LinearLayout
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:text="OO약"
-            android:layout_weight="0.61"
-            android:gravity="left|center_vertical"
-            android:fontFamily="@font/ps_regular"
-            android:textSize="18sp"/>
-<!--        <Button-->
-<!--            android:clickable="false"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_marginBottom="10dp"-->
-<!--            android:layout_width="0dip"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_weight="0.21"-->
-<!--            android:background="@drawable/btn_border_gray"-->
-<!--            android:fontFamily="@font/ps_regular"-->
-<!--            android:stateListAnimator="@null"-->
-<!--            android:text="미완료"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="16sp" />-->
+            android:layout_weight="0.82"
+            android:orientation="vertical"
+            android:weightSum="1">
+            <TextView
+                android:id="@+id/homeCalendarDialog_textView_notTaken_afternoon"
+                android:gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="0.5"
+                android:text="미복용  >"
+                android:textSize="18sp"
+                android:textColor="@color/toss_black_150"
+                android:fontFamily="@font/ps_regular"/>
+            <TextView
+                android:id="@+id/homeCalendarDialog_textView_taken_afternoon"
+                android:gravity="top"
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="0.5"
+                android:text="복용  >"
+                android:textSize="18sp"
+                android:textColor="@color/toss_blue_200"
+                android:fontFamily="@font/ps_bold"/>
+        </LinearLayout>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:orientation="horizontal"
         android:weightSum="1">
         <TextView
+            android:textColor="@color/toss_black_700"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.15"
@@ -118,35 +140,45 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.03"/>
-        <TextView
-            android:id="@+id/homeCalendarDialog_textView_evening"
+
+        <LinearLayout
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:text="OO약, OO약, OO약"
-            android:layout_weight="0.61"
-            android:gravity="left|center_vertical"
-            android:fontFamily="@font/ps_regular"
-            android:textSize="18sp"/>
-<!--        <Button-->
-<!--            android:clickable="false"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_marginBottom="10dp"-->
-<!--            android:layout_width="0dip"-->
-<!--            android:layout_weight="0.21"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:background="@drawable/btn_border_blue"-->
-<!--            android:fontFamily="@font/ps_regular"-->
-<!--            android:stateListAnimator="@null"-->
-<!--            android:text="완료"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="16sp" />-->
+            android:layout_weight="0.82"
+            android:orientation="vertical"
+            android:weightSum="1">
+            <TextView
+                android:id="@+id/homeCalendarDialog_textView_notTaken_evening"
+                android:gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="0.5"
+                android:text="미복용  >"
+                android:textSize="18sp"
+                android:textColor="@color/toss_black_150"
+                android:fontFamily="@font/ps_regular"/>
+            <TextView
+                android:id="@+id/homeCalendarDialog_textView_taken_evening"
+                android:gravity="top"
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="0.5"
+                android:text="복용  >"
+                android:textSize="18sp"
+                android:textColor="@color/toss_blue_200"
+                android:fontFamily="@font/ps_bold"/>
+        </LinearLayout>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:orientation="horizontal"
         android:weightSum="1">
         <TextView
+            android:textColor="@color/toss_black_700"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.15"
@@ -158,28 +190,33 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.03"/>
-        <TextView
-            android:id="@+id/homeCalendarDialog_textView_night"
+
+        <LinearLayout
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:text="OO약"
-            android:layout_weight="0.61"
-            android:gravity="left|center_vertical"
-            android:fontFamily="@font/ps_regular"
-            android:textSize="18sp"/>
-
-<!--        <Button-->
-<!--            android:layout_width="0dip"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_marginBottom="10dp"-->
-<!--            android:layout_weight="0.21"-->
-<!--            android:background="@drawable/btn_border_gray"-->
-<!--            android:clickable="false"-->
-<!--            android:fontFamily="@font/ps_regular"-->
-<!--            android:stateListAnimator="@null"-->
-<!--            android:text="미완료"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="16sp" />-->
+            android:layout_weight="0.82"
+            android:orientation="vertical"
+            android:weightSum="1">
+            <TextView
+                android:id="@+id/homeCalendarDialog_textView_notTaken_night"
+                android:gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="0.5"
+                android:text="미복용  >"
+                android:textSize="18sp"
+                android:textColor="@color/toss_black_150"
+                android:fontFamily="@font/ps_regular"/>
+            <TextView
+                android:id="@+id/homeCalendarDialog_textView_taken_night"
+                android:gravity="top"
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="0.5"
+                android:text="복용  >"
+                android:textSize="18sp"
+                android:textColor="@color/toss_blue_200"
+                android:fontFamily="@font/ps_bold"/>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

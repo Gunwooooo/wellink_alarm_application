@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.PowerManager
 import android.util.Log
 import com.hanait.wellinkalarmapplication.service.AlarmService
+import com.hanait.wellinkalarmapplication.setAlarm.SetAlarmPopupActivity.Companion.takenFlag
 import com.hanait.wellinkalarmapplication.utils.Constants.ADD_INTENT
 import com.hanait.wellinkalarmapplication.utils.Constants.OFF_INTENT
 
@@ -26,7 +27,10 @@ class AlarmReceiver : BroadcastReceiver(){
                     ADD_INTENT -> {
                         //데이터 전달받기
                         val pendingId = intent.extras?.getInt("PendingId")!!
-
+    
+                        //복용 여부 확인을 위한 변수
+                        takenFlag = false
+                        
                         //화면 깨우기
                         turnOnScreen()
 

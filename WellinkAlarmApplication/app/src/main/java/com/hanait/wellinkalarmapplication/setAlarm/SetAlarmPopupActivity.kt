@@ -27,6 +27,10 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
     private var pendingId = 0
     private lateinit var alarmData: AlarmData
 
+    companion object {
+        var takenFlag = false
+    }
+
     @RequiresApi(Build.VERSION_CODES.O_MR1)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,9 +42,10 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
 
         //서비스 시간 정해놓기 (미복용)
         Handler().postDelayed({
-            Log.d("로그", "SetAlarmPopupActivity - onCreate : 알람 시간 종료 팝업 지우기!")
-            Toast.makeText(this, "약을 미복용했어요", Toast.LENGTH_SHORT).show()
-            finishAndRemoveTask() // 액티비티 종료 + 태스크 리스트에서 지우기
+            if(!takenFlag) {
+                Log.d("로그", "SetAlarmPopupActivity - onCreate : 알람 시간 종료 팝업 지우기!")
+                finishAndRemoveTask() // 액티비티 종료 + 태스크 리스트에서 지우기
+            }
         }, SERVICE_TIME_OUT)
 
         Log.d("로그", "SetAlarmPopupActivitiy - onCreate : 팝업 액티비티 호출됨!")
@@ -63,6 +68,7 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
         binding.setAlarmPopupTextViewDate.text = "${myCalendar.get(Calendar.MONTH) + 1}월 ${myCalendar.get(Calendar.DAY_OF_MONTH)}일 ${getDayOfWeek(myCalendar.get(Calendar.DAY_OF_WEEK))}"
         binding.setAlarmPopupRippleBackgroundImageView.setOnClickListener(this)
 
+        //복용 버튼 애니메이션 실행
         binding.setAlarmPopupRippleBackground.startRippleAnimation()
     }
 
@@ -86,6 +92,9 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
         when(v) {
             binding.setAlarmPopupRippleBackgroundImageView -> {
                 Toast.makeText(this, "약을 복용했습니다.", Toast.LENGTH_SHORT).show()
+                takenFlag = true
+
+                setAlarmTaken()
 
                 //알림 끄는 broadcast
                 val intent = Intent(this, AlarmReceiver::class.java)
@@ -97,7 +106,19 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
-    
+
+    //DB 복용정보 수정
+    private fun setAlarmTaken() {
+        when(pendingId % 4) {
+            0 -> alarmData.mtaken = 1
+            1 -> alarmData.ataken = 1
+            2 -> alarmData.etaken = 1
+            3 -> alarmData.ntaken = 1
+        }
+        Log.d("로그", "SetAlarmPopupActivity - setAlarmTaken : 복용 정보 수정 후 :  $alarmData")
+        DatabaseManager.getInstance(this, "Alarms.db").updateAlarm(alarmData, alarmData.name)
+    }
+
     //요일 가져오기
     private fun getDayOfWeek(dayOfWeek: Int): String {
         return when(dayOfWeek) {

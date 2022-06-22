@@ -22,6 +22,7 @@ import com.hanait.wellinkalarmapplication.R
 import com.hanait.wellinkalarmapplication.db.DatabaseManager
 import com.hanait.wellinkalarmapplication.model.AlarmData
 import com.hanait.wellinkalarmapplication.setAlarm.SetAlarmPopupActivity
+import com.hanait.wellinkalarmapplication.setAlarm.SetAlarmPopupActivity.Companion.takenFlag
 import com.hanait.wellinkalarmapplication.utils.Constants.ADD_INTENT
 import com.hanait.wellinkalarmapplication.utils.Constants.OFF_INTENT
 import java.text.SimpleDateFormat
@@ -33,12 +34,13 @@ class AlarmService: Service() {
     lateinit var alarmData: AlarmData
 
     companion object {
+        private lateinit var mediaPlayer: MediaPlayer
         const val SERVICE_TIME_OUT: Long = 60000 //1분
         const val CHANNEL_ID = "primary_notification_channel"
         var NOTIFICATION_ID = 0
     }
 
-    private lateinit var mediaPlayer: MediaPlayer
+
 
     override fun onCreate() {
         super.onCreate()
@@ -64,9 +66,11 @@ class AlarmService: Service() {
 
                 //서비스 시간 정해놓기 (미복용)
                 Handler().postDelayed({
-                    Log.d("로그", "AlarmService - onStartCommand : 알람 시간 종료!!!!")
-                    Toast.makeText(this, "약을 미복용했어요", Toast.LENGTH_SHORT).show()
-                    stopSelf()
+                    if(!takenFlag) {
+                        Log.d("로그", "AlarmService - onStartCommand : 알람 시간 종료!!!!")
+                        Toast.makeText(this, "약을 미복용했어요", Toast.LENGTH_SHORT).show()
+                        stopSelf()
+                    }
                 }, SERVICE_TIME_OUT)
             }
             OFF_INTENT -> {
@@ -90,9 +94,11 @@ class AlarmService: Service() {
     //알림 소리 켜기
     private fun startMedia() {
         //알람 소리 플레이
-        val uri = Settings.System.DEFAULT_ALARM_ALERT_URI
-        mediaPlayer = MediaPlayer.create(this, uri)
-        mediaPlayer.start()
+        if(!mediaPlayer.isPlaying) {
+            val uri = Settings.System.DEFAULT_ALARM_ALERT_URI
+            mediaPlayer = MediaPlayer.create(this, uri)
+            mediaPlayer.start()
+        }
     }
     
     override fun onDestroy() {
