@@ -41,33 +41,16 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.03"/>
-        <LinearLayout
+        <TextView
+            android:id="@+id/homeCalendarDialog_textView_morning"
+            android:gravity="center_vertical"
             android:layout_width="0dip"
-            android:layout_height="match_parent"
             android:layout_weight="0.82"
-            android:orientation="vertical"
-            android:weightSum="1">
-            <TextView
-                android:id="@+id/homeCalendarDialog_textView_notTaken_morning"
-                android:gravity="bottom"
-                android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="0.5"
-                android:text="미복용  >"
-                android:textSize="18sp"
-                android:textColor="@color/toss_black_150"
-                android:fontFamily="@font/ps_regular"/>
-            <TextView
-                android:id="@+id/homeCalendarDialog_textView_taken_morning"
-                android:gravity="top"
-                android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="0.5"
-                android:text="복용  >"
-                android:textSize="18sp"
-                android:textColor="@color/toss_blue_200"
-                android:fontFamily="@font/ps_bold"/>
-        </LinearLayout>
+            android:layout_height="match_parent"
+            android:text="OO약  OO약"
+            android:textSize="18sp"
+            android:textColor="@color/toss_black_150"
+            android:fontFamily="@font/ps_bold"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -90,34 +73,16 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.03"/>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/homeCalendarDialog_textView_afternoon"
+            android:gravity="center_vertical"
             android:layout_width="0dip"
-            android:layout_height="match_parent"
             android:layout_weight="0.82"
-            android:orientation="vertical"
-            android:weightSum="1">
-            <TextView
-                android:id="@+id/homeCalendarDialog_textView_notTaken_afternoon"
-                android:gravity="bottom"
-                android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="0.5"
-                android:text="미복용  >"
-                android:textSize="18sp"
-                android:textColor="@color/toss_black_150"
-                android:fontFamily="@font/ps_regular"/>
-            <TextView
-                android:id="@+id/homeCalendarDialog_textView_taken_afternoon"
-                android:gravity="top"
-                android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="0.5"
-                android:text="복용  >"
-                android:textSize="18sp"
-                android:textColor="@color/toss_blue_200"
-                android:fontFamily="@font/ps_bold"/>
-        </LinearLayout>
+            android:layout_height="match_parent"
+            android:text="OO약  OO약"
+            android:textSize="18sp"
+            android:textColor="@color/toss_black_150"
+            android:fontFamily="@font/ps_bold"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -140,34 +105,16 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.03"/>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/homeCalendarDialog_textView_evening"
+            android:gravity="center_vertical"
             android:layout_width="0dip"
-            android:layout_height="match_parent"
             android:layout_weight="0.82"
-            android:orientation="vertical"
-            android:weightSum="1">
-            <TextView
-                android:id="@+id/homeCalendarDialog_textView_notTaken_evening"
-                android:gravity="bottom"
-                android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="0.5"
-                android:text="미복용  >"
-                android:textSize="18sp"
-                android:textColor="@color/toss_black_150"
-                android:fontFamily="@font/ps_regular"/>
-            <TextView
-                android:id="@+id/homeCalendarDialog_textView_taken_evening"
-                android:gravity="top"
-                android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="0.5"
-                android:text="복용  >"
-                android:textSize="18sp"
-                android:textColor="@color/toss_blue_200"
-                android:fontFamily="@font/ps_bold"/>
-        </LinearLayout>
+            android:layout_height="match_parent"
+            android:text="OO약  OO약"
+            android:textSize="18sp"
+            android:textColor="@color/toss_black_150"
+            android:fontFamily="@font/ps_bold"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -190,33 +137,15 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.03"/>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/homeCalendarDialog_textView_night"
+            android:gravity="center_vertical"
             android:layout_width="0dip"
-            android:layout_height="match_parent"
             android:layout_weight="0.82"
-            android:orientation="vertical"
-            android:weightSum="1">
-            <TextView
-                android:id="@+id/homeCalendarDialog_textView_notTaken_night"
-                android:gravity="bottom"
-                android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="0.5"
-                android:text="미복용  >"
-                android:textSize="18sp"
-                android:textColor="@color/toss_black_150"
-                android:fontFamily="@font/ps_regular"/>
-            <TextView
-                android:id="@+id/homeCalendarDialog_textView_taken_night"
-                android:gravity="top"
-                android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="0.5"
-                android:text="복용  >"
-                android:textSize="18sp"
-                android:textColor="@color/toss_blue_200"
-                android:fontFamily="@font/ps_bold"/>
-        </LinearLayout>
+            android:layout_height="match_parent"
+            android:text="OO약  OO약"
+            android:textSize="18sp"
+            android:textColor="@color/toss_black_150"
+            android:fontFamily="@font/ps_bold"/>
     </LinearLayout>
 </LinearLayout>

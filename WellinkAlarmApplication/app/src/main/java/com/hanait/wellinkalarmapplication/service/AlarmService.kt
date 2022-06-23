@@ -59,7 +59,9 @@ class AlarmService: Service() {
                 startMedia()
                 
                 //알람 id 받기
+                Log.d("로그", "AlarmService - onStartCommand : pendingId : $pendingId")
                 alarmData = DatabaseManager.getInstance(this, "Alarms.db").selectAlarmAsId(pendingId / 4)
+                Log.d("로그", "AlarmService - onStartCommand : ---------------")
                 Log.d("로그", "AlarmReceiver - onReceive : NOT_ID : $NOTIFICATION_ID  pendingId : $pendingId : $alarmData")
 
                 startNotification(pendingId)
@@ -69,6 +71,14 @@ class AlarmService: Service() {
                     if(!takenFlag) {
                         Log.d("로그", "AlarmService - onStartCommand : 알람 시간 종료!!!!")
                         Toast.makeText(this, "약을 미복용했어요", Toast.LENGTH_SHORT).show()
+
+                        when(pendingId % 4) {
+                            0 -> alarmData.mtaken = 2
+                            1 -> alarmData.ataken = 2
+                            2 -> alarmData.etaken = 2
+                            3 -> alarmData.ntaken = 2
+                        }
+                        DatabaseManager.getInstance(this, "Alarms.db").updateAlarm(alarmData, alarmData.name)
                         stopSelf()
                     }
                 }, SERVICE_TIME_OUT)
@@ -94,9 +104,9 @@ class AlarmService: Service() {
     //알림 소리 켜기
     private fun startMedia() {
         //알람 소리 플레이
+        val uri = Settings.System.DEFAULT_ALARM_ALERT_URI
+        mediaPlayer = MediaPlayer.create(this, uri)
         if(!mediaPlayer.isPlaying) {
-            val uri = Settings.System.DEFAULT_ALARM_ALERT_URI
-            mediaPlayer = MediaPlayer.create(this, uri)
             mediaPlayer.start()
         }
     }

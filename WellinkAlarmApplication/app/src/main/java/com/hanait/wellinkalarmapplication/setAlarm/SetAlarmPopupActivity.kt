@@ -44,6 +44,14 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
         Handler().postDelayed({
             if(!takenFlag) {
                 Log.d("로그", "SetAlarmPopupActivity - onCreate : 알람 시간 종료 팝업 지우기!")
+                when(pendingId % 4) {
+                    0 -> alarmData.mtaken = 2
+                    1 -> alarmData.ataken = 2
+                    2 -> alarmData.etaken = 2
+                    3 -> alarmData.ntaken = 2
+                }
+                DatabaseManager.getInstance(this, "Alarms.db").updateAlarm(alarmData, alarmData.name)
+
                 finishAndRemoveTask() // 액티비티 종료 + 태스크 리스트에서 지우기
             }
         }, SERVICE_TIME_OUT)

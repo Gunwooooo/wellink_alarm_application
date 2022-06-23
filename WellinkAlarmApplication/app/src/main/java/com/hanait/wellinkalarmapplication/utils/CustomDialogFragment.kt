@@ -8,6 +8,9 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.*
 import android.widget.Button
@@ -59,47 +62,82 @@ class CustomDialogFragment(private val layout: Int, private val cal: GregorianCa
                 var mAlarmList: ArrayList<AlarmData> = ArrayList()
                 mAlarmList = context?.let { DatabaseManager.getInstance(it, "Alarms.db").selectCalendarItemAlarm(strDate!!) }!!
 
-                //스위치 온인 부분에 표시
-                val morningNotTakenTextView = view.findViewById(R.id.homeCalendarDialog_textView_notTaken_morning) as TextView
-                val morningTakenTextView = view.findViewById(R.id.homeCalendarDialog_textView_taken_morning) as TextView
-                val afternoonNotTakenTextView = view.findViewById(R.id.homeCalendarDialog_textView_notTaken_afternoon) as TextView
-                val afternoonTakenTextView = view.findViewById(R.id.homeCalendarDialog_textView_taken_afternoon) as TextView
-                val eveningNotTakenTextView = view.findViewById(R.id.homeCalendarDialog_textView_notTaken_evening) as TextView
-                val eveningTakenTextView = view.findViewById(R.id.homeCalendarDialog_textView_taken_evening) as TextView
-                val nightNotTakenTextView = view.findViewById(R.id.homeCalendarDialog_textView_notTaken_night) as TextView
-                val nightTakenTextView = view.findViewById(R.id.homeCalendarDialog_textView_taken_night) as TextView
 
+
+                val morningArray = Array<String>(3) { "" }
+                val afternoonArray = Array<String>(3) { "" }
+                val eveningArray = Array<String>(3) { "" }
+                val nightArray = Array<String>(3) { "" }
+
+                //0 : 복용예정   1:복용   2:미복용
                 for(i in 0 until mAlarmList.size ) {
                     Log.d("로그", "mAlarmList : ${i+1}     $mAlarmList")
                     if(mAlarmList[i].mswitch == 1) {
-                        if(mAlarmList[i].mtaken == 1) {
-                            morningTakenTextView.text = "${morningTakenTextView.text}  ${mAlarmList[i].name}"
-                        } else {
-                            morningNotTakenTextView.text = "${morningNotTakenTextView.text}  ${mAlarmList[i].name}"
+                        when(mAlarmList[i].mtaken) {
+                            0 -> morningArray[0] += "  ${mAlarmList[i].name}"
+                            1 -> morningArray[1] += "  ${mAlarmList[i].name}"
+                            2 -> morningArray[2] += "  ${mAlarmList[i].name}"
                         }
                     }
                     if(mAlarmList[i].aswitch == 1) {
-                        if(mAlarmList[i].mtaken == 1) {
-                            afternoonTakenTextView.text = "${afternoonTakenTextView.text}  ${mAlarmList[i].name}"
-                        } else {
-                            afternoonNotTakenTextView.text = "${afternoonNotTakenTextView.text}  ${mAlarmList[i].name}"
+                        when(mAlarmList[i].mtaken) {
+                            0 -> afternoonArray[0] += "  ${mAlarmList[i].name}"
+                            1 -> afternoonArray[1] += "  ${mAlarmList[i].name}"
+                            2 -> afternoonArray[2] += "  ${mAlarmList[i].name}"
                         }
                     }
                     if(mAlarmList[i].eswitch == 1) {
-                        if(mAlarmList[i].mtaken == 1) {
-                            eveningTakenTextView.text = "${eveningTakenTextView.text}  ${mAlarmList[i].name}"
-                        } else {
-                            eveningNotTakenTextView.text = "${eveningNotTakenTextView.text}  ${mAlarmList[i].name}"
+                        when(mAlarmList[i].mtaken) {
+                            0 -> eveningArray[0] += "  ${mAlarmList[i].name}"
+                            1 -> eveningArray[1] += "  ${mAlarmList[i].name}"
+                            2 -> eveningArray[2] += "  ${mAlarmList[i].name}"
                         }
                     }
                     if(mAlarmList[i].nswitch == 1) {
-                        if(mAlarmList[i].mtaken == 1) {
-                            nightTakenTextView.text = "${nightTakenTextView.text}  ${mAlarmList[i].name}"
-                        } else {
-                            nightNotTakenTextView.text = "${nightNotTakenTextView.text}  ${mAlarmList[i].name}"
+                        when(mAlarmList[i].mtaken) {
+                            0 -> nightArray[0] += "  ${mAlarmList[i].name}"
+                            1 -> nightArray[1] += "  ${mAlarmList[i].name}"
+                            2 -> nightArray[2] += "  ${mAlarmList[i].name}"
                         }
                     }
                 }
+                Log.d("로그", "${morningArray[0]} / ${morningArray[1]} / ${morningArray[2]}")
+                Log.d("로그", "${afternoonArray[0]} / ${afternoonArray[1]} / ${afternoonArray[2]}")
+                Log.d("로그", "${eveningArray[0]} / ${eveningArray[1]} / ${eveningArray[2]}")
+                Log.d("로그", "${nightArray[0]} / ${nightArray[1]} / ${nightArray[2]}")
+
+                val morningTextView = view.findViewById(R.id.homeCalendarDialog_textView_morning) as TextView
+                val afternoonTextView = view.findViewById(R.id.homeCalendarDialog_textView_afternoon) as TextView
+                val eveningTextView = view.findViewById(R.id.homeCalendarDialog_textView_evening) as TextView
+                val nightTextView = view.findViewById(R.id.homeCalendarDialog_textView_night) as TextView
+
+                var spannableString = SpannableString(morningArray[1] + morningArray[2] + morningArray[0])
+                Log.d("로그", "CustomDialogFragment - onCreateDialog : spanString : $spannableString")
+                Log.d("로그", "CustomDialogFragment - onCreateDialog : ${spannableString.length}")
+//                spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#487fee")), 0, morningArray[1].length + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+//                spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#d0252e")), morningArray[1].length + 2, morningArray[1].length + morningArray[2].length + 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+//                morningTextView.text = spannableString
+//
+                spannableString = SpannableString(afternoonArray[1] + afternoonArray[2] + afternoonArray[0])
+                Log.d("로그", "CustomDialogFragment - onCreateDialog : spanString : $spannableString")
+                Log.d("로그", "CustomDialogFragment - onCreateDialog : ${spannableString.length}")
+//                spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#487fee")), 0, afternoonArray[1].length + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+//                spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#d0252e")), afternoonArray[1].length + 2, afternoonArray[1].length + afternoonArray[2].length + 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+//                afternoonTextView.text = spannableString
+//
+                spannableString = SpannableString(eveningArray[1] + eveningArray[2] + eveningArray[0])
+                Log.d("로그", "CustomDialogFragment - onCreateDialog : spanString : $spannableString")
+                Log.d("로그", "CustomDialogFragment - onCreateDialog : ${spannableString.length}")
+//                spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#487fee")), 0, eveningArray[1].length + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+//                spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#d0252e")), eveningArray[1].length + 2, eveningArray[1].length + eveningArray[2].length + 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+//                eveningTextView.text = spannableString
+//
+                spannableString = SpannableString(nightArray[1] + nightArray[2] + nightArray[0])
+                Log.d("로그", "CustomDialogFragment - onCreateDialog : spanString : $spannableString")
+                Log.d("로그", "CustomDialogFragment - onCreateDialog : ${spannableString.length}")
+//                spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#487fee")), 0, nightArray[1].length + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+//                spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#d0252e")), nightArray[1].length + 2, nightArray[1].length + nightArray[2].length + 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+//                nightTextView.text = spannableString
             }
         }
 
