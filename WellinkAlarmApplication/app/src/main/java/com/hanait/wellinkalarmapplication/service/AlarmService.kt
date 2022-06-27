@@ -125,8 +125,9 @@ class AlarmService: Service() {
         val popupIntent = Intent(this, SetAlarmPopupActivity::class.java).apply {
             this.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
+        Log.d("로그", "AlarmService - startNotification : pendingid : $pendingId")
         popupIntent.putExtra("PendingId", pendingId)
-        val popupPendingIntent = PendingIntent.getActivity(this, 0, popupIntent, 0)
+        val popupPendingIntent = PendingIntent.getActivity(this, 0, popupIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         val title = makeNotificationTitle(alarmData, pendingId)
         val message = "배너를 클릭하고 '복용' 버튼을 꼭 눌러주세요."
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)

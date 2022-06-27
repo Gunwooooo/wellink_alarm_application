@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -13,12 +14,41 @@
 
         <TextView
             android:id="@+id/homeCalendarDialog_textView_dayOfMonth"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="O일"
             android:textSize="31sp"
             android:textColor="@color/toss_black_700"
             android:fontFamily="@font/ps_regular"/>
+        <LinearLayout
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:gravity="center|bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="복용  "
+                android:textSize="14sp"
+                android:fontFamily="@font/ps_regular"
+                android:textColor="@color/toss_blue_200"/>
+            <TextView
+                android:gravity="center|bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="미복용  "
+                android:textSize="14sp"
+                android:fontFamily="@font/ps_regular"
+                android:textColor="@color/text_red_200"/>
+            <TextView
+                android:gravity="center|bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="복용예정"
+                android:textSize="14sp"
+                android:fontFamily="@font/ps_regular"
+                android:textColor="@color/toss_black_150"/>
+        </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,7 +84,7 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="20dp"/>
+        android:layout_height="15dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -86,7 +116,7 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="20dp"/>
+        android:layout_height="15dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -118,7 +148,7 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="20dp"/>
+        android:layout_height="15dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
