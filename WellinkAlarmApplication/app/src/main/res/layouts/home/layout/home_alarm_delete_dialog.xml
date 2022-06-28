@@ -4,8 +4,9 @@
     android:orientation="vertical"
     android:background="@drawable/calendar_dialog_background"
     android:padding="16dp"
-    android:backgroundTint="@color/toss_black_100">
+    android:backgroundTint="@color/white">
     <LinearLayout
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
@@ -22,7 +23,7 @@
         android:layout_height="15dp"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:orientation="horizontal"
         android:gravity="center">
         <LinearLayout

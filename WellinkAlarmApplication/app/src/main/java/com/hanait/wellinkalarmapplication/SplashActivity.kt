@@ -10,6 +10,8 @@ import android.view.WindowManager
 import com.hanait.wellinkalarmapplication.db.DatabaseManager
 import com.hanait.wellinkalarmapplication.model.AlarmData
 import com.hanait.wellinkalarmapplication.utils.Constants.mAlarmList
+import java.text.SimpleDateFormat
+import java.util.*
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
@@ -23,6 +25,7 @@ class SplashActivity : AppCompatActivity() {
 
         mAlarmList = DatabaseManager.getInstance(this, "Alarms.db").selectAlarmAll()
         Log.d("로그", "HomeAlarmFragment - getAlarmList : 알람 갯수 : ${mAlarmList.size}")
+
 
         Handler().postDelayed({
             startActivity(Intent(this, MainActivity::class.java))

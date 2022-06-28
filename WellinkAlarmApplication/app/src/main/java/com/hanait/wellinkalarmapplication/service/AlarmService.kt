@@ -60,7 +60,7 @@ class AlarmService: Service() {
                 
                 //알람 id 받기
                 Log.d("로그", "AlarmService - onStartCommand : pendingId : $pendingId")
-                alarmData = DatabaseManager.getInstance(this, "Alarms.db").selectAlarmAsId(pendingId / 4)
+                alarmData = DatabaseManager.getInstance(this, "Alarms.db").selectAlarmAsId(pendingId / 4)!!
                 Log.d("로그", "AlarmService - onStartCommand : ---------------")
                 Log.d("로그", "AlarmReceiver - onReceive : NOT_ID : $NOTIFICATION_ID  pendingId : $pendingId : $alarmData")
 
@@ -72,12 +72,12 @@ class AlarmService: Service() {
                         Log.d("로그", "AlarmService - onStartCommand : 알람 시간 종료!!!!")
                         Toast.makeText(this, "약을 미복용했어요", Toast.LENGTH_SHORT).show()
 
-                        when(pendingId % 4) {
-                            0 -> alarmData.mtaken = 2
-                            1 -> alarmData.ataken = 2
-                            2 -> alarmData.etaken = 2
-                            3 -> alarmData.ntaken = 2
-                        }
+//                        when(pendingId % 4) {
+//                            0 -> alarmData.mtaken = 2
+//                            1 -> alarmData.ataken = 2
+//                            2 -> alarmData.etaken = 2
+//                            3 -> alarmData.ntaken = 2
+//                        }
                         DatabaseManager.getInstance(this, "Alarms.db").updateAlarm(alarmData, alarmData.name)
                         stopSelf()
                     }
@@ -120,6 +120,7 @@ class AlarmService: Service() {
     override fun onBind(intent: Intent?): IBinder? { return null}
 
     //노티 만들기
+    @SuppressLint("UnspecifiedImmutableFlag")
     private fun startNotification(pendingId: Int) {
         //팝업 인텐트 설정
         val popupIntent = Intent(this, SetAlarmPopupActivity::class.java).apply {

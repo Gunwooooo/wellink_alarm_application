@@ -63,7 +63,8 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
 
     //스위치에 따른 알람 울리게 설정 및 취소 설정
     private fun setAllAlarm() {
-        val alarmId = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectAlarmIdAsName(tempAlarmData.name) * 4
+        val alarmId = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectAlarmIdAsName(tempAlarmData.name)
+            ?.times(4) ?: return
         if(binding.setAlarmTimeSwitchMorning.isChecked)
             setAlarm(alarmId, tempAlarmData.mampm, tempAlarmData.mhour, tempAlarmData.mminute)
         else deleteAlarm(alarmId)
