@@ -41,7 +41,6 @@ class AlarmReceiver : BroadcastReceiver(){
 
                         //버전 체크 후 서비스 불러오기
                         startService(intentToService)
-                        Log.d("로그", "AlarmReceiver - onReceive : #######")
                     }
                     OFF_INTENT -> {
                         Log.d("로그", "AlarmReceiver - onReceive : Reciever Off_intent 호출됨")

@@ -47,10 +47,10 @@ class DatabaseManager(context: Context, fileName: String) :
     fun updateCalendar(calendarData: CalendarData, prevName: String) {
         val db = writableDatabase
         db.execSQL("update CALENDARS set date=strftime('%Y-%m-%d', 'now', 'localtime'), name='${calendarData.name}'," +
-                "mtaken=${calendarData.mtaken}," + "aswitch=${calendarData.ataken}," + "eswitch=${calendarData.etaken}," + "nswitch=${calendarData.ntaken} " +
+                "mtaken=${calendarData.mtaken}," + "ataken=${calendarData.ataken}," + "etaken=${calendarData.etaken}," + "ntaken=${calendarData.ntaken} " +
                 "where name='${prevName}';")
         db.close()
-        Log.d("로그", "DatabaseManager - insert : DB에 캘린더 저장됨")
+        Log.d("로그", "DatabaseManager - update : DB에 캘린더 저장됨")
     }
 
 
@@ -74,7 +74,9 @@ class DatabaseManager(context: Context, fileName: String) :
         }
         db.close()
         Log.d("로그", "DatabaseManager - selectCalendarAsDateAndName : 호출완료  ${list.size}")
-        if(list.size == 0) return null
+        if(list.size == 0) {
+            return null
+        }
         return list[0]
     }
 

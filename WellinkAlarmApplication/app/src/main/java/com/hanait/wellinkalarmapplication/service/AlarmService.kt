@@ -21,8 +21,10 @@ import com.hanait.wellinkalarmapplication.MainActivity
 import com.hanait.wellinkalarmapplication.R
 import com.hanait.wellinkalarmapplication.db.DatabaseManager
 import com.hanait.wellinkalarmapplication.model.AlarmData
+import com.hanait.wellinkalarmapplication.model.CalendarData
 import com.hanait.wellinkalarmapplication.setAlarm.SetAlarmPopupActivity
 import com.hanait.wellinkalarmapplication.setAlarm.SetAlarmPopupActivity.Companion.takenFlag
+import com.hanait.wellinkalarmapplication.utils.Constants
 import com.hanait.wellinkalarmapplication.utils.Constants.ADD_INTENT
 import com.hanait.wellinkalarmapplication.utils.Constants.OFF_INTENT
 import java.text.SimpleDateFormat
@@ -32,6 +34,7 @@ import java.util.*
 class AlarmService: Service() {
 
     lateinit var alarmData: AlarmData
+    private var calendarData: CalendarData? = null
 
     companion object {
         private lateinit var mediaPlayer: MediaPlayer
@@ -64,6 +67,14 @@ class AlarmService: Service() {
                 Log.d("로그", "AlarmService - onStartCommand : ---------------")
                 Log.d("로그", "AlarmReceiver - onReceive : NOT_ID : $NOTIFICATION_ID  pendingId : $pendingId : $alarmData")
 
+                //DB에서 캘린더 데이터 가져오기
+                val cal = Calendar.getInstance()
+                val date = cal.time.let { Constants.sdf.format(it) }
+                if(DatabaseManager.getInstance(applicationContext, "Alarms.db").selectCalendarAsDateAndName(date, alarmData.name) != null) {
+                    calendarData = DatabaseManager.getInstance(applicationContext, "Alarms.db").selectCalendarAsDateAndName(date, alarmData.name)
+                }
+                Log.d("로그", "AlarmService - initView : calendarData : $calendarData")
+
                 startNotification(pendingId)
 
                 //서비스 시간 정해놓기 (미복용)
@@ -72,13 +83,25 @@ class AlarmService: Service() {
                         Log.d("로그", "AlarmService - onStartCommand : 알람 시간 종료!!!!")
                         Toast.makeText(this, "약을 미복용했어요", Toast.LENGTH_SHORT).show()
 
-//                        when(pendingId % 4) {
-//                            0 -> alarmData.mtaken = 2
-//                            1 -> alarmData.ataken = 2
-//                            2 -> alarmData.etaken = 2
-//                            3 -> alarmData.ntaken = 2
-//                        }
-                        DatabaseManager.getInstance(this, "Alarms.db").updateAlarm(alarmData, alarmData.name)
+                        var tmpCalendarData = CalendarData()
+                        if(calendarData != null) tmpCalendarData = calendarData as CalendarData
+                        tmpCalendarData.name = alarmData.name
+                        when(pendingId % 4) {
+                            0 -> tmpCalendarData.mtaken = 2
+                            1 -> tmpCalendarData.ataken = 2
+                            2 -> tmpCalendarData.etaken = 2
+                            3 -> tmpCalendarData.ntaken = 2
+                        }
+                        //insert or modify 처리하기
+                        //해당 날짜와 이름에 복용 정보가 0이 아니면 modify
+                        Log.d("로그", "SetAlarmPopupActivity - onCreate : postdelay  :  $tmpCalendarData")
+                        if(calendarData == null) {
+                            Log.d("로그", "AlarmService - onStartCommand : 이프")
+                            DatabaseManager.getInstance(this, "Alarms.db").insertCalendar(tmpCalendarData)
+                        } else {
+                            Log.d("로그", "AlarmService - onStartCommand : 엘스")
+                            DatabaseManager.getInstance(this, "Alarms.db").updateCalendar(tmpCalendarData, alarmData.name)
+                        }
                         stopSelf()
                     }
                 }, SERVICE_TIME_OUT)

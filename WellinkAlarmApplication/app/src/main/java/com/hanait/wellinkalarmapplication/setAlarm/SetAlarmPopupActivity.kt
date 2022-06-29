@@ -26,8 +26,8 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding : ActivitySetAlarmPopupActivitiyBinding
     private var pendingId = 0
-    private lateinit var alarmData: AlarmData
-    private lateinit var calendarData: CalendarData
+    private var alarmData: AlarmData? = null
+    private var calendarData: CalendarData? = null
     
     companion object {
         var takenFlag = false
@@ -46,14 +46,23 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
         Handler().postDelayed({
             if(!takenFlag) {
                 Log.d("로그", "SetAlarmPopupActivity - onCreate : 알람 시간 종료 팝업 지우기!")
-//                when(pendingId % 4) {
-//                    0 -> alarmData.mtaken = 2
-//                    1 -> alarmData.ataken = 2
-//                    2 -> alarmData.etaken = 2
-//                    3 -> alarmData.ntaken = 2
-//                }
-                DatabaseManager.getInstance(this, "Alarms.db").updateAlarm(alarmData, alarmData.name)
-
+                var tmpCalendarData = CalendarData()
+                if(calendarData != null) tmpCalendarData = calendarData as CalendarData
+                tmpCalendarData.name = alarmData!!.name
+                when(pendingId % 4) {
+                    0 -> tmpCalendarData.mtaken = 2
+                    1 -> tmpCalendarData.ataken = 2
+                    2 -> tmpCalendarData.etaken = 2
+                    3 -> tmpCalendarData.ntaken = 2
+                }
+                //insert or modify 처리하기
+                //해당 날짜와 이름에 복용 정보가 0이 아니면 modify
+                Log.d("로그", "SetAlarmPopupActivity - onCreate : postdelay  :  $tmpCalendarData")
+                if(calendarData == null) {
+                    DatabaseManager.getInstance(this, "Alarms.db").insertCalendar(tmpCalendarData)
+                } else {
+                    DatabaseManager.getInstance(this, "Alarms.db").updateCalendar(tmpCalendarData, alarmData!!.name)
+                }
                 finishAndRemoveTask() // 액티비티 종료 + 태스크 리스트에서 지우기
             }
         }, SERVICE_TIME_OUT)
@@ -68,18 +77,22 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
         Log.d("로그", "SetAlarmPopupActivitiy - onCreate : create에서 로그 pendingId : $pendingId")
 
         //DB에서 알림 데이터 가져오기
-        alarmData = DatabaseManager.getInstance(applicationContext, "Alarms.db").selectAlarmAsId(pendingId / 4)!!
+        if(DatabaseManager.getInstance(applicationContext, "Alarms.db").selectAlarmAsId(pendingId / 4) != null) {
+            alarmData = DatabaseManager.getInstance(applicationContext, "Alarms.db").selectAlarmAsId(pendingId / 4)
+        }
+
         Log.d("로그", "SetAlarmPopupActivitiy - onCreate : $alarmData")
 
         //DB에서 캘린더 데이터 가져오기
         val cal = Calendar.getInstance()
         val date = cal.time.let { Constants.sdf.format(it) }
-        calendarData = DatabaseManager.getInstance(applicationContext, "Alarms.db").selectCalendarAsDateAndName(date, alarmData.name)
-        if(calendarData != null) {
-            Log.d("로그", "SetAlarmPopupActivity - initView : calendarData : $calendarData")
+        if(DatabaseManager.getInstance(applicationContext, "Alarms.db").selectCalendarAsDateAndName(date, alarmData!!.name) != null) {
+            calendarData = DatabaseManager.getInstance(applicationContext, "Alarms.db").selectCalendarAsDateAndName(date, alarmData!!.name)
         }
+        Log.d("로그", "SetAlarmPopupActivity - initView : calendarData : $calendarData")
 
-        binding.setAlarmPopupTextViewExplain.text = "${alarmData.name} 드실 시간이에요!"
+
+        binding.setAlarmPopupTextViewExplain.text = "${alarmData!!.name} 드실 시간이에요!"
 
         //현재 시간 및 날짜 가져오기
         val myCalendar = Calendar.getInstance()
@@ -128,18 +141,25 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
 
     //DB 복용정보 수정
     private fun setAlarmTaken() {
-        val calendarData = CalendarData()
-        calendarData.name = alarmData.name
+
+        var tmpCalendarData = CalendarData()
+        if(calendarData != null) tmpCalendarData = calendarData as CalendarData
+        tmpCalendarData.name = alarmData!!.name
         when(pendingId % 4) {
-            0 -> calendarData.mtaken = 1
-            1 -> calendarData.ataken = 1
-            2 -> calendarData.etaken = 1
-            3 -> calendarData.ntaken = 1
+            0 -> tmpCalendarData.mtaken = 1
+            1 -> tmpCalendarData.ataken = 1
+            2 -> tmpCalendarData.etaken = 1
+            3 -> tmpCalendarData.ntaken = 1
         }
-        Log.d("로그", "SetAlarmPopupActivity - setAlarmTaken : insert calendarData  :  $calendarData")
-        DatabaseManager.getInstance(this, "Alarms.db").insertCalendar(calendarData)
         //insert or modify 처리하기
         //해당 날짜와 이름에 복용 정보가 0이 아니면 modify
+        Log.d("로그", "SetAlarmPopupActivity - setAlarmTaken : insert calendarData  :  $tmpCalendarData")
+        if(calendarData == null) {
+            DatabaseManager.getInstance(this, "Alarms.db").insertCalendar(tmpCalendarData)
+            return
+        }
+        DatabaseManager.getInstance(this, "Alarms.db").updateCalendar(tmpCalendarData, alarmData!!.name)
+
     }
 
     //요일 가져오기

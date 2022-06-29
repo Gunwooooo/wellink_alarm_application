@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.CompoundButton
+import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
@@ -54,10 +55,10 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
                 startActivity(intent)
             }
             //카드뷰 클릭 시 다이어로그 생성
-            binding.setAlarmTimeCardViewMorning -> makeDialog(binding.setAlarmTimeTextViewMTime, 7, 0)
-            binding.setAlarmTimeCardViewAfternoon -> makeDialog(binding.setAlarmTimeTextViewATime, 12, 30)
-            binding.setAlarmTimeCardViewEvening -> makeDialog(binding.setAlarmTimeTextViewETime, 18, 30)
-            binding.setAlarmTimeCardViewNight -> makeDialog(binding.setAlarmTimeTextViewNTime, 22, 0)
+            binding.setAlarmTimeCardViewMorning -> makeDialog(binding.setAlarmTimeTextViewMTime, 7, 0, binding.setAlarmTimeSwitchMorning)
+            binding.setAlarmTimeCardViewAfternoon -> makeDialog(binding.setAlarmTimeTextViewATime, 12, 30, binding.setAlarmTimeSwitchAfternoon)
+            binding.setAlarmTimeCardViewEvening -> makeDialog(binding.setAlarmTimeTextViewETime, 18, 30, binding.setAlarmTimeSwitchEvening)
+            binding.setAlarmTimeCardViewNight -> makeDialog(binding.setAlarmTimeTextViewNTime, 22, 0, binding.setAlarmTimeSwitchNight)
         }
     }
 
@@ -101,7 +102,7 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
 
     //시간 설정 다이어로그 생성
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
-    private fun makeDialog(v: TextView, cHour:Int, cMinute: Int){
+    private fun makeDialog(v: TextView, cHour:Int, cMinute: Int, switch: Switch){
         Log.d("로그", "SetAlarmTimeFragment - getTime : 다이어로그 호출됨")
         val cal = Calendar.getInstance()
         val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
@@ -118,7 +119,7 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
 
             //tempAlarmData에 시간 저장
             saveTimeData(v, tmpAmpm, tmpHour, minute)
-
+            switch.isChecked = true
         }
         //스피너형 다이어로그 생성
         val timePickerDialog = TimePickerDialog(context, R.style .Theme_Holo_Dialog_NoActionBar, timeSetListener, cHour, cMinute, false)

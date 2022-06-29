@@ -19,10 +19,12 @@ import java.util.*
 
 class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentHomeCalendarBinding::inflate), View.OnClickListener {
     private val calendarRecyclerList = arrayOfNulls<Pair<String, Int>>(42)
-    lateinit var mCalendarList : ArrayList<CalendarData>
     lateinit var cal: GregorianCalendar
     var prevChoiceDay = 0
 
+    companion object {
+        lateinit var mCalendarList : ArrayList<CalendarData>
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,6 +44,10 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
                 binding.homeCalendarPrevBtn.performClick()
             }
         })
+        setTodayBorder()
+    }
+
+    private fun setTodayBorder() {
         //오늘 날짜 테두리 표시
         binding.homeCalendarRecyclerView.doOnPreDraw {
             val todayPos =
@@ -50,16 +56,23 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
             binding.homeCalendarRecyclerView.layoutManager?.findViewByPosition(todayPos)?.setBackgroundResource(R.drawable.calendar_choice_item_border)
             prevChoiceDay = todayPos
         }
+    }
 
-        val cal = Calendar.getInstance()
+    @SuppressLint("SimpleDateFormat")
+    private fun getCalendarAsMonth(cal: Calendar) {
         val month = SimpleDateFormat("MM").format(cal.time)
         mCalendarList = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectCalendarAsMonth(month)
         Log.d("로그", "HomeCalendarFragment - init : ${mCalendarList.size}")
+        for(i in 0 until mCalendarList.size) {
+            Log.d("로그", "HomeCalendarFragment - init : ${mCalendarList[i]}")
+        }
     }
 
     @SuppressLint("SetTextI18n")
     private fun initCalendarList() {
         cal = GregorianCalendar()
+        //월 캘린더 복용 데이터 가져오기
+        getCalendarAsMonth(cal)
         binding.homeCalendarTextViewMonth.text = "${cal.get(Calendar.YEAR)}년 ${cal.get(Calendar.MONTH) + 1}월"
         setCalendarList(cal)
     }
@@ -70,12 +83,16 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
             binding.homeCalendarPrevBtn -> {
                 cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) -1 , 1)
                 setCalendarList(cal)
+                getCalendarAsMonth(cal)
                 binding.homeCalendarTextViewMonth.text = "${cal.get(Calendar.YEAR)}년 ${cal.get(Calendar.MONTH) + 1}월"
+                setTodayBorder()
             }
             binding.homeCalendarNextBtn -> {
                 cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, 1)
                 setCalendarList(cal)
+                getCalendarAsMonth(cal)
                 binding.homeCalendarTextViewMonth.text = "${cal.get(Calendar.YEAR)}년 ${cal.get(Calendar.MONTH) + 1}월"
+                setTodayBorder()
             }
         }
     }
