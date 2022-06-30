@@ -11,9 +11,17 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hanait.wellinkalarmapplication.R
+import com.hanait.wellinkalarmapplication.db.DatabaseManager
+import com.hanait.wellinkalarmapplication.home.HomeCalendarFragment.Companion.mCalendarList
+import com.hanait.wellinkalarmapplication.utils.Constants
+import java.util.*
 
 
-class CalendarAdapter(var context: Context, var data: Array<Pair<String, Int>?>, var link: HomeCalendarFragment) :
+class CalendarAdapter(
+    var context: Context,
+    var data: Array<Pair<String, Int>?>,
+    cal: GregorianCalendar
+) :
     RecyclerView.Adapter<CalendarAdapter.VH>() {
 
     private val DAY_TYPE = 0
@@ -43,6 +51,13 @@ class CalendarAdapter(var context: Context, var data: Array<Pair<String, Int>?>,
         private lateinit var dayTextView: TextView
         private lateinit var dayView: LinearLayout
         fun setDayTextView(day: String?, color:Int) {
+            //복용 데이터 가져와서 화면에 이미지 뿌리기
+            //DB에서 캘린더 데이터 가져오기
+
+
+
+            Log.d("로그", "VH - setDayTextView : day : $day")
+
             dayTextView = itemView.findViewById(R.id.homeCalendarItem_textView)
             dayTextView.setTextColor(ContextCompat.getColor(context, color))
             dayTextView.text = day

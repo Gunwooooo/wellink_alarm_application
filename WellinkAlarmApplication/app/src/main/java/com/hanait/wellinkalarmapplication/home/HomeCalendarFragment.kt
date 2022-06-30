@@ -24,6 +24,7 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
 
     companion object {
         lateinit var mCalendarList : ArrayList<CalendarData>
+        var takenHashMap = HashMap<String, Int>()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,8 +64,11 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
         val month = SimpleDateFormat("MM").format(cal.time)
         mCalendarList = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectCalendarAsMonth(month)
         Log.d("로그", "HomeCalendarFragment - init : ${mCalendarList.size}")
+        takenHashMap.clear()
         for(i in 0 until mCalendarList.size) {
             Log.d("로그", "HomeCalendarFragment - init : ${mCalendarList[i]}")
+            takenHashMap[mCalendarList[i].date]
+                ?.let { takenHashMap.put(mCalendarList[i].date, it) }
         }
     }
 
@@ -132,7 +136,7 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
     private fun recyclerViewCreate() {
         val calendarView = binding.homeCalendarRecyclerView
         val calendarAdapter =
-            context?.let { CalendarAdapter(it, calendarRecyclerList, HomeCalendarFragment()) }
+            context?.let { CalendarAdapter(it, calendarRecyclerList, cal) }
 
         calendarAdapter?.setOnItemClickListener(
             object : CalendarAdapter.OnItemClickListener {
