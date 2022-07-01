@@ -24,7 +24,7 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
 
     companion object {
         lateinit var mCalendarList : ArrayList<CalendarData>
-        var takenHashMap = HashMap<String, Int>()
+        var takenArray = Array(32) { IntArray(3) { 0 } }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -64,11 +64,12 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
         val month = SimpleDateFormat("MM").format(cal.time)
         mCalendarList = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectCalendarAsMonth(month)
         Log.d("로그", "HomeCalendarFragment - init : ${mCalendarList.size}")
-        takenHashMap.clear()
+        
+        //복용 정보 따로 저장하기
+        takenArray = Array(32) { IntArray(3) { 0 } }
         for(i in 0 until mCalendarList.size) {
             Log.d("로그", "HomeCalendarFragment - init : ${mCalendarList[i]}")
-            takenHashMap[mCalendarList[i].date]
-                ?.let { takenHashMap.put(mCalendarList[i].date, it) }
+
         }
     }
 
