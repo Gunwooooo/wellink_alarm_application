@@ -69,7 +69,17 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
         takenArray = Array(32) { IntArray(3) { 0 } }
         for(i in 0 until mCalendarList.size) {
             Log.d("로그", "HomeCalendarFragment - init : ${mCalendarList[i]}")
-
+            val index = mCalendarList[i].date.split('-')[2].toInt()
+            takenArray[index][0] = 1
+            val arr = arrayOf(mCalendarList[i].mtaken, mCalendarList[i].ataken, mCalendarList[i].etaken, mCalendarList[i].ntaken)
+            for(j in 0 until 4) {
+                if(arr[j] != 0) {
+                    takenArray[index][arr[j]]++
+                }
+            }
+        }
+        for(i in 0 until takenArray.size) {
+            Log.d("로그", "HomeCalendarFragment - getCalendarAsMonth : $i -> ${takenArray[i][0]}  ${takenArray[i][1]}  ${takenArray[i][2]}")
         }
     }
 

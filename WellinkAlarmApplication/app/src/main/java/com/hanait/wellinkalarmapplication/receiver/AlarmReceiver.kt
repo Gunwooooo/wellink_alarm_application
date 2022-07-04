@@ -7,10 +7,14 @@ import android.content.Intent
 import android.os.Build
 import android.os.PowerManager
 import android.util.Log
+import com.hanait.wellinkalarmapplication.db.DatabaseManager
+import com.hanait.wellinkalarmapplication.model.AlarmData
 import com.hanait.wellinkalarmapplication.service.AlarmService
 import com.hanait.wellinkalarmapplication.setAlarm.SetAlarmPopupActivity.Companion.takenFlag
+import com.hanait.wellinkalarmapplication.utils.Constants
 import com.hanait.wellinkalarmapplication.utils.Constants.ADD_INTENT
 import com.hanait.wellinkalarmapplication.utils.Constants.OFF_INTENT
+import java.util.*
 
 class AlarmReceiver : BroadcastReceiver(){
     var context : Context? = null
@@ -20,6 +24,9 @@ class AlarmReceiver : BroadcastReceiver(){
         Log.d("로그", "AlarmReceiver - onReceive : 리시버 호출됨")
         // this hold information to service
         val intentToService = Intent(context, AlarmService::class.java)
+
+
+
         if(intent != null)     {
             try {
                 val intentType = intent.extras?.getString("intentType")
@@ -27,7 +34,28 @@ class AlarmReceiver : BroadcastReceiver(){
                     ADD_INTENT -> {
                         //데이터 전달받기
                         val pendingId = intent.extras?.getInt("PendingId")!!
-    
+
+                        //알람 주기 및 만기일 체크 후 울리게 하기
+                        //DB에서 해당하는 약 데이터 가져오기
+                        val cal = Calendar.getInstance()
+                        val strDate = cal.time.let { Constants.sdf.format(it) }
+                        var mAlarmList: ArrayList<AlarmData> = ArrayList()
+                        mAlarmList = context?.let { DatabaseManager.getInstance(it, "Alarms.db").selectCalendarItemAlarm(strDate) }!!
+                        for(i in 0 until mAlarmList.size) {
+                            Log.d("로그", "AlarmReceiver - onReceive : $i    ${mAlarmList[i]}")
+                        }
+                        Log.d("로그", "AlarmReceiver - onReceive : ----------------------")
+                        var alarmSkipCheck = true
+                        for(i in 0 until mAlarmList.size) {
+                            if(mAlarmList[i].id == (pendingId / 4)) {
+                                alarmSkipCheck = false
+                            }
+                        }
+                        if(alarmSkipCheck) {
+                            Log.d("로그", "AlarmReceiver - onReceive : 알람 울리는 날이 아닙니다.")
+                            return
+                        }
+
                         //복용 여부 확인을 위한 변수
                         takenFlag = false
                         

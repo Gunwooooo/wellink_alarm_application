@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hanait.wellinkalarmapplication.R
 import com.hanait.wellinkalarmapplication.db.DatabaseManager
 import com.hanait.wellinkalarmapplication.home.HomeCalendarFragment.Companion.mCalendarList
+import com.hanait.wellinkalarmapplication.home.HomeCalendarFragment.Companion.takenArray
 import com.hanait.wellinkalarmapplication.utils.Constants
 import java.util.*
 
@@ -50,22 +52,29 @@ class CalendarAdapter(
     inner class VH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private lateinit var dayTextView: TextView
         private lateinit var dayView: LinearLayout
+        private lateinit var dayImageView: ImageView
         fun setDayTextView(day: String?, color:Int) {
-            //복용 데이터 가져와서 화면에 이미지 뿌리기
-            //DB에서 캘린더 데이터 가져오기
-
-
-
-            Log.d("로그", "VH - setDayTextView : day : $day")
-
             dayTextView = itemView.findViewById(R.id.homeCalendarItem_textView)
             dayTextView.setTextColor(ContextCompat.getColor(context, color))
             dayTextView.text = day
-//            val view = itemView.findViewById(R.id.homeCalendarItem_view)
+
             dayView = itemView.findViewById(R.id.homeCalendarItem_view)
             dayView.setOnClickListener {
                 val pos = adapterPosition
                 if (pos != RecyclerView.NO_POSITION) mListener?.onDayItemClick(it, pos)
+            }
+
+            //복용 데이터 가져와서 화면에 이미지 뿌리기
+            //DB에서 캘린더 데이터 가져오기
+            //오늘 날짜는 안띄우기
+
+            dayImageView = itemView.findViewById(R.id.homeCalendarItem_imageView)
+            val index = day?.replace(" ", "")?.toInt()
+            if (index != null) {
+                if(takenArray[index][0] == 0) return
+                if(takenArray[index][1] > 0 && takenArray[index][2] == 0) dayImageView.setImageResource(R.drawable.check)
+                else if(takenArray[index][1] > 0 && takenArray[index][2] > 0) dayImageView.setImageResource(R.drawable.warn)
+                else dayImageView.setImageResource(R.drawable.cancel)
             }
         }
         fun setEmptyDayNextTextView(day: String?, color:Int) {
