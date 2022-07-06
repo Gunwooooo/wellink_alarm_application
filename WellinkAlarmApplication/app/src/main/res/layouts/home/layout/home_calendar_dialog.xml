@@ -20,42 +20,14 @@
             android:textSize="31sp"
             android:textColor="@color/toss_black_700"
             android:fontFamily="@font/ps_regular"/>
-        <LinearLayout
-            android:gravity="right"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:gravity="center|bottom"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="복용  "
-                android:textSize="14sp"
-                android:fontFamily="@font/ps_regular"
-                android:textColor="@color/toss_blue_200"/>
-            <TextView
-                android:gravity="center|bottom"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="미복용  "
-                android:textSize="14sp"
-                android:fontFamily="@font/ps_regular"
-                android:textColor="@color/text_red_200"/>
-            <TextView
-                android:gravity="center|bottom"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="복용예정"
-                android:textSize="14sp"
-                android:fontFamily="@font/ps_regular"
-                android:textColor="@color/toss_black_150"/>
-        </LinearLayout>
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="15dp"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         android:weightSum="1">
         <TextView
@@ -87,7 +59,7 @@
         android:layout_height="15dp"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         android:weightSum="1">
         <TextView
@@ -119,7 +91,7 @@
         android:layout_height="15dp"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         android:weightSum="1">
         <TextView
@@ -151,7 +123,7 @@
         android:layout_height="15dp"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         android:weightSum="1">
         <TextView
@@ -177,5 +149,36 @@
             android:textSize="18sp"
             android:textColor="@color/toss_black_150"
             android:fontFamily="@font/ps_bold"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="RtlHardcoded">
+        <TextView
+            android:gravity="center|bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="• 복용    "
+            android:textSize="16sp"
+            android:fontFamily="@font/ps_regular"
+            android:textColor="@color/toss_blue_200"/>
+        <TextView
+            android:gravity="center|bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="• 미복용     "
+            android:textSize="16sp"
+            android:fontFamily="@font/ps_regular"
+            android:textColor="@color/text_red_200"/>
+        <TextView
+            android:gravity="center|bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="• 복용예정"
+            android:textSize="16sp"
+            android:fontFamily="@font/ps_regular"
+            android:textColor="@color/toss_black_150"/>
     </LinearLayout>
 </LinearLayout>

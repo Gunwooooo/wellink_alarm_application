@@ -7,15 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".home.HomeAlarmFragment"
     android:orientation="vertical">
-
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/StatusBarColor"
         app:cardUseCompatPadding="true"
-        app:cardElevation="13dp"
+        app:cardElevation="16dp"
         app:cardCornerRadius="16dp">
-
         <LinearLayout
             android:padding="16dp"
             android:layout_width="match_parent"
@@ -86,24 +84,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="15dp"
                 android:orientation="horizontal" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/homeAlarm_recyclerView"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/homeAlarm_recyclerView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical"
+                    app:layout_constrainedHeight="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_max="380dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
-
-<com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:layout_marginEnd="30dp"
-    android:layout_marginBottom="30dp"
-    android:layout_marginTop="575dp"
-    android:id="@+id/homeAlarm_floatingButton"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="end"
-    android:src="@drawable/drug"
-    app:backgroundTint="@color/StatusBarColor" />
-
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_gravity="end|bottom"
+            android:id="@+id/homeAlarm_floatingButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:src="@drawable/drug"
+            app:backgroundTint="@color/StatusBarColor" />
 </FrameLayout>

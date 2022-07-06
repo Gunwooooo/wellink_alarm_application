@@ -12,6 +12,7 @@ import com.hanait.wellinkalarmapplication.databinding.FragmentHomeCalendarBindin
 import com.hanait.wellinkalarmapplication.db.DatabaseManager
 import com.hanait.wellinkalarmapplication.model.CalendarData
 import com.hanait.wellinkalarmapplication.utils.BaseFragment
+import com.hanait.wellinkalarmapplication.utils.Constants
 import com.hanait.wellinkalarmapplication.utils.CustomDialogFragment
 import com.hanait.wellinkalarmapplication.utils.OnSwipeTouchListener
 import java.text.SimpleDateFormat
@@ -24,7 +25,7 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
 
     companion object {
         lateinit var mCalendarList : ArrayList<CalendarData>
-        var takenArray = Array(32) { IntArray(3) { 0 } }
+        var takenArray = Array(32) { IntArray(4) { 0 } }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,12 +64,16 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
     private fun getCalendarAsMonth(cal: Calendar) {
         val month = SimpleDateFormat("MM").format(cal.time)
         mCalendarList = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectCalendarAsMonth(month)
-        Log.d("로그", "HomeCalendarFragment - init : ${mCalendarList.size}")
-        
+        takenArray = Array(32) { IntArray(4) { 0 } }
+
+        //오늘 날짜 체크하기
+        val todayCal = GregorianCalendar()
+        if( todayCal.get(Calendar.YEAR) ==  cal.get(Calendar.YEAR) && todayCal.get(Calendar.MONTH) == cal.get(Calendar.MONTH)) {
+            takenArray[todayCal.get(Calendar.DAY_OF_MONTH)][3] = 1
+        }
+
         //복용 정보 따로 저장하기
-        takenArray = Array(32) { IntArray(3) { 0 } }
         for(i in 0 until mCalendarList.size) {
-            Log.d("로그", "HomeCalendarFragment - init : ${mCalendarList[i]}")
             val index = mCalendarList[i].date.split('-')[2].toInt()
             takenArray[index][0] = 1
             val arr = arrayOf(mCalendarList[i].mtaken, mCalendarList[i].ataken, mCalendarList[i].etaken, mCalendarList[i].ntaken)
@@ -77,9 +82,6 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
                     takenArray[index][arr[j]]++
                 }
             }
-        }
-        for(i in 0 until takenArray.size) {
-            Log.d("로그", "HomeCalendarFragment - getCalendarAsMonth : $i -> ${takenArray[i][0]}  ${takenArray[i][1]}  ${takenArray[i][2]}")
         }
     }
 
@@ -153,7 +155,6 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
             object : CalendarAdapter.OnItemClickListener {
                 override fun onDayItemClick(v: View, pos: Int) {
                     //테두리 구현 부분
-                    Log.d("로그", "HomeCalendarFragment - onDayItemClick : pos  =  $pos")
                     binding.homeCalendarRecyclerView.layoutManager?.findViewByPosition(prevChoiceDay)?.setBackgroundResource(R.drawable.calendar_item_border)
                     binding.homeCalendarRecyclerView.layoutManager?.findViewByPosition(pos)?.setBackgroundResource(R.drawable.calendar_choice_item_border)
                     prevChoiceDay = pos
@@ -177,7 +178,6 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
     }
 
     fun showDialog(dayOfMonth: Int) {
-        Log.d("로그", "day - showDialog : dayofMonth : $dayOfMonth")
         val calendar = GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), dayOfMonth, 0, 0, 0)
         val customDialog = CustomDialogFragment(R.layout.home_calendar_dialog, calendar)
         fragmentManager?.let { customDialog.show(it, "home_calendar_dialog") }

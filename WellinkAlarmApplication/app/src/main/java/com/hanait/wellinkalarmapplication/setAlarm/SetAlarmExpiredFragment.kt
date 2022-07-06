@@ -72,7 +72,6 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
         }
         val cal = Calendar.getInstance()
         var expiredDate = ""
-        cal.add(Calendar.MONTH, 1)
         cal.add(Calendar.DAY_OF_MONTH, alarmDataNumber)
         expiredDate = cal.time.let { Constants.sdf.format(it) }
         Log.d("로그", "오늘 날짜 : $expiredDate")

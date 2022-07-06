@@ -73,6 +73,9 @@ class HomeActivity : AppCompatActivity(){
                 val intent = Intent(this, HomeAccountActivity::class.java)
                 startActivity(intent)
             }
+            R.id.home_toolbar_today -> {
+                supportFragmentManager.beginTransaction().replace(R.id.home_frameId, HomeCalendarFragment()).commitAllowingStateLoss()
+            }
         }
         return super.onOptionsItemSelected(item)
     }

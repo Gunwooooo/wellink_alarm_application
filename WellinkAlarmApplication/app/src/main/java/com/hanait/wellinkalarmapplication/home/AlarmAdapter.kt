@@ -48,10 +48,10 @@ class AlarmAdapter(var context: Context, var data: ArrayList<AlarmData>, var lin
             alarmNameTextView.text = alarmData.name
 
 
-            if(alarmData.mswitch == 1) alarmMorningTextView.setTextColor(ContextCompat.getColor(context, R.color.toss_black_700))
-            if(alarmData.aswitch == 1) alarmAfternoonTextView.setTextColor(ContextCompat.getColor(context, R.color.toss_black_700))
-            if(alarmData.eswitch == 1) alarmEveningTextView.setTextColor(ContextCompat.getColor(context, R.color.toss_black_700))
-            if(alarmData.nswitch == 1) alarmNightTextView.setTextColor(ContextCompat.getColor(context, R.color.toss_black_700))
+            if(alarmData.mswitch == 1) alarmMorningTextView.setTextColor(ContextCompat.getColor(context, R.color.teal_200))
+            if(alarmData.aswitch == 1) alarmAfternoonTextView.setTextColor(ContextCompat.getColor(context, R.color.teal_200))
+            if(alarmData.eswitch == 1) alarmEveningTextView.setTextColor(ContextCompat.getColor(context, R.color.teal_200))
+            if(alarmData.nswitch == 1) alarmNightTextView.setTextColor(ContextCompat.getColor(context, R.color.teal_200))
 
 
             alarmDeleteImageView = itemView.findViewById(R.id.homeAlarmItem_imageView_delete)

@@ -57,7 +57,6 @@ class DatabaseManager(context: Context, fileName: String) :
     //Id에 해당하는 알람 정보 가져오기
     @SuppressLint("Recycle", "Range")
     fun selectCalendarAsDateAndName(date: String, name: String) : CalendarData? {
-        Log.d("로그", "DatabaseManager - selectCalendarAsDateAndName : $date    $name")
         val db = readableDatabase
         val list: ArrayList<CalendarData> = ArrayList()
         val cursor = db.rawQuery("select * from CALENDARS where date = '$date' and name= '$name'", null)
@@ -232,7 +231,6 @@ class DatabaseManager(context: Context, fileName: String) :
     //달력 클릭 시 데이터 가져오기
     @SuppressLint("Range", "Recycle")
     fun selectCalendarItemAlarm(clickedDate: String): ArrayList<AlarmData> {
-        Log.d("로그", "DatabaseManager - selectCalendarItemAlarm : $clickedDate")
         val db = readableDatabase
         val list: ArrayList<AlarmData> = ArrayList()
         val cursor = db.rawQuery(
@@ -245,6 +243,7 @@ class DatabaseManager(context: Context, fileName: String) :
         )
         while (cursor.moveToNext()) {
             val mAlarmData = AlarmData()
+            mAlarmData.id = cursor.getInt((cursor.getColumnIndex("id")))
             mAlarmData.date = cursor.getString(cursor.getColumnIndex("date"))
             mAlarmData.name = cursor.getString(cursor.getColumnIndex("name"))
             mAlarmData.period = cursor.getInt((cursor.getColumnIndex("period")))

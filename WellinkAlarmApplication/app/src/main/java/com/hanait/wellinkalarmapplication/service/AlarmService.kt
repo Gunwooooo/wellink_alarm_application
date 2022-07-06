@@ -94,12 +94,9 @@ class AlarmService: Service() {
                         }
                         //insert or modify 처리하기
                         //해당 날짜와 이름에 복용 정보가 0이 아니면 modify
-                        Log.d("로그", "SetAlarmPopupActivity - onCreate : postdelay  :  $tmpCalendarData")
                         if(calendarData == null) {
-                            Log.d("로그", "AlarmService - onStartCommand : 이프")
                             DatabaseManager.getInstance(this, "Alarms.db").insertCalendar(tmpCalendarData)
                         } else {
-                            Log.d("로그", "AlarmService - onStartCommand : 엘스")
                             DatabaseManager.getInstance(this, "Alarms.db").updateCalendar(tmpCalendarData, alarmData.name)
                         }
                         stopSelf()

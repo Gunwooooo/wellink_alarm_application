@@ -1,5 +1,7 @@
 package com.hanait.wellinkalarmapplication.receiver
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Context.POWER_SERVICE
@@ -7,6 +9,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.PowerManager
 import android.util.Log
+import androidx.core.content.ContextCompat
 import com.hanait.wellinkalarmapplication.db.DatabaseManager
 import com.hanait.wellinkalarmapplication.model.AlarmData
 import com.hanait.wellinkalarmapplication.service.AlarmService
@@ -34,7 +37,7 @@ class AlarmReceiver : BroadcastReceiver(){
                     ADD_INTENT -> {
                         //데이터 전달받기
                         val pendingId = intent.extras?.getInt("PendingId")!!
-
+                        Log.d("로그", "AlarmReceiver - onReceive : pendingId : $pendingId")
                         //알람 주기 및 만기일 체크 후 울리게 하기
                         //DB에서 해당하는 약 데이터 가져오기
                         val cal = Calendar.getInstance()
@@ -44,9 +47,19 @@ class AlarmReceiver : BroadcastReceiver(){
                         for(i in 0 until mAlarmList.size) {
                             Log.d("로그", "AlarmReceiver - onReceive : $i    ${mAlarmList[i]}")
                         }
-                        Log.d("로그", "AlarmReceiver - onReceive : ----------------------")
+
+                        //해당 주기에 맞는 알람이 맞는지 체크
                         var alarmSkipCheck = true
                         for(i in 0 until mAlarmList.size) {
+                            //만기일이 지났을 경우 알람 삭제
+                            if(mAlarmList[i].expired != "" && strDate > mAlarmList[i].expired) {
+                                Log.d("로그", "AlarmReceiver - onReceive : 만기일이 지났습니다.")
+                                val alarmIntent = PendingIntent.getBroadcast(context, pendingId, Intent(context, AlarmReceiver::class.java), 0)
+                                val alarmManager = context.let { ContextCompat.getSystemService(it, AlarmManager::class.java) }
+                                alarmManager?.cancel(alarmIntent)
+                            }
+
+                            //오늘 해당하는 알람이 아니면 check = false
                             if(mAlarmList[i].id == (pendingId / 4)) {
                                 alarmSkipCheck = false
                             }

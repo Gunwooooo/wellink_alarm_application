@@ -58,19 +58,22 @@ class CustomDialogFragment(private val layout: Int, private val cal: GregorianCa
                 val monthTextView = view.findViewById(R.id.homeCalendarDialog_textView_dayOfMonth) as TextView
                 monthTextView.text = "${cal?.get(Calendar.DAY_OF_MONTH).toString()}일"
 
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //오늘 날짜 이후로는 selectCalendarItemAlarm으로 데이터 가져와서 출력하기
+                //이전 날짜라면 mCalendarList에서 해당 날짜 데이터만 출력하기
                 //DB에서 해당하는 약 데이터 가져오기
+                if(cal)
                 val strDate = cal?.time?.let { sdf.format(it) }
-                var mAlarmList: ArrayList<AlarmData> = ArrayList()
-                mAlarmList = context?.let { DatabaseManager.getInstance(it, "Alarms.db").selectCalendarItemAlarm(strDate!!) }!!
+                val mAlarmList: ArrayList<AlarmData> =
+                    context?.let { DatabaseManager.getInstance(it, "Alarms.db").selectCalendarItemAlarm(strDate!!) }!!
 
-                val morningArray = Array<String>(3) { "" }
-                val afternoonArray = Array<String>(3) { "" }
-                val eveningArray = Array<String>(3) { "" }
-                val nightArray = Array<String>(3) { "" }
+                val morningArray = Array(3) { "" }
+                val afternoonArray = Array(3) { "" }
+                val eveningArray = Array(3) { "" }
+                val nightArray = Array(3) { "" }
 
                 //0 : 복용예정   1:복용   2:미복용
                 for(i in 0 until mAlarmList.size ) {
-                    Log.d("로그", "mAlarmList : ${i+1}     $mAlarmList")
                     //DB에서 캘린더 데이터 가져오기
                     var calendarData: CalendarData? = CalendarData(0, strDate!!, "", 0, 0, 0, 0)
                     if(DatabaseManager.getInstance(requireContext(), "Alarms.db").selectCalendarAsDateAndName(strDate, mAlarmList[i].name) != null) {
@@ -105,10 +108,6 @@ class CustomDialogFragment(private val layout: Int, private val cal: GregorianCa
                         }
                     }
                 }
-                Log.d("로그", "m : ${morningArray[0]}/${morningArray[1]}/${morningArray[2]}")
-                Log.d("로그", "a : ${afternoonArray[0]}/${afternoonArray[1]}/${afternoonArray[2]}")
-                Log.d("로그", "e : ${eveningArray[0]}/${eveningArray[1]}/${eveningArray[2]}")
-                Log.d("로그", "n : ${nightArray[0]}/${nightArray[1]}/${nightArray[2]}")
 
                 val morningTextView = view.findViewById(R.id.homeCalendarDialog_textView_morning) as TextView
                 val afternoonTextView = view.findViewById(R.id.homeCalendarDialog_textView_afternoon) as TextView
@@ -116,32 +115,28 @@ class CustomDialogFragment(private val layout: Int, private val cal: GregorianCa
                 val nightTextView = view.findViewById(R.id.homeCalendarDialog_textView_night) as TextView
 
                 var spannableString = SpannableString("${morningArray[1]}${morningArray[2]}${morningArray[0]}")
-                Log.d("로그", "CustomDialogFragment - onCreateDialog : spanString : $spannableString")
-                Log.d("로그", "CustomDialogFragment - onCreateDialog : ${spannableString.length}")
+
                 spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#487fee")), 0, morningArray[1].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 if(morningArray[1].isNotEmpty() && morningArray[2].isNotEmpty()) spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#d0252e")), morningArray[1].length, morningArray[1].length + morningArray[2].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 else if(morningArray[1].isEmpty() && morningArray[2].isNotEmpty()) spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#d0252e")), 0, morningArray[1].length + morningArray[2].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 morningTextView.text = spannableString
 
                 spannableString = SpannableString("${afternoonArray[1]}${afternoonArray[2]}${afternoonArray[0]}")
-                Log.d("로그", "CustomDialogFragment - onCreateDialog : spanString : $spannableString")
-                Log.d("로그", "CustomDialogFragment - onCreateDialog : ${spannableString.length}")
+
                 spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#487fee")), 0, afternoonArray[1].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 if(afternoonArray[1].isNotEmpty() && afternoonArray[2].isNotEmpty()) spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#d0252e")), afternoonArray[1].length, afternoonArray[1].length + afternoonArray[2].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 else if(afternoonArray[1].isEmpty() && afternoonArray[2].isNotEmpty()) spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#d0252e")), 0, afternoonArray[1].length + afternoonArray[2].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 afternoonTextView.text = spannableString
 
                 spannableString = SpannableString("${eveningArray[1]}${eveningArray[2]}${eveningArray[0]}")
-                Log.d("로그", "CustomDialogFragment - onCreateDialog : spanString : $spannableString")
-                Log.d("로그", "CustomDialogFragment - onCreateDialog : ${spannableString.length}")
+
                 spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#487fee")), 0, eveningArray[1].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 if(eveningArray[1].isNotEmpty() && eveningArray[2].isNotEmpty()) spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#d0252e")), eveningArray[1].length, eveningArray[1].length + eveningArray[2].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 else if(eveningArray[1].isEmpty() && eveningArray[2].isNotEmpty()) spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#d0252e")), 0, eveningArray[1].length + eveningArray[2].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 eveningTextView.text = spannableString
 
                 spannableString = SpannableString("${nightArray[1]}${nightArray[2]}${nightArray[0]}")
-                Log.d("로그", "CustomDialogFragment - onCreateDialog : spanString : $spannableString")
-                Log.d("로그", "CustomDialogFragment - onCreateDialog : ${spannableString.length}")
+
                 spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#487fee")), 0, nightArray[1].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 if(nightArray[1].isNotEmpty() && nightArray[2].isNotEmpty()) spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#d0252e")), nightArray[1].length, nightArray[1].length + nightArray[2].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 else if(nightArray[1].isEmpty() && nightArray[2].isNotEmpty()) spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#d0252e")), 0, nightArray[1].length + nightArray[2].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
