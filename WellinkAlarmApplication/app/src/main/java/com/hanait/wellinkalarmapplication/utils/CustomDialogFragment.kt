@@ -62,7 +62,7 @@ class CustomDialogFragment(private val layout: Int, private val cal: GregorianCa
                 //오늘 날짜 이후로는 selectCalendarItemAlarm으로 데이터 가져와서 출력하기
                 //이전 날짜라면 mCalendarList에서 해당 날짜 데이터만 출력하기
                 //DB에서 해당하는 약 데이터 가져오기
-                if(cal)
+//                if(cal)
                 val strDate = cal?.time?.let { sdf.format(it) }
                 val mAlarmList: ArrayList<AlarmData> =
                     context?.let { DatabaseManager.getInstance(it, "Alarms.db").selectCalendarItemAlarm(strDate!!) }!!
