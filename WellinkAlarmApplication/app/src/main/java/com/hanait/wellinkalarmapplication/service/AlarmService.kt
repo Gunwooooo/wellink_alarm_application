@@ -1,10 +1,7 @@
 package com.hanait.wellinkalarmapplication.service
 
 import android.annotation.SuppressLint
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.app.Service
+import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -40,10 +37,7 @@ class AlarmService: Service() {
         private lateinit var mediaPlayer: MediaPlayer
         const val SERVICE_TIME_OUT: Long = 60000 //1분
         const val CHANNEL_ID = "primary_notification_channel"
-        var NOTIFICATION_ID = 0
     }
-
-
 
     override fun onCreate() {
         super.onCreate()
@@ -54,7 +48,6 @@ class AlarmService: Service() {
         Log.d("로그", "AlarmService - onStartCommand : 서비스 호출됨")
         val onOff = intent?.extras?.getString("ON_OFF")
         val pendingId = intent?.extras?.getInt("PendingId")!!
-        NOTIFICATION_ID = pendingId
 
         when(onOff) {
             ADD_INTENT -> {
@@ -64,8 +57,6 @@ class AlarmService: Service() {
                 //알람 id 받기
                 Log.d("로그", "AlarmService - onStartCommand : pendingId : $pendingId")
                 alarmData = DatabaseManager.getInstance(this, "Alarms.db").selectAlarmAsId(pendingId / 4)!!
-                Log.d("로그", "AlarmService - onStartCommand : ---------------")
-                Log.d("로그", "AlarmReceiver - onReceive : NOT_ID : $NOTIFICATION_ID  pendingId : $pendingId : $alarmData")
 
                 //DB에서 캘린더 데이터 가져오기
                 val cal = Calendar.getInstance()
@@ -80,9 +71,10 @@ class AlarmService: Service() {
                 //서비스 시간 정해놓기 (미복용)
                 Handler().postDelayed({
                     if(!takenFlag) {
-                        Log.d("로그", "AlarmService - onStartCommand : 알람 시간 종료!!!!")
+                        Log.d("로그", "AlarmService - onStartCommand : 알람 시간 종료!")
                         Toast.makeText(this, "약을 미복용했어요", Toast.LENGTH_SHORT).show()
 
+                        //캘린더 DB에 미복용 정보 저장
                         var tmpCalendarData = CalendarData()
                         if(calendarData != null) tmpCalendarData = calendarData as CalendarData
                         tmpCalendarData.name = alarmData.name
@@ -114,8 +106,8 @@ class AlarmService: Service() {
 
     //알림 소리 끄기
     private fun stopMedia(intent: Intent, pendingId: Int) {
-        val alarmId = intent.extras?.getInt("PendingId")
-        if(mediaPlayer.isPlaying && alarmId == pendingId) {
+        val pendingId2 = intent.extras?.getInt("PendingId")
+        if(mediaPlayer.isPlaying && pendingId == pendingId2) {
             mediaPlayer.stop()
             mediaPlayer.reset()
         }
@@ -162,14 +154,15 @@ class AlarmService: Service() {
                 NotificationCompat.BigTextStyle().bigText(message)
             )
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createNotificationChannel()
-            Log.d("로그", "AlarmService - startNotification : 오레오 if문 걸림")
+            createNotificationChannel(pendingId, notification)
         }
-        startForeground(NOTIFICATION_ID, notification.build())
+        Log.d("로그", "AlarmService - startNotification : 알람 펜딩 아이디 : $pendingId")
+        startForeground(pendingId, notification.build())
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun createNotificationChannel() {
+    private fun createNotificationChannel(pendingId: Int, notification: NotificationCompat.Builder) {
+        Log.d("로그", "AlarmService - createNotificationChannel : createNotification 호출됨!!!")
         val notificationChannel = NotificationChannel(CHANNEL_ID, "MyApp notification", NotificationManager.IMPORTANCE_HIGH)
         notificationChannel.enableLights(true)
         notificationChannel.lightColor = Color.RED
@@ -180,6 +173,8 @@ class AlarmService: Service() {
             Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(
             notificationChannel)
+
+        notificationManager.notify(pendingId, notification.build())
     }
 
     //노티 알람 타이틀 만들기

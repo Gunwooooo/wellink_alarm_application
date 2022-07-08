@@ -27,9 +27,6 @@ class AlarmReceiver : BroadcastReceiver(){
         Log.d("로그", "AlarmReceiver - onReceive : 리시버 호출됨")
         // this hold information to service
         val intentToService = Intent(context, AlarmService::class.java)
-
-
-
         if(intent != null)     {
             try {
                 val intentType = intent.extras?.getString("intentType")
@@ -45,7 +42,7 @@ class AlarmReceiver : BroadcastReceiver(){
                         var mAlarmList: ArrayList<AlarmData> = ArrayList()
                         mAlarmList = context?.let { DatabaseManager.getInstance(it, "Alarms.db").selectCalendarItemAlarm(strDate) }!!
                         for(i in 0 until mAlarmList.size) {
-                            Log.d("로그", "AlarmReceiver - onReceive : $i    ${mAlarmList[i]}")
+                            Log.d("로그", "AlarmReceiver - onReceive : 오늘 등록돼있는 알람 리스트 : ${mAlarmList[i]}")
                         }
 
                         //해당 주기에 맞는 알람이 맞는지 체크
@@ -85,9 +82,9 @@ class AlarmReceiver : BroadcastReceiver(){
                     }
                     OFF_INTENT -> {
                         Log.d("로그", "AlarmReceiver - onReceive : Reciever Off_intent 호출됨")
-                        val alarmId = intent.extras?.getInt("PendingId")
+                        val pendingId = intent.extras?.getInt("PendingId")
                         intentToService.putExtra("ON_OFF", OFF_INTENT)
-                        intentToService.putExtra("AlarmId", alarmId)
+                        intentToService.putExtra("PendingId", pendingId)
 
                         //버전 체크 후 서비스 불러오기
                         startService(intentToService)

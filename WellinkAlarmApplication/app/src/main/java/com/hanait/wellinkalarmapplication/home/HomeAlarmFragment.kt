@@ -1,17 +1,22 @@
 package com.hanait.wellinkalarmapplication.home
 
 import android.annotation.SuppressLint
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hanait.wellinkalarmapplication.R
 import com.hanait.wellinkalarmapplication.databinding.FragmentHomeAlarmBinding
 import com.hanait.wellinkalarmapplication.db.DatabaseManager
 import com.hanait.wellinkalarmapplication.model.AlarmData
+import com.hanait.wellinkalarmapplication.receiver.AlarmReceiver
 import com.hanait.wellinkalarmapplication.setAlarm.SetAlarmActivity
 import com.hanait.wellinkalarmapplication.utils.BaseFragment
+import com.hanait.wellinkalarmapplication.utils.Constants
 import com.hanait.wellinkalarmapplication.utils.Constants.mAlarmList
 import com.hanait.wellinkalarmapplication.utils.Constants.tempAlarmData2
 import com.hanait.wellinkalarmapplication.utils.CustomDialogFragment
@@ -85,9 +90,21 @@ class HomeAlarmFragment : BaseFragment<FragmentHomeAlarmBinding>(FragmentHomeAla
             //삭제 예 버튼 클릭
             override fun onPositiveClicked() {
                 DatabaseManager.getInstance(requireContext(), "Alarms.db").deleteAlarm(mAlarmList[pos - 1])
+                val alarmId = mAlarmList[pos-1].id
                 mAlarmList.removeAt(pos - 1)
                 setTextAlarmCountAndExplain()
                 alarmAdapter.notifyDataSetChanged()
+
+                //alarmmanager 아점저취 모두 삭제 -> 서비스 호출 종료
+                val intent = Intent(context, AlarmReceiver::class.java)
+                for(i in 0 until 4) {
+                    val pendingId = alarmId * 4 + i
+                    val alarmIntent = PendingIntent.getBroadcast(context, pendingId, intent, 0)
+                    val alarmManager = context?.let { ContextCompat.getSystemService(it, AlarmManager::class.java) }
+                    alarmManager?.cancel(alarmIntent)
+                    Log.d("로그", "HomeAlarmFragment - onPositiveClicked : $pendingId 알람 삭제 됩니다")
+                }
+
                 customDialog.dismiss()
             }
             //삭제 아니요 버튼 클릭

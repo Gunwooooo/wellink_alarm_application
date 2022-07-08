@@ -24,8 +24,6 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         mAlarmList = DatabaseManager.getInstance(this, "Alarms.db").selectAlarmAll()
-        Log.d("로그", "HomeAlarmFragment - getAlarmList : 알람 갯수 : ${mAlarmList.size}")
-
 
         Handler().postDelayed({
             startActivity(Intent(this, MainActivity::class.java))

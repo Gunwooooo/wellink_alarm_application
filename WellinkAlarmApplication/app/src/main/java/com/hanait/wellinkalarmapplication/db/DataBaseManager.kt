@@ -72,7 +72,6 @@ class DatabaseManager(context: Context, fileName: String) :
             list.add(mCalendar)
         }
         db.close()
-        Log.d("로그", "DatabaseManager - selectCalendarAsDateAndName : 호출완료  ${list.size}")
         if(list.size == 0) {
             return null
         }
