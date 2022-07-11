@@ -28,10 +28,8 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
     private var pendingId = 0
     private var alarmData: AlarmData? = null
     private var calendarData: CalendarData? = null
-    
-    companion object {
-        var takenFlag = false
-    }
+    var takenFlag = false
+
 
     @RequiresApi(Build.VERSION_CODES.O_MR1)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -132,6 +130,7 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
                 val intent = Intent(this, AlarmReceiver::class.java)
                 intent.putExtra("intentType", Constants.OFF_INTENT)
                 intent.putExtra("PendingId", pendingId)
+                intent.putExtra("takenFlag", takenFlag)
                 sendBroadcast(intent)
 
                 finishAndRemoveTask() // 액티비티 종료 + 태스크 리스트에서 지우기
