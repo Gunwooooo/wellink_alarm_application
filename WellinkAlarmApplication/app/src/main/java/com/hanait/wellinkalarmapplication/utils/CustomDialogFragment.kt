@@ -53,6 +53,7 @@ class CustomDialogFragment(private val layout: Int, private val cal: GregorianCa
                 positiveButton.setOnClickListener(this)
                 negativeButton.setOnClickListener(this)
             }
+            //////////////////////////////////달력 해당 날짜 화면////////////////////////////////////////
             R.layout.home_calendar_dialog -> {
                 //상단 일 표시
                 val monthTextView = view.findViewById(R.id.homeCalendarDialog_textView_dayOfMonth) as TextView

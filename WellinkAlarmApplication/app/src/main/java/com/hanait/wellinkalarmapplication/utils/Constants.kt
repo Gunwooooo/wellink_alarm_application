@@ -32,4 +32,7 @@ object Constants {
 
     var mAlarmList: ArrayList<AlarmData> = ArrayList()
 
+    //서비스 list
+    var mPendingIdList: ArrayList<Int> = ArrayList()
+
 }
