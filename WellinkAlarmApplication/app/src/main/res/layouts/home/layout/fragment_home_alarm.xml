@@ -42,7 +42,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.6"/>
                 <ImageView
-                    android:background="?attr/selectableItemBackground"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:focusable="true"
                     android:id="@+id/homeAlarm_addAlarm"

@@ -86,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="시작하기"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 android:textColor="@color/white"/>
         </LinearLayout>
         <LinearLayout

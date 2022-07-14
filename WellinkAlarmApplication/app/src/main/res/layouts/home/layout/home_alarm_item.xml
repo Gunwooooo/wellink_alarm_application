@@ -115,7 +115,7 @@
         android:layout_height="match_parent"
         android:layout_weight="0.12">
         <ImageView
-            android:background="?attr/selectableItemBackground"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:id="@+id/homeAlarmItem_imageView_delete"
             android:layout_gravity="center"
             android:clickable="true"

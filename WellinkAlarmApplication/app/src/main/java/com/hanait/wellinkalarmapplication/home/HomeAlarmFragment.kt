@@ -95,7 +95,7 @@ class HomeAlarmFragment : BaseFragment<FragmentHomeAlarmBinding>(FragmentHomeAla
                 DatabaseManager.getInstance(requireContext(), "Alarms.db").deleteCalendarAsDateAndName(mAlarmList[pos - 1].name, todayStrDate)
 
                 //알람 DB에서 삭제 
-                DatabaseManager.getInstance(requireContext(), "Alarms.db").deleteAlarm(mAlarmList[pos - 1])
+                DatabaseManager.getInstance(requireContext(), "Alarms.db").deleteAlarm(mAlarmList[pos - 1].name)
                 
                 //알람 리스트에서 삭제
                 val alarmId = mAlarmList[pos-1].id

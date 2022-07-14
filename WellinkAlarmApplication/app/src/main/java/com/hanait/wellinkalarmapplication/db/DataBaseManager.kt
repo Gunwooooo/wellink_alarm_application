@@ -259,9 +259,9 @@ class DatabaseManager(context: Context, fileName: String) :
     }
 
     //알람 삭제하기
-    fun deleteAlarm(alarmData: AlarmData) {
+    fun deleteAlarm(alarmName: String) {
         val db = writableDatabase
-        db.execSQL("delete from ALARMS where name = '" + alarmData.name + "';")
+        db.execSQL("delete from ALARMS where name = '$alarmName';")
         db.close()
     }
 

@@ -113,6 +113,9 @@ class AlarmReceiver : BroadcastReceiver(){
                 val alarmIntent = PendingIntent.getBroadcast(context, pendingId, Intent(context, AlarmReceiver::class.java), 0)
                 val alarmManager = context.let { ContextCompat.getSystemService(context!!, AlarmManager::class.java) }
                 alarmManager?.cancel(alarmIntent)
+                
+                //DB에서 알람 삭제
+                DatabaseManager.getInstance(context!!, "Alarms.db").deleteAlarm(mAlarmList[i].name)
             }
 
             //오늘 해당하는 알람이 아니면 check = false

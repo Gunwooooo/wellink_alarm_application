@@ -49,5 +49,5 @@
         android:stateListAnimator="@null"
         android:text="다음"
         android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:textSize="22sp" />
 </LinearLayout>

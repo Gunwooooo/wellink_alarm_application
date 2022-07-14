@@ -98,7 +98,7 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
         cal = GregorianCalendar()
         //월 캘린더 복용 데이터 가져오기
         getCalendarAsMonth(cal)
-        binding.homeCalendarTextViewMonth.text = "${cal.get(Calendar.YEAR)}년 ${cal.get(Calendar.MONTH) + 1}월"
+        binding.homeCalendarTextViewMonth.text = "${cal.get(Calendar.YEAR)}년  ${cal.get(Calendar.MONTH) + 1}월"
         setCalendarList(cal)
     }
 
@@ -109,14 +109,14 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
                 cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) -1 , 1)
                 setCalendarList(cal)
                 getCalendarAsMonth(cal)
-                binding.homeCalendarTextViewMonth.text = "${cal.get(Calendar.YEAR)}년 ${cal.get(Calendar.MONTH) + 1}월"
+                binding.homeCalendarTextViewMonth.text = "${cal.get(Calendar.YEAR)}년  ${cal.get(Calendar.MONTH) + 1}월"
                 setTodayBorder()
             }
             binding.homeCalendarNextBtn -> {
                 cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, 1)
                 setCalendarList(cal)
                 getCalendarAsMonth(cal)
-                binding.homeCalendarTextViewMonth.text = "${cal.get(Calendar.YEAR)}년 ${cal.get(Calendar.MONTH) + 1}월"
+                binding.homeCalendarTextViewMonth.text = "${cal.get(Calendar.YEAR)}년  ${cal.get(Calendar.MONTH) + 1}월"
                 setTodayBorder()
             }
         }

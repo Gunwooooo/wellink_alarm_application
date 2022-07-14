@@ -38,7 +38,7 @@
             android:layout_height="match_parent"
             android:textColor="@color/toss_blue_200"
             android:text="6월 20일 월요일"
-            android:textSize="21sp"
+            android:textSize="22sp"
             android:fontFamily="@font/ps_regular"/>
     </LinearLayout>
 

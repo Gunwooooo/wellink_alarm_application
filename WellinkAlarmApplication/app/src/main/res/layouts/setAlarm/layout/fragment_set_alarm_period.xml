@@ -57,7 +57,7 @@
                 android:stateListAnimator="@null"
                 android:text="매일 먹어요"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="19sp" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dip"
@@ -76,7 +76,7 @@
                 android:stateListAnimator="@null"
                 android:text="주기적으로 먹어요"
                 android:textColor="@color/toss_black_200"
-                android:textSize="18sp" />
+                android:textSize="19sp" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dip"
@@ -118,7 +118,7 @@
             android:text="매일 알림을 울려드릴게요!"
             android:fontFamily="@font/ps_regular"
             android:textColor="@color/toss_black_500"
-            android:textSize="18sp"/>
+            android:textSize="22sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -139,5 +139,5 @@
         android:stateListAnimator="@null"
         android:text="다음"
         android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:textSize="22sp" />
 </LinearLayout>
