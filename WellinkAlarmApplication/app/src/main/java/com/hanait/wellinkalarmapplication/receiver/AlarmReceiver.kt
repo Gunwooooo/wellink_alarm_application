@@ -25,12 +25,14 @@ import com.hanait.wellinkalarmapplication.db.DatabaseManager
 import com.hanait.wellinkalarmapplication.model.AlarmData
 
 import com.hanait.wellinkalarmapplication.service.AlarmService
+import com.hanait.wellinkalarmapplication.service.AlarmService.Companion.takenFlag
 import com.hanait.wellinkalarmapplication.setAlarm.SetAlarmPopupActivity
 
 import com.hanait.wellinkalarmapplication.utils.Constants
 import com.hanait.wellinkalarmapplication.utils.Constants.ADD_INTENT
 import com.hanait.wellinkalarmapplication.utils.Constants.OFF_INTENT
 import com.hanait.wellinkalarmapplication.utils.Constants.mPendingIdList
+import com.hanait.wellinkalarmapplication.utils.Constants.startServiceFlag
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -40,17 +42,14 @@ class AlarmReceiver : BroadcastReceiver(){
 
     override fun onReceive(context: Context?, intent: Intent?) {
         this.context = context
-        Log.d("로그", "AlarmReceiver - onReceive : 리시버 호출됨")
         var pendingId = intent?.extras?.getInt("PendingId")!!
-        var takenFlag = intent.extras?.getBoolean("takenFlag")
+        Log.d("로그", "AlarmReceiver - onReceive : $pendingId 리시버 호출됨")
         val intentToService = Intent(context, AlarmService::class.java)
         try {
             val intentType = intent.extras?.getString("intentType")
             when(intentType) {
                 ADD_INTENT -> {
                     //복용 여부 확인을 위한 변수
-                    takenFlag = false
-                    Log.d("로그", "AlarmReceiver - onReceive : pendingId : $pendingId")
 
                     //들어오는 모든 pendingId 저장
                     mPendingIdList.add(pendingId)
@@ -64,12 +63,16 @@ class AlarmReceiver : BroadcastReceiver(){
                     //서비스 인텐트 구성
                     intentToService.putExtra("ON_OFF", ADD_INTENT)
                     intentToService.putExtra("PendingId", pendingId)
-                    intentToService.putExtra("takenFlag", takenFlag)
 
                     //버전 체크 후 서비스 불러오기
                     handler.postDelayed({
                         Log.d("로그", "AlarmService - onStartCommand : pendingId : $pendingId   takenFlag : $takenFlag")
-                        startService(intentToService)
+                        //서비스는 한번만 호출하기
+                        if(startServiceFlag) {
+                            Log.d("로그", "AlarmReceiver - onReceive : 서비스 호출합니다잉")
+                            startServiceFlag = false
+                            startService(intentToService)
+                        }
                     }, 1000) //1초동안 들어오는 서비스 모두 가져오기
                 }
                 OFF_INTENT -> {
@@ -77,7 +80,6 @@ class AlarmReceiver : BroadcastReceiver(){
                     pendingId = intent.extras?.getInt("PendingId")!!
                     intentToService.putExtra("ON_OFF", OFF_INTENT)
                     intentToService.putExtra("PendingId", pendingId)
-                    intentToService.putExtra("takenFlag", takenFlag)
                     //버전 체크 후 서비스 불러오기
                     startService(intentToService)
                 }

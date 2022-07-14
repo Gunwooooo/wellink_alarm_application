@@ -1,5 +1,8 @@
 package com.hanait.wellinkalarmapplication.home
 
+import android.annotation.SuppressLint
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,12 +10,19 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.hanait.wellinkalarmapplication.MainActivity
 import com.hanait.wellinkalarmapplication.R
+import com.hanait.wellinkalarmapplication.SetUserNameActivity
 import com.hanait.wellinkalarmapplication.databinding.ActivityHomeAccountBinding
 import com.hanait.wellinkalarmapplication.databinding.ActivitySetAlarmBinding
+import com.hanait.wellinkalarmapplication.db.DatabaseManager
+import com.hanait.wellinkalarmapplication.receiver.AlarmReceiver
+import com.hanait.wellinkalarmapplication.utils.Constants
 import com.hanait.wellinkalarmapplication.utils.Constants.prefs
 import com.hanait.wellinkalarmapplication.utils.Constants.userName
+import com.hanait.wellinkalarmapplication.utils.CustomDialogFragment
+import java.util.*
 
 class HomeAccountActivity : AppCompatActivity(), View.OnClickListener{
 
@@ -25,7 +35,7 @@ class HomeAccountActivity : AppCompatActivity(), View.OnClickListener{
         setContentView(binding.root)
 
         binding.homeAccountBtnReset.setOnClickListener(this)
-
+        binding.homeAccountBtnRename.setOnClickListener(this)
         //타이틀 사용자 이름으로 설정
         Log.d("로그", "HomeAccountActivity - onCreate :  유저 네임 $userName")
         binding.homeAccountTextViewTitle.text = "${userName}님의 정보"
@@ -39,9 +49,15 @@ class HomeAccountActivity : AppCompatActivity(), View.OnClickListener{
     override fun onClick(v: View?) {
         when(v) {
             binding.homeAccountBtnReset -> {
+                showDialog()
+            }
+            binding.homeAccountBtnRename -> {
+                //이름 초기화
                 prefs.setString("user_name", "")
-                Toast.makeText(this, "데이터가 초기화되었습니다.", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, MainActivity::class.java)
+
+                //메인 화면으로 이동
+                val intent = Intent(applicationContext, SetUserNameActivity::class.java)
+                intent.putExtra("SkipSetAlarm", true)
                 startActivity(intent)
                 finish()
             }
@@ -57,5 +73,31 @@ class HomeAccountActivity : AppCompatActivity(), View.OnClickListener{
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun showDialog() {
+        val customDialog = CustomDialogFragment(R.layout.home_account_reset_dialog, null)
+        customDialog.setDialogListener(object: CustomDialogFragment.AccountResetListener {
+            override fun onPositiveClicked() {
+                //이름 초기화
+                prefs.setString("user_name", "")
+                //복용 정보 초기화
+                DatabaseManager.getInstance(applicationContext, "Alarms.db").resetCalendar()
+                //알람 데이터 초기화
+                DatabaseManager.getInstance(applicationContext, "Alarms.db").resetAlarm()
+
+                Toast.makeText(applicationContext, "데이터가 초기화되었습니다.", Toast.LENGTH_SHORT).show()
+                
+                //메인 화면으로 이동
+                val intent = Intent(applicationContext, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+
+            override fun onNegativeClicked() {
+                customDialog.dismiss()
+            }
+        })
+        fragmentManager?.let { customDialog.show(supportFragmentManager, "home_calendar_dialog") }
     }
 }

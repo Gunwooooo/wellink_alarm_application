@@ -34,5 +34,5 @@ object Constants {
 
     //서비스 list
     var mPendingIdList: ArrayList<Int> = ArrayList()
-
+    var startServiceFlag = true
 }

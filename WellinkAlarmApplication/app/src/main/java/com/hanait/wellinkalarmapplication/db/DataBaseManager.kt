@@ -78,7 +78,29 @@ class DatabaseManager(context: Context, fileName: String) :
         return list[0]
     }
 
-
+    //해당 날짜에 있는 복용 정보 가져오기
+    @SuppressLint("Recycle", "Range")
+    fun selectCalendarAsDate(date: String) : ArrayList<CalendarData>? {
+        val db = readableDatabase
+        val list: ArrayList<CalendarData> = ArrayList()
+        val cursor = db.rawQuery("select * from CALENDARS where date = '$date'", null)
+        while (cursor.moveToNext()) {
+            val mCalendar = CalendarData()
+            mCalendar.id = cursor.getInt((cursor.getColumnIndex("id")))
+            mCalendar.date = cursor.getString(cursor.getColumnIndex("date"))
+            mCalendar.name = cursor.getString(cursor.getColumnIndex("name"))
+            mCalendar.mtaken = cursor.getInt((cursor.getColumnIndex("mtaken")))
+            mCalendar.ataken = cursor.getInt((cursor.getColumnIndex("ataken")))
+            mCalendar.etaken = cursor.getInt((cursor.getColumnIndex("etaken")))
+            mCalendar.ntaken = cursor.getInt((cursor.getColumnIndex("ntaken")))
+            list.add(mCalendar)
+        }
+        db.close()
+        if(list.size == 0) {
+            return null
+        }
+        return list
+    }
 
     //모든 캘린더 데이터 가져오기
     @SuppressLint("Recycle", "Range")
@@ -102,6 +124,22 @@ class DatabaseManager(context: Context, fileName: String) :
         }
         db.close()
         return list
+    }
+
+    //특정 복용 데이터 삭제하기
+    fun deleteCalendarAsDateAndName(alarmName: String, date: String) {
+        val db = writableDatabase
+        db.execSQL("delete from CALENDARS where name = '$alarmName' and date = '$date';")
+        Log.d("로그", "DatabaseManager - deleteCalendarAsDateAndName : 오늘 복용 정보 삭제 완료")
+        db.close()
+    }
+
+    //복용 데이터 초기화
+    fun resetCalendar() {
+        val db = writableDatabase
+        db.execSQL("delete from CALENDARS;")
+        Log.d("로그", "DatabaseManager - resetCalendar : 복용 정보 초기화 완료")
+        db.close()
     }
     /////////////////////////////////// ---  알람  --- ////////////////////////////////////////////////////
     
@@ -268,5 +306,13 @@ class DatabaseManager(context: Context, fileName: String) :
         }
         db.close()
         return list
+    }
+
+    //복용 데이터 초기화
+    fun resetAlarm() {
+        val db = writableDatabase
+        db.execSQL("delete from ALARMS;")
+        Log.d("로그", "DatabaseManager - resetAlarm : 알람 정보 초기화 완료")
+        db.close()
     }
 }

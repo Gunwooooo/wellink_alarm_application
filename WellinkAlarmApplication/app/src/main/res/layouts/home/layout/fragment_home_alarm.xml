@@ -15,11 +15,12 @@
         app:cardElevation="16dp"
         app:cardCornerRadius="16dp">
         <LinearLayout
-            android:padding="16dp"
+            android:padding="18dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
             <LinearLayout
+                android:layout_gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -32,7 +33,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="복용중인 약"
-                        android:textSize="18sp"
+                        android:textSize="20sp"
                         android:fontFamily="@font/ps_bold"
                         android:textColor="@color/toss_black_500"/>
                 </LinearLayout>
@@ -41,17 +42,18 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.6"/>
                 <ImageView
+                    android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
                     android:id="@+id/homeAlarm_addAlarm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/ic_baseline_add_24"
                     app:tint="@color/toss_blue_200" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="15dp"/>
+                android:layout_height="5dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -66,23 +68,24 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="15dp"/>
+                android:layout_height="20dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/homeAlarm_textView_explain"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="현재 복용중인 약이 없어요"
-                    android:textSize="13sp"
+                    android:layout_height="match_parent"
                     android:fontFamily="@font/ps_regular"
-                    android:textColor="@color/toss_black_500"/>
+                    android:text="현재 복용중인 약이 없어요"
+                    android:textColor="@color/toss_black_500"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="15dp"
+                android:layout_height="20dp"
                 android:orientation="horizontal" />
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

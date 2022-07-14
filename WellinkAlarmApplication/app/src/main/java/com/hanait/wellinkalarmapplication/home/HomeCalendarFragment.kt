@@ -1,6 +1,7 @@
 package com.hanait.wellinkalarmapplication.home
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -11,6 +12,7 @@ import com.hanait.wellinkalarmapplication.R
 import com.hanait.wellinkalarmapplication.databinding.FragmentHomeCalendarBinding
 import com.hanait.wellinkalarmapplication.db.DatabaseManager
 import com.hanait.wellinkalarmapplication.model.CalendarData
+import com.hanait.wellinkalarmapplication.setAlarm.SetAlarmActivity
 import com.hanait.wellinkalarmapplication.utils.BaseFragment
 import com.hanait.wellinkalarmapplication.utils.Constants
 import com.hanait.wellinkalarmapplication.utils.CustomDialogFragment
@@ -63,9 +65,15 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
     @SuppressLint("SimpleDateFormat")
     private fun getCalendarAsMonth(cal: Calendar) {
         val month = SimpleDateFormat("MM").format(cal.time)
+        //아이콘 표시를 위한 arrayList
         mCalendarList = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectCalendarAsMonth(month)
         takenArray = Array(32) { IntArray(4) { 0 } }
 
+        Log.d("로그", "HomeCalendarFragment - getCalendarAsMonth : 복용 데이터 크기 : ${mCalendarList.size}")
+        for(i in 0 until mCalendarList.size) {
+            Log.d("로그", "HomeCalendarFragment - getCalendarAsMonth : mCalendarList[$i] : ${mCalendarList[i]}")
+        }
+        
         //오늘 날짜 체크하기
         val todayCal = GregorianCalendar()
         if( todayCal.get(Calendar.YEAR) ==  cal.get(Calendar.YEAR) && todayCal.get(Calendar.MONTH) == cal.get(Calendar.MONTH)) {
@@ -180,6 +188,16 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
     fun showDialog(dayOfMonth: Int) {
         val calendar = GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), dayOfMonth, 0, 0, 0)
         val customDialog = CustomDialogFragment(R.layout.home_calendar_dialog, calendar)
+        customDialog.setDialogListener(object:CustomDialogFragment.CalendarDialogListener {
+            //알람 설정하러 가기 버튼 클릭 이벤트 처리
+            override fun onGoAlarmIntentClicked() {
+                Log.d("로그", "HomeCalendarFragment - onGoAlarmIntentChecked : 알람 등록하러 가기 클릭 됨")
+                Constants.tempAlarmData2 = null
+                val intent = Intent(context, SetAlarmActivity::class.java)
+                startActivity(intent)
+                customDialog.dismiss()
+            }
+        })
         fragmentManager?.let { customDialog.show(it, "home_calendar_dialog") }
     }
 }

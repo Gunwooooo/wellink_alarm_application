@@ -26,6 +26,7 @@ import com.hanait.wellinkalarmapplication.utils.Constants
 import com.hanait.wellinkalarmapplication.utils.Constants.ADD_INTENT
 import com.hanait.wellinkalarmapplication.utils.Constants.OFF_INTENT
 import com.hanait.wellinkalarmapplication.utils.Constants.mPendingIdList
+import com.hanait.wellinkalarmapplication.utils.Constants.startServiceFlag
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -33,12 +34,12 @@ import java.util.*
 class AlarmService: Service() {
     private val handler = Handler()
     lateinit var alarmData: AlarmData
-    private var calendarData: CalendarData? = null
     private lateinit var mediaPlayer: MediaPlayer
 
     companion object {
         const val SERVICE_TIME_OUT: Long = 20000 //1분
         const val CHANNEL_ID = "primary_notification_channel"
+        var takenFlag = false
     }
 
     override fun onCreate() {
@@ -48,14 +49,16 @@ class AlarmService: Service() {
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("UnspecifiedImmutableFlag")
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.d("로그", "AlarmService - onStartCommand : 서비스 호출됨")
+
         val onOff = intent?.extras?.getString("ON_OFF")
         val pendingId = intent?.extras?.getInt("PendingId")!!
-        val takenFlag = intent.extras?.getBoolean("takenFlag")
+
+        Log.d("로그", "AlarmService - onStartCommand : $pendingId 서비스 호출됨")
         when(onOff) {
             ADD_INTENT -> {
+
 //              알람 id 받기
-                Log.d("로그", "AlarmService - onStartCommand : pendingId : $pendingId")
+                alarmData = DatabaseManager.getInstance(this, "Alarms.db").selectAlarmAsId(pendingId / 4)!!
 
                 //들어온 모든 서비스 갯수
                 Log.d("로그", "AlarmService - onStartCommand : 들어온 모든 서비스 갯수 : ${mPendingIdList.size}")
@@ -67,17 +70,19 @@ class AlarmService: Service() {
                 startMedia()
                 handler.postDelayed({
                     Log.d("로그", "AlarmService - onStartCommand : pendingId : $pendingId   takenFlag : $takenFlag")
-                    if(!takenFlag!!) {
+                    if(!takenFlag) {
                         Log.d("로그", "AlarmService - onStartCommand : 알람 시간 종료!")
 
                         Toast.makeText(this, "약을 미복용했어요", Toast.LENGTH_SHORT).show()
 
                         //서비스 갯수만큼 반복
                         for(i in 0 until mPendingIdList.size) {
+                            val alarmData = DatabaseManager.getInstance(this, "Alarms.db").selectAlarmAsId(
+                                mPendingIdList[i] / 4)!!
                             //DB에서 캘린더 데이터 가져오기
-                            getCalendarData(mPendingIdList[i])
+                            val calendarData = getCalendarData(alarmData.name)
                             //DB에 복용 정보 저장 or 수정 하기
-                            setCalendarData(mPendingIdList[i])
+                            setCalendarData(mPendingIdList[i], alarmData.name, calendarData)
                         }
                         //서비스 종료
                         stopSelf()
@@ -93,42 +98,37 @@ class AlarmService: Service() {
         return START_STICKY
     }
 
-    private fun setCalendarData(pendingId: Int) {
+    private fun setCalendarData(pendingId: Int, alarmName: String, calendarData: CalendarData?) {
         //서비스 시간 정해놓기 (미복용)
         var tmpCalendarData = CalendarData()
         if(calendarData != null) tmpCalendarData = calendarData as CalendarData
-        tmpCalendarData.name = alarmData.name
+        tmpCalendarData.name = alarmName
         when(pendingId % 4) {
             0 -> tmpCalendarData.mtaken = 2
             1 -> tmpCalendarData.ataken = 2
             2 -> tmpCalendarData.etaken = 2
             3 -> tmpCalendarData.ntaken = 2
         }
-        Log.d("로그", "AlarmService - onStartCommand : 22222222222222222222222222")
         //insert or modify 처리하기
         //해당 날짜와 이름에 복용 정보가 0이 아니면 modify
         if(calendarData == null) {
-            Log.d("로그", "AlarmService - onStartCommand : 33333333333333333333")
             DatabaseManager.getInstance(this, "Alarms.db").insertCalendar(tmpCalendarData)
         } else {
-            Log.d("로그", "AlarmService - onStartCommand : 4444444444444444444444444")
-            DatabaseManager.getInstance(this, "Alarms.db").updateCalendar(tmpCalendarData, alarmData.name)
+            DatabaseManager.getInstance(this, "Alarms.db").updateCalendar(tmpCalendarData, alarmName)
         }
     }
 
     //DB에서 복용 데이터 가져오기
-    private fun getCalendarData(pendingId: Int) {
-        alarmData = DatabaseManager.getInstance(this, "Alarms.db").selectAlarmAsId(pendingId / 4)!!
-
+    private fun getCalendarData(alarmName: String) : CalendarData? {
         val cal = Calendar.getInstance()
         val date = cal.time.let { Constants.sdf.format(it) }
         if (DatabaseManager.getInstance(applicationContext, "Alarms.db")
-                .selectCalendarAsDateAndName(date, alarmData.name) != null
+                .selectCalendarAsDateAndName(date, alarmName) != null
         ) {
-            calendarData = DatabaseManager.getInstance(applicationContext, "Alarms.db")
-                .selectCalendarAsDateAndName(date, alarmData.name)
+            return DatabaseManager.getInstance(applicationContext, "Alarms.db")
+                .selectCalendarAsDateAndName(date, alarmName)
         }
-        Log.d("로그", "AlarmService - initView : calendarData : $calendarData")
+        return null
     }
     
     override fun onDestroy() {
@@ -141,6 +141,7 @@ class AlarmService: Service() {
         
         //서비스 리스트 비우기
         mPendingIdList.clear()
+        startServiceFlag = true
     }
 
     //알림 소리 끄기
@@ -170,6 +171,7 @@ class AlarmService: Service() {
             this.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         popupIntent.putExtra("PendingId", pendingId)
+        popupIntent.putExtra("PendingIdList", mPendingIdList)
         val popupPendingIntent = PendingIntent.getActivity(this, 0, popupIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         val title = makeNotificationTitle(alarmData, pendingId)
         val message = "배너를 클릭하고 '복용' 버튼을 꼭 눌러주세요."
@@ -188,6 +190,16 @@ class AlarmService: Service() {
         }
         Log.d("로그", "AlarmService - startNotification : 알람 펜딩s 아이디 : $pendingId")
         startForeground(pendingId, notification.build())
+    }
+
+    private fun makeAlarmNameAsList() : String {
+        var alarmFullName = ""
+        for(i in 0 until mPendingIdList.size) {
+            val alarmData = DatabaseManager.getInstance(this, "Alarms.db").selectAlarmAsId(
+                mPendingIdList[i] / 4)!!
+            alarmFullName += " ${alarmData.name}"
+        }
+        return alarmFullName
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -235,7 +247,7 @@ class AlarmService: Service() {
                 cal.set(Calendar.MINUTE, alarmData.nminute)
             }
         }
-        return "$maen - $ampm ${SimpleDateFormat("H:mm").format(cal.time)} ${alarmData.name} 먹을 시간이에요!"
+        return "$maen - $ampm ${SimpleDateFormat("H:mm").format(cal.time)} ${makeAlarmNameAsList()} 먹을 시간이에요!"
     }
 
     override fun onBind(intent: Intent?): IBinder? { return null}

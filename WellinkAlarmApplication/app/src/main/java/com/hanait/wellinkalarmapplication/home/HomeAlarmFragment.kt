@@ -85,11 +85,19 @@ class HomeAlarmFragment : BaseFragment<FragmentHomeAlarmBinding>(FragmentHomeAla
     //알람 삭제 다이어로그
     fun showDialog(alarmAdapter:AlarmAdapter, pos:Int) {
         val customDialog = CustomDialogFragment(R.layout.home_alarm_delete_dialog, null)
-        customDialog.setDialogListener(object:CustomDialogFragment.CustomDialogListener {
+        customDialog.setDialogListener(object:CustomDialogFragment.DeleteDialogListener {
             @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
             //삭제 예 버튼 클릭
             override fun onPositiveClicked() {
+                //오늘 복용 데이터 삭제하기
+                val todayCal = GregorianCalendar()
+                val todayStrDate = todayCal.time.let { Constants.sdf.format(it) }
+                DatabaseManager.getInstance(requireContext(), "Alarms.db").deleteCalendarAsDateAndName(mAlarmList[pos - 1].name, todayStrDate)
+
+                //알람 DB에서 삭제 
                 DatabaseManager.getInstance(requireContext(), "Alarms.db").deleteAlarm(mAlarmList[pos - 1])
+                
+                //알람 리스트에서 삭제
                 val alarmId = mAlarmList[pos-1].id
                 mAlarmList.removeAt(pos - 1)
                 setTextAlarmCountAndExplain()
@@ -104,7 +112,6 @@ class HomeAlarmFragment : BaseFragment<FragmentHomeAlarmBinding>(FragmentHomeAla
                     alarmManager?.cancel(alarmIntent)
                     Log.d("로그", "HomeAlarmFragment - onPositiveClicked : $pendingId 알람 삭제 됩니다")
                 }
-
                 customDialog.dismiss()
             }
             //삭제 아니요 버튼 클릭

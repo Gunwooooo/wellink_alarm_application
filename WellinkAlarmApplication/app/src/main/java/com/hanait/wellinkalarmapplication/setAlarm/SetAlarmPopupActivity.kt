@@ -17,6 +17,7 @@ import com.hanait.wellinkalarmapplication.model.AlarmData
 import com.hanait.wellinkalarmapplication.model.CalendarData
 import com.hanait.wellinkalarmapplication.receiver.AlarmReceiver
 import com.hanait.wellinkalarmapplication.service.AlarmService.Companion.SERVICE_TIME_OUT
+import com.hanait.wellinkalarmapplication.service.AlarmService.Companion.takenFlag
 import com.hanait.wellinkalarmapplication.utils.Constants
 import com.hanait.wellinkalarmapplication.utils.Constants.mPendingIdList
 import java.text.SimpleDateFormat
@@ -27,9 +28,7 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding : ActivitySetAlarmPopupActivitiyBinding
     private var pendingId = 0
-    private var alarmData: AlarmData? = null
-    private var calendarData: CalendarData? = null
-    private var takenFlag = false
+    private var pendingIdList: ArrayList<Int> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +36,18 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
         binding = ActivitySetAlarmPopupActivitiyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Log.d("로그", "SetAlarmPopupActivity - onCreate : 서비스 리스트 갯수 : ${mPendingIdList.size}")
+        //pendingId 가져오기
+        pendingId = intent.getIntExtra("PendingId", 0)
+
+        Log.d("로그", "SetAlarmPopupActivitiy - onCreate : $pendingId 팝업 액티비티 호출됨!")
+
+        //모든 서비스 pendingId 가져오기
+        pendingIdList = intent.getSerializableExtra("PendingIdList") as ArrayList<Int>
+
+        Log.d("로그", "SetAlarmPopupActivity - onCreate : 펜딩아이디리스트 사이즈 : ${pendingIdList.size}")
+        for (i in 0 until pendingIdList.size) {
+            Log.d("로그", "SetAlarmPopupActivity - onCreate : pendingId $i : ${pendingIdList[i]}")
+        }
         
         initView()
 
@@ -47,77 +57,56 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
                 Log.d("로그", "SetAlarmPopupActivity - onCreate : 알람 시간 종료 팝업 지우기!")
 
                 //서비스 갯수만큼 반복
-                for(i in 0 until Constants.mPendingIdList.size) {
+                for(i in 0 until mPendingIdList.size) {
+                    val alarmData = DatabaseManager.getInstance(this, "Alarms.db").selectAlarmAsId(
+                        mPendingIdList[i] / 4)!!
                     //DB에서 캘린더 데이터 가져오기
-                    getCalendarData(Constants.mPendingIdList[i])
+                    val calendarData = getCalendarData(alarmData.name)
                     //DB에 복용 정보 저장 or 수정 하기
-                    setCalendarData(Constants.mPendingIdList[i], 2)
-                }
 
+                    setCalendarData(mPendingIdList[i], alarmData.name, 2, calendarData)
+                }
                 finishAndRemoveTask() // 액티비티 종료 + 태스크 리스트에서 지우기
             }
         }, SERVICE_TIME_OUT)
-
-        Log.d("로그", "SetAlarmPopupActivitiy - onCreate : 팝업 액티비티 호출됨!")
     }
 
-    private fun setCalendarData(pendingId: Int, taken: Int) {
+    private fun setCalendarData(pendingId: Int, alarmName: String, taken: Int, calendarData: CalendarData?) {
         //서비스 시간 정해놓기 (미복용)
         var tmpCalendarData = CalendarData()
         if(calendarData != null) tmpCalendarData = calendarData as CalendarData
-        tmpCalendarData.name = alarmData!!.name
+        tmpCalendarData.name = alarmName
         when(pendingId % 4) {
             0 -> tmpCalendarData.mtaken = taken
             1 -> tmpCalendarData.ataken = taken
             2 -> tmpCalendarData.etaken = taken
             3 -> tmpCalendarData.ntaken = taken
         }
-        Log.d("로그", "AlarmService - onStartCommand : 22222222222222222222222222")
         //insert or modify 처리하기
         //해당 날짜와 이름에 복용 정보가 0이 아니면 modify
         if(calendarData == null) {
-            Log.d("로그", "AlarmService - onStartCommand : 33333333333333333333")
             DatabaseManager.getInstance(this, "Alarms.db").insertCalendar(tmpCalendarData)
         } else {
-            Log.d("로그", "AlarmService - onStartCommand : 4444444444444444444444444")
-            DatabaseManager.getInstance(this, "Alarms.db").updateCalendar(tmpCalendarData, alarmData!!.name)
+            DatabaseManager.getInstance(this, "Alarms.db").updateCalendar(tmpCalendarData, alarmName)
         }
     }
 
     //DB에서 복용 데이터 가져오기
-    private fun getCalendarData(pendingId: Int) {
-        alarmData = DatabaseManager.getInstance(this, "Alarms.db").selectAlarmAsId(pendingId / 4)!!
+    private fun getCalendarData(alarmName: String) : CalendarData? {
         val cal = Calendar.getInstance()
         val date = cal.time.let { Constants.sdf.format(it) }
         if (DatabaseManager.getInstance(applicationContext, "Alarms.db")
-                .selectCalendarAsDateAndName(date, alarmData!!.name) != null
+                .selectCalendarAsDateAndName(date, alarmName) != null
         ) {
-            calendarData = DatabaseManager.getInstance(applicationContext, "Alarms.db")
-                .selectCalendarAsDateAndName(date, alarmData!!.name)
+            return DatabaseManager.getInstance(applicationContext, "Alarms.db")
+                .selectCalendarAsDateAndName(date, alarmName)
         }
-        Log.d("로그", "AlarmService - initView : calendarData : $calendarData")
+        return null
     }
 
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
     fun initView() {
-        //pendingId 가져오기
-        pendingId = intent.getIntExtra("PendingId", 0)
-        Log.d("로그", "SetAlarmPopupActivitiy - onCreate : create에서 로그 pendingId : $pendingId")
-        //DB에서 알림 데이터 가져오기
-
-
-        Log.d("로그", "SetAlarmPopupActivitiy - onCreate : $alarmData")
-
-        //DB에서 캘린더 데이터 가져오기
-        val cal = Calendar.getInstance()
-        val date = cal.time.let { Constants.sdf.format(it) }
-        if(DatabaseManager.getInstance(applicationContext, "Alarms.db").selectCalendarAsDateAndName(date, alarmData!!.name) != null) {
-            calendarData = DatabaseManager.getInstance(applicationContext, "Alarms.db").selectCalendarAsDateAndName(date, alarmData!!.name)
-        }
-        Log.d("로그", "SetAlarmPopupActivity - initView : calendarData : $calendarData")
-
-
-        binding.setAlarmPopupTextViewExplain.text = "${alarmData!!.name} 드실 시간이에요!"
+        binding.setAlarmPopupTextViewExplain.text = "${makeAlarmNameAsList()} 드실 시간이에요!"
 
         //현재 시간 및 날짜 가져오기
         val myCalendar = Calendar.getInstance()
@@ -129,14 +118,9 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
         binding.setAlarmPopupRippleBackground.startRippleAnimation()
     }
 
-    override fun onBackPressed() {
-//        return
-    }
-
     //full screen으로 만들기
     private fun setFullScreen() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-
         var newUiOptions = window.decorView.systemUiVisibility
         newUiOptions = newUiOptions xor View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
         newUiOptions = newUiOptions xor View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -152,14 +136,18 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
                 takenFlag = true
 
                 for(i in 0 until mPendingIdList.size) {
-                    setCalendarData(mPendingIdList[i], 1)
+                    val alarmData = DatabaseManager.getInstance(this, "Alarms.db").selectAlarmAsId(
+                        mPendingIdList[i] / 4)!!
+                    //DB에서 캘린더 데이터 가져오기
+                    val calendarData = getCalendarData(alarmData.name)
+                    //DB에 복용 정보 저장 or 수정 하기
+                    setCalendarData(mPendingIdList[i], alarmData.name, 1, calendarData)
                 }
 
                 //알림 끄는 broadcast
                 val intent = Intent(this, AlarmReceiver::class.java)
                 intent.putExtra("intentType", Constants.OFF_INTENT)
                 intent.putExtra("PendingId", pendingId)
-                intent.putExtra("takenFlag", takenFlag)
                 sendBroadcast(intent)
 
                 finishAndRemoveTask() // 액티비티 종료 + 태스크 리스트에서 지우기
@@ -179,5 +167,19 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
             7 -> "토요일"
             else -> ""
         }
+    }
+
+    private fun makeAlarmNameAsList() : String {
+        var alarmFullName = ""
+        for(i in 0 until mPendingIdList.size) {
+            val alarmData = DatabaseManager.getInstance(this, "Alarms.db").selectAlarmAsId(
+                mPendingIdList[i] / 4)!!
+            alarmFullName += " ${alarmData.name}"
+        }
+        return alarmFullName
+    }
+
+    override fun onBackPressed() {
+//        return
     }
 }

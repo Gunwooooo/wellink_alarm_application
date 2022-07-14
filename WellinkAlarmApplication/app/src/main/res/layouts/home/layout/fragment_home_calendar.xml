@@ -19,20 +19,24 @@
         android:background="@color/StatusBarColor"
         android:orientation="horizontal">
         <LinearLayout
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.1">
+            android:layout_weight="0.15">
             <ImageButton
+                android:layout_gravity="center_vertical"
                 android:id="@+id/homeCalendar_prevBtn"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:background="@drawable/ic_baseline_navigate_before_24"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.8">
+            android:layout_weight="0.76">
             <TextView
                 android:id="@+id/homeCalendar_textView_month"
                 android:layout_width="match_parent"
@@ -42,17 +46,21 @@
                 android:padding="16dp"
                 android:text="YYYY년 MM월"
                 android:textAlignment="center"
-                android:textSize="22sp" />
+                android:textSize="24sp" />
         </LinearLayout>
 
         <LinearLayout
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.1">
+            android:layout_weight="0.15">
             <ImageButton
+                android:layout_gravity="center_vertical"
                 android:id="@+id/homeCalendar_nextBtn"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:background="@drawable/ic_baseline_navigate_next_24"/>
         </LinearLayout>
     </LinearLayout>
@@ -71,7 +79,7 @@
             android:fontFamily="@font/ps_bold"
             android:textColor="@color/text_red_200"
             android:text="일"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:padding="10dp"
@@ -82,7 +90,7 @@
             android:text="월"
             android:fontFamily="@font/ps_bold"
             android:textColor="@color/toss_black_500"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:padding="10dp"
@@ -93,7 +101,7 @@
             android:text="화"
             android:fontFamily="@font/ps_bold"
             android:textColor="@color/toss_black_500"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:padding="10dp"
@@ -104,7 +112,7 @@
             android:text="수"
             android:textColor="@color/toss_black_500"
             android:fontFamily="@font/ps_bold"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:padding="10dp"
@@ -115,7 +123,7 @@
             android:gravity="left|center_vertical"
             android:text="목"
             android:textColor="@color/toss_black_500"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:padding="10dp"
@@ -126,7 +134,7 @@
             android:text="금"
             android:textColor="@color/toss_black_500"
             android:fontFamily="@font/ps_bold"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:padding="10dp"
@@ -137,7 +145,7 @@
             android:gravity="left|center_vertical"
             android:text="토"
             android:fontFamily="@font/ps_bold"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <!--달력뷰-->

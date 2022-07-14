@@ -4,18 +4,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="75dp"
+    android:layout_height="90dp"
     android:orientation="horizontal"
     android:clickable="true"
     android:focusable="true"
+    android:background="?attr/selectableItemBackground"
     android:weightSum="1">
 
     <LinearLayout
         android:layout_width="0dip"
         android:layout_height="match_parent"
-        android:layout_weight="0.05">
+        android:layout_weight="0.09">
         <TextView
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:id="@+id/homeAlarmItem_textView_num"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -28,23 +29,39 @@
     <LinearLayout
         android:layout_width="0dip"
         android:layout_height="match_parent"
-        android:layout_weight="0.06"/>
+        android:layout_weight="0.05"/>
 
     <LinearLayout
-        android:layout_weight="0.77"
+        android:layout_weight="0.74"
         android:layout_width="0dip"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center_vertical">
-        <TextView
-            android:id="@+id/homeAlarmItem_textView_name"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="약 이름"
-            android:textSize="16sp"
-            android:gravity="left"
-            android:fontFamily="@font/ps_bold"
-            android:textColor="@color/toss_black_700"/>
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="5dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/drug"/>
+            <TextView
+                android:id="@+id/homeAlarmItem_textView_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="약 이름"
+                android:textSize="20sp"
+                android:gravity="left"
+                android:fontFamily="@font/ps_bold"
+                android:textColor="@color/toss_black_700"/>
+
+
+        </LinearLayout>
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="7dp"/>
@@ -57,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="아침"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:fontFamily="@font/ps_regular"
                 android:textColor="@color/toss_black_150"/>
             <TextView
@@ -66,7 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="점심"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:fontFamily="@font/ps_regular"
                 android:textColor="@color/toss_black_150"/>
             <TextView
@@ -75,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="저녁"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:fontFamily="@font/ps_regular"
                 android:textColor="@color/toss_black_150"/>
             <TextView
@@ -83,8 +100,8 @@
                 android:id="@+id/homeAlarmItem_textView_night"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="취침전"
-                android:textSize="16sp"
+                android:text="취침"
+                android:textSize="20sp"
                 android:fontFamily="@font/ps_regular"
                 android:textColor="@color/toss_black_150"/>
         </LinearLayout>
@@ -98,6 +115,7 @@
         android:layout_height="match_parent"
         android:layout_weight="0.12">
         <ImageView
+            android:background="?attr/selectableItemBackground"
             android:id="@+id/homeAlarmItem_imageView_delete"
             android:layout_gravity="center"
             android:clickable="true"
@@ -105,6 +123,6 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/ic_baseline_close_24"
-            app:tint="@color/text_red_200"/>
+            app:tint="@color/toss_blue_200"/>
     </LinearLayout>
 </LinearLayout>

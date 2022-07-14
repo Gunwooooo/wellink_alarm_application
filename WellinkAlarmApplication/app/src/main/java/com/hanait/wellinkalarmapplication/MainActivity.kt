@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 userName = Constants.prefs.getString("user_name", "")
                 if(userName == "") {
                     val intent = Intent(this, SetUserNameActivity::class.java)
+                    intent.putExtra("SkipSetAlarm", false)
                     startActivity(intent)
                     return
                 }
