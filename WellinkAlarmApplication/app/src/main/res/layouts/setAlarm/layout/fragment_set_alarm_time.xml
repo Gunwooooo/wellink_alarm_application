@@ -316,13 +316,14 @@
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
-        android:padding="13dp"
+
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="0.407">
 
         <TextView
-            android:gravity="top|center_horizontal"
+            android:layout_marginBottom="25dp"
+            android:gravity="bottom|center_horizontal"
             android:id="@+id/setAlarmTime_textView_explain"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -341,7 +342,7 @@
         android:background="@drawable/btn_border_blue"
         android:fontFamily="@font/ps_regular"
         android:stateListAnimator="@null"
-        android:text="설정 완료"
+        android:text="다음"
         android:textColor="@color/white"
         android:textSize="22sp" />
 </LinearLayout>

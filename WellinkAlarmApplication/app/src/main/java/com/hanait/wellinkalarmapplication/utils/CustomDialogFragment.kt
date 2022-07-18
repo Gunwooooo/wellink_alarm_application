@@ -158,7 +158,7 @@ class CustomDialogFragment(private val layout: Int, private val cal: GregorianCa
                 //오늘 이후라면 alarm DB에서 가져오기
                 else {
                     val mAlarmList: ArrayList<AlarmData> =
-                        context?.let { DatabaseManager.getInstance(it, "Alarms.db").selectCalendarItemAlarm(strDate) }!!
+                        context?.let { DatabaseManager.getInstance(it, "Alarms.db").selectCalendarItemAsDate(strDate) }!!
                     if(mAlarmList.size == 0) {
                         takenLayout.visibility = View.GONE
                         emptyLayout.visibility = View.VISIBLE

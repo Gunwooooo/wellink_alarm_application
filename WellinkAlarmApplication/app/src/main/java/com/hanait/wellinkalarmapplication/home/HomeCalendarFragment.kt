@@ -66,8 +66,9 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
     private fun getCalendarAsMonth(cal: Calendar) {
         val month = SimpleDateFormat("MM").format(cal.time)
         //아이콘 표시를 위한 arrayList
+        //index -> 0:데이터 유무  1:복용갯수  2:미복용갯수  3:오늘날자 체크 4:복용 예정 약 개수
         mCalendarList = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectCalendarAsMonth(month)
-        takenArray = Array(32) { IntArray(4) { 0 } }
+        takenArray = Array(32) { IntArray(5) { 0 } }
 
         Log.d("로그", "HomeCalendarFragment - getCalendarAsMonth : 복용 데이터 크기 : ${mCalendarList.size}")
         for(i in 0 until mCalendarList.size) {
@@ -79,6 +80,18 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
         if( todayCal.get(Calendar.YEAR) ==  cal.get(Calendar.YEAR) && todayCal.get(Calendar.MONTH) == cal.get(Calendar.MONTH)) {
             takenArray[todayCal.get(Calendar.DAY_OF_MONTH)][3] = 1
         }
+        
+        //복용 예정일 알람 개수 저장 -> 알약 아이콘 투명하게 표시하기 위해서
+        for(i in 1 until 32) {
+            val tempCal = GregorianCalendar()
+            tempCal.set(Calendar.YEAR, cal.get(Calendar.YEAR))
+            tempCal.set(Calendar.MONTH, cal.get(Calendar.MONTH))
+            tempCal.set(Calendar.DAY_OF_MONTH, i)
+            val strDate = tempCal.time.let { Constants.sdf.format(it) }
+            val dayOfAlarmSize = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectCalendarItemAsDate(strDate).size
+            takenArray[i][4] = dayOfAlarmSize
+        }
+
 
         //복용 정보 따로 저장하기
         for(i in 0 until mCalendarList.size) {

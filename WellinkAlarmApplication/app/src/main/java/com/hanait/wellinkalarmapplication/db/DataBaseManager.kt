@@ -267,13 +267,13 @@ class DatabaseManager(context: Context, fileName: String) :
 
     //달력 클릭 시 데이터 가져오기
     @SuppressLint("Range", "Recycle")
-    fun selectCalendarItemAlarm(clickedDate: String): ArrayList<AlarmData> {
+    fun selectCalendarItemAsDate(clickedDate: String): ArrayList<AlarmData> {
         val db = readableDatabase
         val list: ArrayList<AlarmData> = ArrayList()
         val cursor = db.rawQuery(
             "select * from ALARMS " +
                     "where (strftime('%s', '$clickedDate') - strftime('%s', date) >= 0)" +
-                    "and (expired != '' and (strftime('%s', '$clickedDate') - strftime('%s', expired) < 0))" +
+                    "and (expired != '' and (strftime('%s', '$clickedDate') - strftime('%s', expired) <= 0))" +
                     "and (((strftime('%d', '$clickedDate') - strftime('%d', date)) % period) == 0)" +
                     "or ((strftime('%s', '$clickedDate') - strftime('%s', date) >= 0) and expired == '')",
             null

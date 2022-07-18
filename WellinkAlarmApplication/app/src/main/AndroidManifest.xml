@@ -16,9 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WellinkAlarmApplication.NoActionBar">
         <activity
+            android:name=".SearchDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".setAlarm.SetAlarmPopupActivity"
             android:exported="true"
-            android:launchMode="singleInstance"/>
+            android:launchMode="singleInstance" />
         <activity
             android:name=".SetUserNameActivity"
             android:exported="true"
@@ -49,8 +52,7 @@
         <receiver
             android:name=".receiver.AlarmReceiver"
             android:enabled="true"
-            android:exported="true">
-        </receiver>
+            android:exported="true"></receiver>
 
         <service
             android:name=".service.AlarmService"

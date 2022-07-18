@@ -12,7 +12,7 @@ import com.hanait.wellinkalarmapplication.R
 import com.hanait.wellinkalarmapplication.model.AlarmData
 
 
-class AlarmAdapter(var context: Context, var data: ArrayList<AlarmData>, var link: HomeAlarmFragment) :
+class AlarmAdapter(var context: Context, var data: ArrayList<AlarmData>) :
     RecyclerView.Adapter<AlarmAdapter.VH>() {
 
     //adapter 클릭 리스너 외부 처리를 위한 인터페이스

@@ -50,7 +50,7 @@ class HomeAlarmFragment : BaseFragment<FragmentHomeAlarmBinding>(FragmentHomeAla
     private fun recyclerViewCreate() {
         val alarmView = binding.homeAlarmRecyclerView
         val alarmAdapter =
-            context?.let { AlarmAdapter(it, mAlarmList, HomeAlarmFragment()) }
+            context?.let { AlarmAdapter(it, mAlarmList) }
         alarmAdapter?.setOnItemClickListener(
             object : AlarmAdapter.OnItemClickListener {
                 override fun onItemClick(v: View, pos: Int) {

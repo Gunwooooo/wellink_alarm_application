@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/ps_bold"
             android:gravity="center"
-            android:text="OO약의\n회분이 정해져 있나요?"
+            android:text="OO약을\n며칠 드시나요?"
             android:textColor="@color/toss_black_700"
             android:textSize="28sp" />
     </LinearLayout>
@@ -89,7 +89,7 @@
         android:id="@+id/setAlarmExpired_numberPicker_layout"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.384"
+        android:layout_weight="0.349"
         android:orientation="horizontal"
         android:gravity="center">
         <NumberPicker
@@ -100,7 +100,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="    회분"
+            android:text="    일"
             android:textSize="32sp"
             android:fontFamily="@font/ps_regular"
             android:textColor="@color/toss_black_500"/>
@@ -109,24 +109,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.125">
+        android:layout_weight="0.16">
         <TextView
+            android:lineSpacingExtra ="7dp"
             android:id="@+id/setAlarmExpired_textView_explain"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="기간에 제한없이 알림을 울려드릴게요!"
+            android:text="만기일 없이 알림을 울려드릴게요!"
             android:fontFamily="@font/ps_regular"
             android:textColor="@color/toss_black_500"
             android:textSize="22sp"/>
     </LinearLayout>
 
     <LinearLayout
+        android:visibility="visible"
         android:id="@+id/setAlarmExpired_space_layout"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.384"
-        android:orientation="horizontal"/>
+        android:layout_weight="0.349"
+        android:orientation="horizontal" />
+
     <Button
         android:id="@+id/setAlarmExpired_btn_next"
         android:layout_width="380dp"
@@ -136,7 +139,7 @@
         android:background="@drawable/btn_border_blue"
         android:fontFamily="@font/ps_regular"
         android:stateListAnimator="@null"
-        android:text="다음"
+        android:text="설정 완료"
         android:textColor="@color/white"
         android:textSize="22sp" />
 </LinearLayout>

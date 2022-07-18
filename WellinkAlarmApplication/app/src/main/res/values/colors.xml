@@ -32,6 +32,9 @@
     <color name="border_pistachio_200">#7cb342</color>
     <color name="border_sage_200">#33b679</color>
 
+<!--    캘린더 circle 색상-->
+    <color name="circle_red_100">#ff5b49</color>
+
 
 
 </resources>

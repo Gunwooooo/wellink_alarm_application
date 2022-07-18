@@ -98,7 +98,7 @@ class AlarmReceiver : BroadcastReceiver(){
         //알람 주기 및 만기일 체크 후 울리게 하기
         //DB에서 해당하는 약 데이터 가져오기
         val mAlarmList: ArrayList<AlarmData>
-        mAlarmList = context?.let { DatabaseManager.getInstance(it, "Alarms.db").selectCalendarItemAlarm(strDate) }!!
+        mAlarmList = context?.let { DatabaseManager.getInstance(it, "Alarms.db").selectCalendarItemAsDate(strDate) }!!
         for(i in 0 until mAlarmList.size) {
             Log.d("로그", "AlarmReceiver - onReceive : 오늘 등록돼있는 알람 리스트 : ${mAlarmList[i]}")
         }

@@ -43,16 +43,15 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
                     Toast.makeText(context, "시간을 설정하고 스위치를 켜주세요", Toast.LENGTH_SHORT).show()
                     return
                 }
+                //스위치 정보 전역변수 저장
                 saveSwitchData()
 
-                insertOrUpdateAlarm()
+                //알람 울리기 설정하기
+                setAllAlarmManager()
 
-                setAllAlarm()
-
-                //임시 데이터 삭제
-                tempAlarmData2 = null
-                val intent = Intent(context, HomeActivity::class.java)
-                startActivity(intent)
+                //만기일 설정으로 이동
+                val mActivity = activity as SetAlarmActivity
+                mActivity.changeFragment("SetAlarmExpiredFragment")
             }
             //카드뷰 클릭 시 다이어로그 생성
             binding.setAlarmTimeCardViewMorning -> makeDialog(binding.setAlarmTimeTextViewMTime, 7, 0, binding.setAlarmTimeSwitchMorning)
@@ -62,36 +61,21 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
         }
     }
 
-    //스위치에 따른 알람 울리게 설정 및 취소 설정
-    private fun setAllAlarm() {
+    // 스위치에 따른 알람 울리게 설정 및 취소 설정
+    private fun setAllAlarmManager() {
         val pendingId = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectAlarmIdAsName(tempAlarmData.name)?.times(4) ?: return
         if(binding.setAlarmTimeSwitchMorning.isChecked)
-            setAlarm(pendingId, tempAlarmData.mampm, tempAlarmData.mhour, tempAlarmData.mminute)
-        else deleteAlarm(pendingId)
+            setAlarmManager(pendingId, tempAlarmData.mampm, tempAlarmData.mhour, tempAlarmData.mminute)
+        else deleteAlarmManager(pendingId)
         if(binding.setAlarmTimeSwitchAfternoon.isChecked)
-            setAlarm(pendingId + 1, tempAlarmData.aampm, tempAlarmData.ahour, tempAlarmData.aminute)
-        else deleteAlarm(pendingId + 1)
+            setAlarmManager(pendingId + 1, tempAlarmData.aampm, tempAlarmData.ahour, tempAlarmData.aminute)
+        else deleteAlarmManager(pendingId + 1)
         if(binding.setAlarmTimeSwitchEvening.isChecked)
-            setAlarm(pendingId + 2, tempAlarmData.eampm, tempAlarmData.ehour, tempAlarmData.eminute)
-        else deleteAlarm(pendingId + 2)
+            setAlarmManager(pendingId + 2, tempAlarmData.eampm, tempAlarmData.ehour, tempAlarmData.eminute)
+        else deleteAlarmManager(pendingId + 2)
         if(binding.setAlarmTimeSwitchNight.isChecked)
-            setAlarm(pendingId + 3, tempAlarmData.nampm, tempAlarmData.nhour, tempAlarmData.nminute)
-        else deleteAlarm(pendingId + 3)
-    }
-
-    //약 이름 중복 체크
-    private fun insertOrUpdateAlarm() {
-        if(tempAlarmData2 == null) {
-            DatabaseManager.getInstance(requireContext(), "Alarms.db")
-                .insertAlarm(tempAlarmData)
-            Toast.makeText(context, "약이 추가되었습니다.", Toast.LENGTH_SHORT).show()
-        } else {
-            DatabaseManager.getInstance(requireContext(), "Alarms.db")
-                .updateAlarm(tempAlarmData, tempAlarmData2!!.name)
-            Toast.makeText(context, "약이 수정되었습니다.", Toast.LENGTH_SHORT).show()
-        }
-        mAlarmList = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectAlarmAll()
-        Log.d("로그", "HomeAlarmFragment - getAlarmList : 알람 갯수 : ${mAlarmList.size}")
+            setAlarmManager(pendingId + 3, tempAlarmData.nampm, tempAlarmData.nhour, tempAlarmData.nminute)
+        else deleteAlarmManager(pendingId + 3)
     }
 
     //스위치 변화 이벤트 감지
@@ -127,11 +111,11 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
 
     //실제 알람 설정
     @SuppressLint("UnspecifiedImmutableFlag")
-    private fun setAlarm(pendingId: Int, ampm:Int, hour: Int, minute: Int) {
-        Log.d("로그", "SetAlarmTimeFragment - setAlarm : 설정 된 알람 아이디 : $pendingId")
+    private fun setAlarmManager(pendingId: Int, ampm:Int, hour: Int, minute: Int) {
+        Log.d("로그", "SetAlarmTimeFragment - setAlarm : 설정 된 알람 아이디 : ampm:$ampm  hour:$hour  minut:$minute  pendingId:$pendingId")
         val myCalendar = Calendar.getInstance()
         val calendar = myCalendar.clone() as Calendar
-        if(ampm == 1 && calendar.get(Calendar.HOUR_OF_DAY) != 12)
+        if(ampm == 1 && hour != 12)
             calendar.set(Calendar.HOUR_OF_DAY, hour + 12)
         else calendar.set(Calendar.HOUR_OF_DAY, hour)
         calendar.set(Calendar.MINUTE, minute)
@@ -152,14 +136,16 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
         alarmManager?.cancel(alarmIntent)
         alarmManager?.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, alarmIntent)
     }
+
     //알람 취소
     @SuppressLint("UnspecifiedImmutableFlag")
-    private fun deleteAlarm(pendingId: Int) {
+    private fun deleteAlarmManager(pendingId: Int) {
         val alarmManager = context?.let { getSystemService(it, AlarmManager::class.java) }
         val intent = Intent(context, AlarmReceiver::class.java)
         val alarmIntent = PendingIntent.getBroadcast(context, pendingId, intent, 0)
         alarmManager?.cancel(alarmIntent)
     }
+
     //마지막에 모든 스위치 데이터 tempAlarmData에 저장
     private fun saveSwitchData() {
         if(binding.setAlarmTimeSwitchMorning.isChecked) tempAlarmData.mswitch = 1
@@ -223,8 +209,8 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
 
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
     private fun init() {
-        prevFragment = SetAlarmExpiredFragment()
-        progressBar.progress = 80
+        prevFragment = SetAlarmPeriodFragment()
+        progressBar.progress = 60
 
         binding.setAlarmTimeBtnNext.setOnClickListener(this)
         binding.setAlarmTimeCardViewMorning.setOnClickListener(this)

@@ -49,12 +49,14 @@ class CalendarAdapter(
         private lateinit var dayTextView: TextView
         private lateinit var dayView: LinearLayout
         private lateinit var dayImageView: ImageView
+        private lateinit var dayImageCircle: ImageView
         fun setDayTextView(day: String?, color:Int) {
             dayTextView = itemView.findViewById(R.id.homeCalendarItem_textView)
             dayTextView.setTextColor(ContextCompat.getColor(context, color))
             dayTextView.text = day
-
+            dayImageCircle = itemView.findViewById(R.id.homeCalendarItem_imageView_circle)
             dayView = itemView.findViewById(R.id.homeCalendarItem_view)
+
             dayView.setOnClickListener {
                 val pos = adapterPosition
                 if (pos != RecyclerView.NO_POSITION) mListener?.onDayItemClick(it, pos)
@@ -66,6 +68,10 @@ class CalendarAdapter(
             dayImageView = itemView.findViewById(R.id.homeCalendarItem_imageView)
             val index = day?.replace(" ", "")?.toInt()
             if (index != null) {
+                //복용 예정 약이 있는 view
+                if(takenArray[index][4] != 0) {
+                    dayImageCircle.visibility = View.VISIBLE
+                }
                 if(takenArray[index][3] == 1) {
                     dayTextView.setTextColor(ContextCompat.getColor(context, R.color.teal_200))
                     return
