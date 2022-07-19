@@ -76,13 +76,16 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
         }
         
         //오늘 날짜 체크하기
+        var j = 1
+
         val todayCal = GregorianCalendar()
         if( todayCal.get(Calendar.YEAR) ==  cal.get(Calendar.YEAR) && todayCal.get(Calendar.MONTH) == cal.get(Calendar.MONTH)) {
+            j = todayCal.get(Calendar.DAY_OF_MONTH)
             takenArray[todayCal.get(Calendar.DAY_OF_MONTH)][3] = 1
         }
         
         //복용 예정일 알람 개수 저장 -> 알약 아이콘 투명하게 표시하기 위해서
-        for(i in 1 until 32) {
+        for(i in j until 32) {
             val tempCal = GregorianCalendar()
             tempCal.set(Calendar.YEAR, cal.get(Calendar.YEAR))
             tempCal.set(Calendar.MONTH, cal.get(Calendar.MONTH))

@@ -9,7 +9,7 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/homeAccount_toolbar"
+        android:id="@+id/homeSearchDetail_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
@@ -18,7 +18,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="15dp"/>
-
 
     <TextView
         android:layout_marginBottom="15dp"
@@ -35,20 +34,20 @@
         android:id="@+id/materialViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:viewpager_logo="@layout/search_detail_header_image"
-        app:viewpager_logoMarginTop="100dp"
+        app:viewpager_animatedHeaderImage="true"
         app:viewpager_color="@color/colorPrimary"
-        app:viewpager_headerHeight="200dp"
+        app:viewpager_disableToolbar="true"
+        app:viewpager_displayToolbarWhenSwipe="true"
+        app:viewpager_enableToolbarElevation="true"
+        app:viewpager_headerAdditionalHeight="20dp"
         app:viewpager_headerAlpha="1.0"
+        app:viewpager_headerHeight="300dp"
         app:viewpager_hideLogoWithFade="false"
         app:viewpager_hideToolbarAndTitle="true"
-        app:viewpager_enableToolbarElevation="true"
+        app:viewpager_logo="@layout/search_detail_header_image"
+        app:viewpager_logoMarginTop="50dp"
         app:viewpager_parallaxHeaderFactor="1.5"
-        app:viewpager_headerAdditionalHeight="20dp"
-        app:viewpager_displayToolbarWhenSwipe="true"
         app:viewpager_transparentToolbar="true"
-        app:viewpager_animatedHeaderImage="true"
-        app:viewpager_disableToolbar="false"
 
         />
 </LinearLayout>

@@ -94,4 +94,16 @@ dependencies {
     implementation 'com.jpardogo.materialtabstrip:library:1.1.0'
     implementation 'com.github.bumptech.glide:glide:4.0.0'
 
+    //retrofit
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+
+    //레트로핏 로깅 인터셉터
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.1"
+
+    //xml parser
+    implementation 'com.tickaroo.tikxml:annotation:0.8.13'
+    implementation 'com.tickaroo.tikxml:core:0.8.13'
+    implementation 'com.tickaroo.tikxml:retrofit-converter:0.8.13'
+    kapt 'com.tickaroo.tikxml:processor:0.8.13'
 }
