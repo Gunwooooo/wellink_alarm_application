@@ -32,7 +32,6 @@ object Constants {
     const val OFF_INTENT = "OFF_INTENT"
 
     var mAlarmList: ArrayList<AlarmData> = ArrayList()
-    var mSearchList: ArrayList<Item> = ArrayList()
 
     //서비스 list
     var mPendingIdList: ArrayList<Int> = ArrayList()
@@ -49,6 +48,7 @@ object API {
 
     const val BASE_URL = "https://apis.data.go.kr/1471000/DrbEasyDrugInfoService/"
     //////////////////////////////////////////////////////////////
-    const val DUPLICATE_CHECK_USER = "getDrbEasyDrugList"
+    const val LOAD_SEARCH_DATA = "getDrbEasyDrugList"
+
 
 }

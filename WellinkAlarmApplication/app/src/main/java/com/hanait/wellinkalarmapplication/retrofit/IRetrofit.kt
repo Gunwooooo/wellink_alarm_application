@@ -7,13 +7,17 @@ import retrofit2.http.*
 
 interface IRetrofit {
 
-    @GET(API.DUPLICATE_CHECK_USER)
-    fun duplicateCheckUser(
+    @GET(API.LOAD_SEARCH_DATA)
+    fun loadSearchDataAsPage(
         @Query("serviceKey", encoded = true) serviceKey: String,
-        @Query("entpName", encoded = true) entpName: String,
         @Query("pageNo") pageNo: Int,
-        @Query("startPage") startPage: Int,
-        @Query("numOfRows") numOfRows: Int,
+    ): Call<SearchData>
+
+    @GET(API.LOAD_SEARCH_DATA)
+    fun loadSearchDataAsItemName(
+        @Query("serviceKey", encoded = true) serviceKey: String,
+        @Query("itemName") itemName: String,
+        @Query("pageNo") pageNo: Int,
     ): Call<SearchData>
 
 }

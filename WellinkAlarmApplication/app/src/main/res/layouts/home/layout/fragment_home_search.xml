@@ -11,6 +11,9 @@
 
 
     <EditText
+        android:id="@+id/homeSearch_editText"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
         android:padding="13dp"
         android:textSize="18sp"
         android:drawableEnd="@drawable/ic_baseline_search_24"
@@ -33,11 +36,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <androidx.recyclerview.widget.RecyclerView
+            android:scrollbars="vertical"
             android:id="@+id/homeSearch_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
-
-
 
 </LinearLayout>

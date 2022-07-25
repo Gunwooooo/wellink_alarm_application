@@ -3,6 +3,7 @@ package com.hanait.wellinkalarmapplication.model
 import com.tickaroo.tikxml.annotation.Element
 import com.tickaroo.tikxml.annotation.PropertyElement
 import com.tickaroo.tikxml.annotation.Xml
+import java.io.Serializable
 
 @Xml(name = "response")
 data class SearchData(
@@ -66,6 +67,6 @@ data class Item(
     var updateDe: String?,
     @PropertyElement(name="itemImage")
     var itemImage: String?,
-) {
+): Serializable {
     constructor() : this(null,null,null,null,null,null,null,null, null, null, null, null, null)
 }
