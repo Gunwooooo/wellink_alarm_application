@@ -46,7 +46,7 @@ data class Item(
     @PropertyElement(name = "itemName")
     var itemName: String?,
     @PropertyElement(name="itemSeq")
-    var itemSeq: String?,
+    var itemSeq: Int?,
     @PropertyElement(name="efcyQesitm")
     var efcyQesitm: String?,
     @PropertyElement(name="useMethodQesitm")

@@ -49,7 +49,9 @@ class HomeSearchFragment : BaseFragment<FragmentHomeSearchBinding>(FragmentHomeS
                     itemName = binding.homeSearchEditText.text.toString()
                     page = 1
 
-                    Toast.makeText(context, "${itemName}로 검색합니다.", Toast.LENGTH_SHORT).show()
+                    if(itemName == "")
+                        Toast.makeText(context, "검색어를 초기화합니다.", Toast.LENGTH_SHORT).show()
+                    else Toast.makeText(context, "${itemName}로 검색합니다.", Toast.LENGTH_SHORT).show()
                     model.loadSearchDataAsItemName(itemName, page)
 
                     recyclerViewCreate()
@@ -65,8 +67,7 @@ class HomeSearchFragment : BaseFragment<FragmentHomeSearchBinding>(FragmentHomeS
     private fun setModelObserve() {
         model.getAll().observe(this.viewLifecycleOwner, Observer {
             searchAdapter.setList(it.item as MutableList<Item>)
-            searchAdapter.notifyItemRangeInserted((page - 1) * 10, 10)
-
+            searchAdapter.notifyItemRangeInserted((page - 1) * 70, 70)
         })
     }
 
@@ -80,22 +81,18 @@ class HomeSearchFragment : BaseFragment<FragmentHomeSearchBinding>(FragmentHomeS
         searchView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-
                 val lastVisibleItemPosition =
                     (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
-                val itemTotalCount = recyclerView.adapter!!.itemCount-1
+                val itemTotalCount = recyclerView.adapter!!.itemCount - 1
 
                 // 스크롤이 끝에 도달했는지 확인
-                if (!searchView.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount && itemTotalCount >= 10) {
+                if (!searchView.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount && itemTotalCount >= 70 && lastVisibleItemPosition % 70 == 0) {
+                    Log.d("로그", "HomeSearchFragment - onScrolled : 끝에 도달")
                     searchAdapter.deleteLoading()
-                    Handler().postDelayed({
-                        if(itemName == "") model.loadSearchDataAsPage(++page)
-                        else model.loadSearchDataAsItemName(itemName, ++page)
-                    }, 700)
+                    if (itemName == "") model.loadSearchDataAsPage(++page)
+                    else model.loadSearchDataAsItemName(itemName, ++page)
                 }
             }
         })
     }
-
-
 }

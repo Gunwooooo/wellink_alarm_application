@@ -9,10 +9,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hanait.wellinkalarmapplication.R
+import com.hanait.wellinkalarmapplication.db.DatabaseManager
 import com.hanait.wellinkalarmapplication.model.AlarmData
 import com.hanait.wellinkalarmapplication.model.Item
 import com.hanait.wellinkalarmapplication.model.SearchData
@@ -26,7 +28,7 @@ class SearchAdapter(var context: Context) :
     private val item = ArrayList<Item>()
 
     inner class VH(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val itemList = item
+        private val itemList = item
 
         private lateinit var searchTextView: TextView
         private lateinit var searchItemLayout: LinearLayout
@@ -59,8 +61,17 @@ class SearchAdapter(var context: Context) :
                 context.startActivity(intent)
             }
 
+            //즐겨찾는 약 등록하기
             searchLikeImageView.setOnClickListener {
-                Log.d("로그", "VH - setSearchTextView : ###### $position")
+                val likeList = DatabaseManager.getInstance(context, "Alarms.db").selectLikeAll()
+                for (i in 0 until likeList.size) {
+                    if (likeList[i].itemSeq == itemList[position - 1].itemSeq) {
+                        Toast.makeText(context, "이미 등록된 약입니다.", Toast.LENGTH_SHORT).show()
+                        return@setOnClickListener
+                    }
+                }
+                DatabaseManager.getInstance(context, "Alarms.db").insertLike(itemList[position - 1])
+                Toast.makeText(context, "관심 약/약물로 등록되었습니다.", Toast.LENGTH_SHORT).show()
             }
 
         }
@@ -103,8 +114,9 @@ class SearchAdapter(var context: Context) :
     }
 
     fun setList(item: MutableList<Item>) {
+        Log.d("로그", "SearchAdapter - setList : @@@@@@@ ${item.size}")
         this.item.addAll(item)
-        if(item.size == 10) this.item.add(Item(" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ")) // progress bar 넣을 자리
+        if(item.size == 70) this.item.add(Item(" ", " ", 0, " ", " ", " ", " ", " ", " ", " ", " ", " ", " ")) // progress bar 넣을 자리
     }
 
     fun deleteLoading(){

@@ -11,13 +11,19 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.hanait.wellinkalarmapplication.MainActivity
 import com.hanait.wellinkalarmapplication.R
 import com.hanait.wellinkalarmapplication.SetUserNameActivity
 import com.hanait.wellinkalarmapplication.databinding.ActivityHomeAccountBinding
 import com.hanait.wellinkalarmapplication.databinding.ActivitySetAlarmBinding
 import com.hanait.wellinkalarmapplication.db.DatabaseManager
+import com.hanait.wellinkalarmapplication.model.AlarmData
+import com.hanait.wellinkalarmapplication.model.Item
+import com.hanait.wellinkalarmapplication.model.SearchData
 import com.hanait.wellinkalarmapplication.receiver.AlarmReceiver
+import com.hanait.wellinkalarmapplication.setAlarm.SetAlarmActivity
+import com.hanait.wellinkalarmapplication.setAlarm.SetAlarmNameFragment
 import com.hanait.wellinkalarmapplication.utils.Constants
 import com.hanait.wellinkalarmapplication.utils.Constants.prefs
 import com.hanait.wellinkalarmapplication.utils.Constants.userName
@@ -28,7 +34,9 @@ class HomeAccountActivity : AppCompatActivity(), View.OnClickListener{
 
 
     private lateinit var binding : ActivityHomeAccountBinding
+    private lateinit var likeList: ArrayList<Item>
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeAccountBinding.inflate(layoutInflater)
@@ -36,6 +44,19 @@ class HomeAccountActivity : AppCompatActivity(), View.OnClickListener{
 
         binding.homeAccountBtnReset.setOnClickListener(this)
         binding.homeAccountBtnRename.setOnClickListener(this)
+        binding.homeAccountAddAlarm.setOnClickListener(this)
+
+        //등록된 약 정보 가져오기
+        likeList = DatabaseManager.getInstance(this, "Alarms.db").selectLikeAll()
+
+        for(i in 0 until likeList.size) {
+            Log.d("로그", "HomeAccountActivity - onCreate : ${likeList[i]}")
+        }
+
+
+        setTextAlarmCountAndExplain()
+        recyclerViewCreate()
+
         //타이틀 사용자 이름으로 설정
         Log.d("로그", "HomeAccountActivity - onCreate :  유저 네임 $userName")
         binding.homeAccountTextViewTitle.text = "${userName}님의 정보"
@@ -44,6 +65,43 @@ class HomeAccountActivity : AppCompatActivity(), View.OnClickListener{
         setSupportActionBar(binding.homeAccountToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = ""
+    }
+
+    private fun recyclerViewCreate() {
+        val likeView = binding.homeAccountRecyclerView
+        val likeAdapter = LikeAdapter(this, likeList)
+        likeAdapter.setOnItemClickListener(
+            object : LikeAdapter.OnItemClickListener {
+                override fun onItemClick(v: View, pos: Int) {
+                    //상세 정보 보기
+                    Log.d("로그", "HomeAccountFragment - recyclerViewCreate : ${likeList[pos - 1]}")
+                    val intent = Intent(applicationContext, SearchDetailActivity::class.java)
+                    intent.putExtra("SearchData", likeList[pos - 1] )
+                    startActivity(intent)
+                }
+                @SuppressLint("NotifyDataSetChanged")
+                override fun onDeleteItem(v: View, pos: Int) {
+                    DatabaseManager.getInstance(applicationContext, "Alarms.db").deleteLike(likeList[pos - 1].itemSeq!!)
+                    likeList.removeAt(pos - 1)
+                    setTextAlarmCountAndExplain()
+                    likeAdapter.notifyDataSetChanged()
+                    recyclerViewCreate()
+                }
+            })
+        val layoutManager = LinearLayoutManager(this)
+        likeView.layoutManager = layoutManager
+        likeView.adapter = likeAdapter
+    }
+
+    //등록 약물 갯수 및 상단 설명 글 수정
+    @SuppressLint("SetTextI18n")
+    fun  setTextAlarmCountAndExplain() {
+        binding.homeAccountTextViewLikeCount.text = "${likeList.size}개"
+        if(likeList.size != 0) {
+            binding.homeAccountTextViewExplain.text = "아래 약/약물이 등록되어 있어요"
+            return
+        }
+        binding.homeAccountTextViewExplain.text = "등록된 약/약물이 없어요"
     }
 
     override fun onClick(v: View?) {
@@ -58,6 +116,12 @@ class HomeAccountActivity : AppCompatActivity(), View.OnClickListener{
                 //메인 화면으로 이동
                 val intent = Intent(applicationContext, SetUserNameActivity::class.java)
                 intent.putExtra("SkipSetAlarm", true)
+                startActivity(intent)
+                finish()
+            }
+            binding.homeAccountAddAlarm -> {
+                val intent = Intent(applicationContext, HomeActivity::class.java)
+                intent.putExtra("GoToSearchFragment", true)
                 startActivity(intent)
                 finish()
             }

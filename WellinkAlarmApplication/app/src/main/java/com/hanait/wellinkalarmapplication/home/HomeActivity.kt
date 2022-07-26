@@ -32,6 +32,12 @@ class HomeActivity : AppCompatActivity(){
         supportActionBar?.title = ""
         supportFragmentManager.beginTransaction().replace(R.id.home_frameId, HomeCalendarFragment()).commitAllowingStateLoss()
 
+        //약/약물 검색 프레그먼트로 체크 후 이동
+        val goToSearchFragmentFlag = intent.getBooleanExtra("GoToSearchFragment", false)
+        if(goToSearchFragmentFlag) supportFragmentManager.beginTransaction()
+            .replace(R.id.home_frameId, HomeSearchFragment())
+            .commitAllowingStateLoss()
+
 
         //바텀 네비게이션 리스너
         binding.homeBottomNav.setOnItemSelectedListener(object: NavigationBarView.OnItemSelectedListener {

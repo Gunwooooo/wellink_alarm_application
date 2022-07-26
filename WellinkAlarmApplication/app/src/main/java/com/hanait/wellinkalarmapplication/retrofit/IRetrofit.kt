@@ -11,6 +11,7 @@ interface IRetrofit {
     fun loadSearchDataAsPage(
         @Query("serviceKey", encoded = true) serviceKey: String,
         @Query("pageNo") pageNo: Int,
+        @Query("numOfRows") numOfRows: Int,
     ): Call<SearchData>
 
     @GET(API.LOAD_SEARCH_DATA)
@@ -18,6 +19,7 @@ interface IRetrofit {
         @Query("serviceKey", encoded = true) serviceKey: String,
         @Query("itemName") itemName: String,
         @Query("pageNo") pageNo: Int,
+        @Query("numOfRows") numOfRows: Int,
     ): Call<SearchData>
 
 }

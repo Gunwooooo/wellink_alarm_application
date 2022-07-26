@@ -14,13 +14,14 @@ import java.net.URLEncoder
 class RetrofitManager {
     companion object{
         const val SERVICE_KEY = "l558qWekocntBnplWRwy%2F8g9EL8DBpOGTnea7BP%2BCaX6mOa8U4WbDUY%2BjmYa2MeTkk6a5uAEUAgQsMPtS41xKg%3D%3D"
+        const val numOfRows = 70
         val instance = RetrofitManager()
     }
     private val iRetrofit: IRetrofit? = RetrofitClient.getClient(BASE_URL)?.create(IRetrofit::class.java)
 
     //페이지 별 데이터 가져오기
     fun loadSearchDataAsPage(pageNo: Int, completion: (CompletionResponse, SearchData?) -> Unit){
-        val call = iRetrofit?.loadSearchDataAsPage(SERVICE_KEY, pageNo) ?: return
+        val call = iRetrofit?.loadSearchDataAsPage(SERVICE_KEY, pageNo, numOfRows) ?: return
 
         call.enqueue(object: Callback<SearchData>{
 
@@ -41,7 +42,7 @@ class RetrofitManager {
 
     //키워드 검색 데이터 가져오기
     fun loadSearchDataAsItemName(itemName: String, page: Int, completion: (CompletionResponse, SearchData?) -> Unit){
-        val call = iRetrofit?.loadSearchDataAsItemName(SERVICE_KEY, itemName, page) ?: return
+        val call = iRetrofit?.loadSearchDataAsItemName(SERVICE_KEY, itemName, page, numOfRows) ?: return
 
         call.enqueue(object: Callback<SearchData>{
 
@@ -55,7 +56,6 @@ class RetrofitManager {
                     completion(CompletionResponse.FAIL, null)
                 }else {
                     val searchData: SearchData? = response.body()
-//                    Log.d("로그", "RetrofitManager - onResponse : ${response.body()}")
                     completion(CompletionResponse.OK, searchData)
                 }
             }

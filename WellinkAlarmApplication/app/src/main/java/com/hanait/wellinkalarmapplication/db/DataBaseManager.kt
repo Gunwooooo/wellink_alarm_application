@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import com.hanait.wellinkalarmapplication.model.AlarmData
 import com.hanait.wellinkalarmapplication.model.CalendarData
+import com.hanait.wellinkalarmapplication.model.Item
 
 class DatabaseManager(context: Context, fileName: String) :
     SQLiteOpenHelper(context, fileName, null, version) {
@@ -30,10 +31,61 @@ class DatabaseManager(context: Context, fileName: String) :
 
         db.execSQL("CREATE TABLE CALENDARS(id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, name TEXT," +
                 "mtaken INTEGER, ataken INTEGER, etaken INTEGER, ntaken INTEGER);")
+
+        db.execSQL("CREATE TABLE LIKES(id INTEGER PRIMARY KEY AUTOINCREMENT, entpName TEXT, itemName TEXT," +
+                "itemSeq INTEGER, efcyQesitm TEXT, useMethodQesitm TEXT, atpnWarnQesitm TEXT, atpnQesitm TEXT, intrcQesitm TEXT, " +
+                "seQesitm TEXT, depositMethodQesitm TEXT, openDe TEXT, updateDe TEXT, itemImage TEXT);")
         Log.d("로그", "DatabaseManager - insert : DB 생성")
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {}
+    /////////////////////////////////// ---  약 등록 --- ////////////////////////////////////////////////////
+    fun insertLike(item: Item) {
+        val db = writableDatabase
+        db.execSQL("insert into LIKES (entpName, itemName, itemSeq, efcyQesitm, useMethodQesitm, atpnWarnQesitm, atpnQesitm, intrcQesitm, seQesitm," +
+                " depositMethodQesitm, openDe, updateDe, itemImage) values('${item.entpName}', '${item.itemName}', ${item.itemSeq}, '${item.efcyQesitm}'," +
+                "'${item.useMethodQesitm}', '${item.atpnWarnQesitm}', '${item.atpnQesitm}', '${item.intrcQesitm}', '${item.seQesitm}', '${item.depositMethodQesitm}', '${item.openDe}'," +
+                "'${item.updateDe}', '${item.itemImage}');")
+        db.close()
+        Log.d("로그", "DatabaseManager - insertLike : 등록됨")
+    }
+
+    //등록된 약 가져오기
+    @SuppressLint("Recycle", "Range")
+    fun selectLikeAll() : ArrayList<Item> {
+        val db = readableDatabase
+        val list: ArrayList<Item> = ArrayList()
+        val cursor = db.rawQuery("select * from LIKES;", null)
+        while (cursor.moveToNext()) {
+            val mLike = Item()
+            mLike.entpName = cursor.getString((cursor.getColumnIndex("entpName")))
+            mLike.itemName = cursor.getString(cursor.getColumnIndex("itemName"))
+            mLike.itemSeq = cursor.getInt(cursor.getColumnIndex("itemSeq"))
+            mLike.efcyQesitm = cursor.getString((cursor.getColumnIndex("efcyQesitm")))
+            mLike.useMethodQesitm = cursor.getString((cursor.getColumnIndex("useMethodQesitm")))
+            mLike.atpnWarnQesitm = cursor.getString((cursor.getColumnIndex("atpnWarnQesitm")))
+            mLike.atpnQesitm = cursor.getString((cursor.getColumnIndex("atpnQesitm")))
+            mLike.intrcQesitm = cursor.getString((cursor.getColumnIndex("intrcQesitm")))
+            mLike.seQesitm = cursor.getString((cursor.getColumnIndex("seQesitm")))
+            mLike.depositMethodQesitm = cursor.getString((cursor.getColumnIndex("depositMethodQesitm")))
+            mLike.updateDe = cursor.getString((cursor.getColumnIndex("updateDe")))
+            mLike.itemImage = cursor.getString((cursor.getColumnIndex("itemImage")))
+            list.add(mLike)
+        }
+        db.close()
+//        if(list.size == 0) {
+//            return null
+//        }
+        return list
+    }
+
+    //특정 복용 데이터 삭제하기
+    fun deleteLike(searchDataItemSeq: Int) {
+        val db = writableDatabase
+        db.execSQL("delete from LIKES where itemSeq = $searchDataItemSeq;")
+        Log.d("로그", "DatabaseManager - deleteLike : 등록 삭제됨")
+        db.close()
+    }
 
     /////////////////////////////////// ---  캘린더  --- ////////////////////////////////////////////////////
     fun insertCalendar(calendarData: CalendarData) {
@@ -52,7 +104,6 @@ class DatabaseManager(context: Context, fileName: String) :
         db.close()
         Log.d("로그", "DatabaseManager - update : DB에 캘린더 저장됨")
     }
-
 
     //Id에 해당하는 알람 정보 가져오기
     @SuppressLint("Recycle", "Range")
@@ -315,4 +366,5 @@ class DatabaseManager(context: Context, fileName: String) :
         Log.d("로그", "DatabaseManager - resetAlarm : 알람 정보 초기화 완료")
         db.close()
     }
+
 }

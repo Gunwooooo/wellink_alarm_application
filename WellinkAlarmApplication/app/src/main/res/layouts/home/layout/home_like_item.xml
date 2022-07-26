@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/homeSearchItem_layout"
+    android:id="@+id/homeLikeItem_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -21,7 +21,7 @@
         android:layout_height="match_parent"
         android:layout_weight="0.14">
         <ImageView
-            android:id="@+id/homeSearchItem_imageView_item"
+            android:id="@+id/homeLikeItem_imageView_item"
             android:padding="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -42,7 +42,7 @@
 
         <TextView
             android:lineSpacingExtra="1dp"
-            android:id="@+id/homeSearchItem_textView_name"
+            android:id="@+id/homeLikeItem_textView_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="아스피린프로텍트정100mg/바이엘코리아"
@@ -55,22 +55,22 @@
     <LinearLayout
         android:layout_width="0dip"
         android:layout_height="match_parent"
-        android:layout_weight="0.03"/>
+        android:layout_weight="0.04"/>
 
     <LinearLayout
         android:gravity="center"
         android:layout_width="0dip"
         android:layout_height="match_parent"
-        android:layout_weight="0.12">
+        android:layout_weight="0.11">
         <ImageView
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:id="@+id/homeSearchItem_imageView_like"
+            android:id="@+id/homeLikeItem_imageView_delete"
             android:layout_gravity="center"
             android:clickable="true"
             android:focusable="true"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/ic_baseline_add_24"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_baseline_close_24"
             app:tint="@color/border_yellow_200"/>
     </LinearLayout>
 
