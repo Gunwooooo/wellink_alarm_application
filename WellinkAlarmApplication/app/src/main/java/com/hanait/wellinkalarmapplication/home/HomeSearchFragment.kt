@@ -1,6 +1,8 @@
 package com.hanait.wellinkalarmapplication.home
 
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -8,6 +10,7 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -27,11 +30,19 @@ class HomeSearchFragment : BaseFragment<FragmentHomeSearchBinding>(FragmentHomeS
     private var page = 1 //현재 페이지
     private var itemName = ""
 
+    companion object {
+        @SuppressLint("StaticFieldLeak")
+        lateinit var progressDialog: ProgressDialog
+    }
+
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         model = ViewModelProvider(this)[SearchViewModel::class.java]
+
+
+        makeProgressDialog()
 
         //1페이지 가져오기
         model.loadSearchDataAsPage(page)
@@ -49,9 +60,10 @@ class HomeSearchFragment : BaseFragment<FragmentHomeSearchBinding>(FragmentHomeS
                     itemName = binding.homeSearchEditText.text.toString()
                     page = 1
 
-                    if(itemName == "")
-                        Toast.makeText(context, "검색어를 초기화합니다.", Toast.LENGTH_SHORT).show()
-                    else Toast.makeText(context, "${itemName}로 검색합니다.", Toast.LENGTH_SHORT).show()
+                    if(itemName == "") Toast.makeText(context, "검색어를 초기화합니다.", Toast.LENGTH_SHORT).show()
+
+                    makeProgressDialog()
+
                     model.loadSearchDataAsItemName(itemName, page)
 
                     recyclerViewCreate()
@@ -61,6 +73,14 @@ class HomeSearchFragment : BaseFragment<FragmentHomeSearchBinding>(FragmentHomeS
                 return false
             }
         })
+    }
+
+    //로딩중 화면 표시
+    private fun makeProgressDialog() {
+        progressDialog = ProgressDialog(requireContext())
+        progressDialog.setMessage("로딩중입니다...")
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+        progressDialog.show()
     }
 
     @SuppressLint("NotifyDataSetChanged")

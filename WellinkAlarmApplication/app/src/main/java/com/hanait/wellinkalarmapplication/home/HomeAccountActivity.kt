@@ -111,7 +111,6 @@ class HomeAccountActivity : AppCompatActivity(), View.OnClickListener{
             }
             binding.homeAccountBtnRename -> {
                 //이름 초기화
-                prefs.setString("user_name", "")
 
                 //메인 화면으로 이동
                 val intent = Intent(applicationContext, SetUserNameActivity::class.java)

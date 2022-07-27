@@ -34,7 +34,7 @@ class SearchRepository {
                 completionResponse, s ->
             when(completionResponse) {
                 CompletionResponse.OK -> {
-                    Log.d("로그", "HomeSearchFragment - getSearchData : $s")
+//                    Log.d("로그", "HomeSearchFragment - getSearchData : $s")
                     _item.value = s?.body?.items
                 }
                 CompletionResponse.FAIL -> {

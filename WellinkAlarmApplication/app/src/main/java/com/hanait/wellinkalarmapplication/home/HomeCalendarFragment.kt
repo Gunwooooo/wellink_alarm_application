@@ -207,7 +207,6 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
         customDialog.setDialogListener(object:CustomDialogFragment.CalendarDialogListener {
             //알람 설정하러 가기 버튼 클릭 이벤트 처리
             override fun onGoAlarmIntentClicked() {
-                Log.d("로그", "HomeCalendarFragment - onGoAlarmIntentChecked : 알람 등록하러 가기 클릭 됨")
                 Constants.tempAlarmData2 = null
                 val intent = Intent(context, SetAlarmActivity::class.java)
                 startActivity(intent)
