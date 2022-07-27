@@ -31,6 +31,7 @@ class RetrofitManager() {
         call.enqueue(object: Callback<SearchData>{
 
             override fun onFailure(call: Call<SearchData>, t: Throwable) {
+                progressDialog.dismiss()
                 Log.d("로그", "RetrofitManager - onFailure : onFailure")
                 completion(CompletionResponse.FAIL, null)
             }
@@ -52,6 +53,7 @@ class RetrofitManager() {
         call.enqueue(object: Callback<SearchData>{
 
             override fun onFailure(call: Call<SearchData>, t: Throwable) {
+                progressDialog.dismiss()
                 Log.d("로그", "RetrofitManager - onFailure : onFailure")
                 completion(CompletionResponse.FAIL, null)
             }

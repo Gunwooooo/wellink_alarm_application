@@ -114,7 +114,6 @@ class SearchAdapter(var context: Context) :
     }
 
     fun setList(item: MutableList<Item>) {
-        Log.d("로그", "SearchAdapter - setList : @@@@@@@ ${item.size}")
         this.item.addAll(item)
         if(item.size == 70) this.item.add(Item(" ", " ", 0, " ", " ", " ", " ", " ", " ", " ", " ", " ", " ")) // progress bar 넣을 자리
     }

@@ -40,7 +40,6 @@ class SearchDetailActivity : AppCompatActivity(), View.OnClickListener {
         searchData = intent.getSerializableExtra("SearchData") as Item
         searchDataSplit()
 
-        Log.d("로그", "SearchDetailActivity - onCreate : $searchData")
         //약 이미지 넣기
         if(searchData.itemImage == "")
             binding.homeSearchDetailImageView.setImageResource(R.drawable.no_image)

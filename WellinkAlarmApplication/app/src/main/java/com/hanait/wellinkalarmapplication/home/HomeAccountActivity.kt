@@ -49,11 +49,6 @@ class HomeAccountActivity : AppCompatActivity(), View.OnClickListener{
         //등록된 약 정보 가져오기
         likeList = DatabaseManager.getInstance(this, "Alarms.db").selectLikeAll()
 
-        for(i in 0 until likeList.size) {
-            Log.d("로그", "HomeAccountActivity - onCreate : ${likeList[i]}")
-        }
-
-
         setTextAlarmCountAndExplain()
         recyclerViewCreate()
 
@@ -148,6 +143,9 @@ class HomeAccountActivity : AppCompatActivity(), View.OnClickListener{
                 DatabaseManager.getInstance(applicationContext, "Alarms.db").resetCalendar()
                 //알람 데이터 초기화
                 DatabaseManager.getInstance(applicationContext, "Alarms.db").resetAlarm()
+
+                //등록 약 데이터 초기화
+                DatabaseManager.getInstance(applicationContext, "Alarms.db").resetLike()
 
                 Toast.makeText(applicationContext, "데이터가 초기화되었습니다.", Toast.LENGTH_SHORT).show()
                 

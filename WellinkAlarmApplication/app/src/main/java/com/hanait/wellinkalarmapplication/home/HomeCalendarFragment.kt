@@ -70,7 +70,6 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
         mCalendarList = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectCalendarAsMonth(month)
         takenArray = Array(32) { IntArray(5) { 0 } }
 
-        Log.d("로그", "HomeCalendarFragment - getCalendarAsMonth : 복용 데이터 크기 : ${mCalendarList.size}")
         for(i in 0 until mCalendarList.size) {
             Log.d("로그", "HomeCalendarFragment - getCalendarAsMonth : mCalendarList[$i] : ${mCalendarList[i]}")
         }

@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.hanait.wellinkalarmapplication.databinding.ActivityMainBinding
-import com.hanait.wellinkalarmapplication.db.PreferenceManager
 import com.hanait.wellinkalarmapplication.home.HomeActivity
 import com.hanait.wellinkalarmapplication.utils.Constants
 import com.hanait.wellinkalarmapplication.utils.Constants.userName
@@ -24,8 +23,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         binding.mainBtnStart.setOnClickListener(this)
 
-        //sharedPreference에 있는 사용자 이름 가져오기
-        Constants.prefs = PreferenceManager(applicationContext)
+
     }
 
     @Override
@@ -43,16 +41,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v) {
             binding.mainBtnStart -> {
-                userName = Constants.prefs.getString("user_name", "")
-                if(userName == "") {
-                    val intent = Intent(this, SetUserNameActivity::class.java)
-                    intent.putExtra("SkipSetAlarm", false)
-                    startActivity(intent)
-                    return
-                }
-                val intent = Intent(this, HomeActivity::class.java)
-                Toast.makeText(this, "${userName}님 환영합니다.", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, SetUserNameActivity::class.java)
+                intent.putExtra("SkipSetAlarm", false)
                 startActivity(intent)
+                return
             }
         }
     }

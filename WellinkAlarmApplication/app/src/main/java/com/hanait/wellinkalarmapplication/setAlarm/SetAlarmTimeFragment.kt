@@ -66,7 +66,6 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
     //시간 설정 다이어로그 생성
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
     private fun makeDialog(v: TextView, cHour:Int, cMinute: Int, switch: Switch){
-        Log.d("로그", "SetAlarmTimeFragment - getTime : 다이어로그 호출됨")
         val cal = Calendar.getInstance()
         val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
             var tmpHour = hour
@@ -88,10 +87,6 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
         timePickerDialog.window?.setBackgroundDrawableResource(R.color.transparent)
         timePickerDialog.show()
     }
-
-
-
-
 
     //마지막에 모든 스위치 데이터 tempAlarmData에 저장
     private fun saveSwitchData() {

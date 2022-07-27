@@ -87,6 +87,14 @@ class DatabaseManager(context: Context, fileName: String) :
         db.close()
     }
 
+    //복용 데이터 초기화
+    fun resetLike() {
+        val db = writableDatabase
+        db.execSQL("delete from LIKES;")
+        Log.d("로그", "DatabaseManager - resetCalendar : 등록 약 정보 초기화 완료")
+        db.close()
+    }
+
     /////////////////////////////////// ---  캘린더  --- ////////////////////////////////////////////////////
     fun insertCalendar(calendarData: CalendarData) {
         val db = writableDatabase

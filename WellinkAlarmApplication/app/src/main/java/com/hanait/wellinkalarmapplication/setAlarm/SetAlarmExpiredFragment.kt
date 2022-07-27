@@ -40,12 +40,13 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
 
                 tempAlarmData.expired = getExpiredDate()
                 tempAlarmData.expiredInt = numberPickerValue
-
                 //알람 울리기 설정하기
-                setAllAlarmManager()
 
                 //DB에 알람 정보 최종 저장하기
                 insertOrUpdateAlarm()
+
+                //저장된 알람 ID 가져와서 pendingId로 사용
+                setAllAlarmManager()
 
                 //임시 데이터 삭제
                 tempAlarmData2 = null
@@ -114,7 +115,6 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
             numberPickerValue = newVal
             binding.setAlarmExpiredTextViewExplain.text = "${tempAlarmData.period}일마다 ${newVal}회 알림을 울려드릴게요!" +
                     "\n만기일은 ${getExpiredDate()} 입니다."
-
         }
 
         //알람 수정 시 기존 값 넣어놓기
@@ -145,7 +145,7 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
     //실제 알람 설정
     @SuppressLint("UnspecifiedImmutableFlag")
     private fun setAlarmManager(pendingId: Int, ampm:Int, hour: Int, minute: Int) {
-        Log.d("로그", "SetAlarmTimeFragment - setAlarm : 설정 된 알람 아이디 : ampm:$ampm  hour:$hour  minut:$minute  pendingId:$pendingId")
+        Log.d("로그", "SetAlarmTimeFragment - setAlarm : 설정 된 알람 아이디 : ampm:$ampm  hour:$hour  minute:$minute  pendingId:$pendingId")
         val myCalendar = Calendar.getInstance()
         val calendar = myCalendar.clone() as Calendar
         if(ampm == 1 && hour != 12)
@@ -158,7 +158,7 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
         }
         Log.d(
             "로그",
-            "setAlarm: 캘린더 시간 : " + calendar[Calendar.YEAR] + "-" + calendar[Calendar.MONTH] + "-" + calendar[Calendar.DAY_OF_MONTH] + "   " + calendar[Calendar.HOUR_OF_DAY] + ":" + calendar[Calendar.MINUTE] + ":" + calendar[Calendar.SECOND]
+            "setAlarm: 캘린더 시간 : $pendingId" + calendar[Calendar.YEAR] + "-" + calendar[Calendar.MONTH] + "-" + calendar[Calendar.DAY_OF_MONTH] + "   " + calendar[Calendar.HOUR_OF_DAY] + ":" + calendar[Calendar.MINUTE] + ":" + calendar[Calendar.SECOND]
         )
 
         val intent = Intent(context, AlarmReceiver::class.java)
@@ -178,6 +178,7 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
     // 스위치에 따른 알람 울리게 설정 및 취소 설정
     private fun setAllAlarmManager() {
         val pendingId = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectAlarmIdAsName(tempAlarmData.name)?.times(4) ?: return
+        Log.d("로그", "SetAlarmExpiredFragment - setAllAlarmManager : $pendingId")
         if(tempAlarmData.mswitch == 1)
             setAlarmManager(pendingId, tempAlarmData.mampm, tempAlarmData.mhour, tempAlarmData.mminute)
         else deleteAlarmManager(pendingId)

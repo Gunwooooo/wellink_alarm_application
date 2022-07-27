@@ -57,8 +57,7 @@ class AlarmReceiver : BroadcastReceiver(){
                     //알람 주기 및 기간 스킵 체크
                     if(alarmSkipCheck(pendingId)) return
 
-                    //화면 깨우기
-                    turnOnScreen()
+
 
                     //서비스 인텐트 구성
                     intentToService.putExtra("ON_OFF", ADD_INTENT)
@@ -66,6 +65,9 @@ class AlarmReceiver : BroadcastReceiver(){
 
                     //버전 체크 후 서비스 불러오기
                     handler.postDelayed({
+                        //화면 깨우기
+                        turnOnScreen()
+
                         Log.d("로그", "AlarmService - onStartCommand : pendingId : $pendingId   takenFlag : $takenFlag")
                         //서비스는 한번만 호출하기
                         if(startServiceFlag) {
@@ -73,7 +75,7 @@ class AlarmReceiver : BroadcastReceiver(){
                             startServiceFlag = false
                             startService(intentToService)
                         }
-                    }, 1000) //1초동안 들어오는 서비스 모두 가져오기
+                    }, 5000) //3초동안 들어오는 서비스 모두 가져오기
                 }
                 OFF_INTENT -> {
                     Log.d("로그", "AlarmReceiver - onReceive : Reciever Off_intent 호출됨")
