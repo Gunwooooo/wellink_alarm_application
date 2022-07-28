@@ -334,7 +334,7 @@ class DatabaseManager(context: Context, fileName: String) :
                     "where (strftime('%s', '$clickedDate') - strftime('%s', date) >= 0)" +
                     "and (expired != '' and (strftime('%s', '$clickedDate') - strftime('%s', expired) <= 0))" +
                     "and (((strftime('%d', '$clickedDate') - strftime('%d', date)) % period) == 0)" +
-                    "or ((strftime('%s', '$clickedDate') - strftime('%s', date) >= 0) and expired == '')",
+                    "or ((strftime('%s', '$clickedDate') - strftime('%s', date) >= 0) and expired == '' and (((strftime('%d', '$clickedDate') - strftime('%d', date)) % period) == 0))",
             null
         )
         while (cursor.moveToNext()) {

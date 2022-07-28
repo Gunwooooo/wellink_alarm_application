@@ -20,7 +20,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="몇 시에 알려드릴까요?"
+            android:text="몇 시에 약을 드시나요?"
             android:textColor="@color/toss_black_700"
             android:fontFamily="@font/ps_bold"
             android:gravity="center"

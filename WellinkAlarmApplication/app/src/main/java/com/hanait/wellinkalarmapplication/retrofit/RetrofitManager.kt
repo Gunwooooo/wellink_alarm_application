@@ -14,7 +14,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.net.URLEncoder
 
-class RetrofitManager() {
+class RetrofitManager {
 
     companion object{
         const val SERVICE_KEY = "l558qWekocntBnplWRwy%2F8g9EL8DBpOGTnea7BP%2BCaX6mOa8U4WbDUY%2BjmYa2MeTkk6a5uAEUAgQsMPtS41xKg%3D%3D"

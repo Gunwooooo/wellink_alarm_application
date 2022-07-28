@@ -27,6 +27,7 @@ import com.hanait.wellinkalarmapplication.utils.Constants.ADD_INTENT
 import com.hanait.wellinkalarmapplication.utils.Constants.OFF_INTENT
 import com.hanait.wellinkalarmapplication.utils.Constants.mPendingIdList
 import com.hanait.wellinkalarmapplication.utils.Constants.startServiceFlag
+import com.hanait.wellinkalarmapplication.utils.CustomAlarmManager
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -133,6 +134,21 @@ class AlarmService: Service() {
     
     override fun onDestroy() {
         super.onDestroy()
+        //알람 재호출
+        for(i in 0 until mPendingIdList.size) {
+            val alarmData = DatabaseManager.getInstance(this, "Alarms.db").selectAlarmAsId(
+                mPendingIdList[i] / 4)!!
+            //DB에서 알람 데이터 가져와서 알람 재설정
+            when(mPendingIdList[i] % 4) {
+                0 -> CustomAlarmManager.getInstance(applicationContext).setAlarmManager(mPendingIdList[i], alarmData.mampm, alarmData.mhour, alarmData.mminute)
+                1 -> CustomAlarmManager.getInstance(applicationContext).setAlarmManager(mPendingIdList[i], alarmData.aampm, alarmData.ahour, alarmData.aminute)
+                2 -> CustomAlarmManager.getInstance(applicationContext).setAlarmManager(mPendingIdList[i], alarmData.eampm, alarmData.ehour, alarmData.eminute)
+                3 -> CustomAlarmManager.getInstance(applicationContext).setAlarmManager(mPendingIdList[i], alarmData.nampm, alarmData.nhour, alarmData.nminute)
+            }
+
+        }
+
+        
         Log.d("로그", "AlarmService - onDestroy : 서비스 디스트로이 호출")
         
         //음악 제거

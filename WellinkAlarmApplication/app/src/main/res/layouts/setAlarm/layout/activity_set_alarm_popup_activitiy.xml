@@ -46,7 +46,7 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.57">
+        android:layout_weight="0.52">
 
         <com.skyfishjy.library.RippleBackground
             android:layout_width="match_parent"
@@ -74,8 +74,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.1">
+        android:layout_weight="0.23">
         <TextView
+            android:lineSpacingExtra="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
             android:id="@+id/setAlarmPopup_textView_explain"
             android:gravity="center"
             android:layout_width="match_parent"
@@ -85,8 +88,4 @@
             android:textSize="24sp"
             android:fontFamily="@font/ps_bold"/>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.08"/>
 </LinearLayout>

@@ -57,8 +57,6 @@ class AlarmReceiver : BroadcastReceiver(){
                     //알람 주기 및 기간 스킵 체크
                     if(alarmSkipCheck(pendingId)) return
 
-
-
                     //서비스 인텐트 구성
                     intentToService.putExtra("ON_OFF", ADD_INTENT)
                     intentToService.putExtra("PendingId", pendingId)

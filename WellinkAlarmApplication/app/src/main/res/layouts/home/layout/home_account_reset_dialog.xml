@@ -28,9 +28,7 @@
             android:fontFamily="@font/ps_bold"
             android:textColor="@color/text_red_200"/>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="15dp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
