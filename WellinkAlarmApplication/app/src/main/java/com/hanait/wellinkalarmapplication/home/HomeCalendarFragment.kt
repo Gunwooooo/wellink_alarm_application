@@ -34,6 +34,7 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
         super.onViewCreated(view, savedInstanceState)
         init()
         initCalendarList()
+        setTodayBorder()
     }
 
     @SuppressLint("ClickableViewAccessibility", "SimpleDateFormat")
@@ -73,7 +74,7 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
         for(i in 0 until mCalendarList.size) {
             Log.d("로그", "HomeCalendarFragment - getCalendarAsMonth : mCalendarList[$i] : ${mCalendarList[i]}")
         }
-        
+
         //오늘 날짜 체크하기
         var j = 1
 
@@ -82,7 +83,7 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
             j = todayCal.get(Calendar.DAY_OF_MONTH)
             takenArray[todayCal.get(Calendar.DAY_OF_MONTH)][3] = 1
         }
-        
+
         //복용 예정일 알람 개수 저장 -> 알약 아이콘 투명하게 표시하기 위해서
         for(i in j until 32) {
             val tempCal = GregorianCalendar()

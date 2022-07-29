@@ -147,8 +147,6 @@ class AlarmService: Service() {
             }
 
         }
-
-        
         Log.d("로그", "AlarmService - onDestroy : 서비스 디스트로이 호출")
         
         //음악 제거
@@ -158,6 +156,7 @@ class AlarmService: Service() {
         //서비스 리스트 비우기
         mPendingIdList.clear()
         startServiceFlag = true
+        takenFlag = false
     }
 
     //알림 소리 끄기

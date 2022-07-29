@@ -1,8 +1,6 @@
 package com.hanait.wellinkalarmapplication.home
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -14,7 +12,7 @@ import com.hanait.wellinkalarmapplication.R
 import com.hanait.wellinkalarmapplication.databinding.ActivitySearchDetailBinding
 import com.hanait.wellinkalarmapplication.db.DatabaseManager
 import com.hanait.wellinkalarmapplication.model.Item
-import com.hanait.wellinkalarmapplication.utils.ViewPagerFragmentAdapter
+import com.hanait.wellinkalarmapplication.utils.SearchViewPagerFragmentAdapter
 
 
 class SearchDetailActivity : AppCompatActivity(), View.OnClickListener {
@@ -49,7 +47,7 @@ class SearchDetailActivity : AppCompatActivity(), View.OnClickListener {
         binding.homeSearchDetailTextViewItemName.text = searchData.itemName
         binding.homeSearchDetailTextViewEntpName.text = searchData.entpName
 
-        binding.homeSearchDetailViewPager.adapter = ViewPagerFragmentAdapter(this)
+        binding.homeSearchDetailViewPager.adapter = SearchViewPagerFragmentAdapter(this)
 
         val tabTitles = listOf("복약", "용법", "주의")
         TabLayoutMediator(binding.homeSearchDetailTabLayout, binding.homeSearchDetailViewPager) { tab, position ->

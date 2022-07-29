@@ -7,7 +7,7 @@ import com.hanait.wellinkalarmapplication.home.HomeSearchDetail1Fragment
 import com.hanait.wellinkalarmapplication.home.HomeSearchDetail2Fragment
 import com.hanait.wellinkalarmapplication.home.HomeSearchDetail3Fragment
 
-class ViewPagerFragmentAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
+class SearchViewPagerFragmentAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
 
     // 1. ViewPager2에 연결할 Fragment 들을 생성
     private val fragmentList = listOf(HomeSearchDetail1Fragment(), HomeSearchDetail2Fragment(), HomeSearchDetail3Fragment())
