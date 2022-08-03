@@ -2,6 +2,7 @@ package com.hanait.wellinkalarmapplication.home
 
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -66,6 +67,7 @@ class CalendarAdapter(
             //DB에서 캘린더 데이터 가져오기
             //오늘 날짜는 안띄우기
             dayImageView = itemView.findViewById(R.id.homeCalendarItem_imageView)
+
             val index = day?.replace(" ", "")?.toInt()
             if (index != null) {
                 //복용 예정 약이 있는 view

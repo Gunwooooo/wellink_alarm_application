@@ -65,15 +65,12 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
 
     @SuppressLint("SimpleDateFormat")
     private fun getCalendarAsMonth(cal: Calendar) {
+
         val month = SimpleDateFormat("MM").format(cal.time)
         //아이콘 표시를 위한 arrayList
         //index -> 0:데이터 유무  1:복용갯수  2:미복용갯수  3:오늘날자 체크 4:복용 예정 약 개수
         mCalendarList = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectCalendarAsMonth(month)
         takenArray = Array(32) { IntArray(5) { 0 } }
-
-        for(i in 0 until mCalendarList.size) {
-            Log.d("로그", "HomeCalendarFragment - getCalendarAsMonth : mCalendarList[$i] : ${mCalendarList[i]}")
-        }
 
         //오늘 날짜 체크하기
         var j = 1
@@ -85,14 +82,16 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
         }
 
         //복용 예정일 알람 개수 저장 -> 알약 아이콘 투명하게 표시하기 위해서
-        for(i in j until 32) {
-            val tempCal = GregorianCalendar()
-            tempCal.set(Calendar.YEAR, cal.get(Calendar.YEAR))
-            tempCal.set(Calendar.MONTH, cal.get(Calendar.MONTH))
-            tempCal.set(Calendar.DAY_OF_MONTH, i)
-            val strDate = tempCal.time.let { Constants.sdf.format(it) }
-            val dayOfAlarmSize = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectCalendarItemAsDate(strDate).size
-            takenArray[i][4] = dayOfAlarmSize
+        if(todayCal.get(Calendar.MONTH) <= cal.get(Calendar.MONTH)) {
+            for (i in j until 32) {
+                val tempCal = GregorianCalendar()
+                tempCal.set(Calendar.YEAR, cal.get(Calendar.YEAR))
+                tempCal.set(Calendar.MONTH, cal.get(Calendar.MONTH))
+                tempCal.set(Calendar.DAY_OF_MONTH, i)
+                val strDate = tempCal.time.let { Constants.sdf.format(it) }
+                val dayOfAlarmSize = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectCalendarItemAsDate(strDate).size
+                takenArray[i][4] = dayOfAlarmSize
+            }
         }
 
 
@@ -101,9 +100,9 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
             val index = mCalendarList[i].date.split('-')[2].toInt()
             takenArray[index][0] = 1
             val arr = arrayOf(mCalendarList[i].mtaken, mCalendarList[i].ataken, mCalendarList[i].etaken, mCalendarList[i].ntaken)
-            for(j in 0 until 4) {
-                if(arr[j] != 0) {
-                    takenArray[index][arr[j]]++
+            for(k in 0 until 4) {
+                if(arr[k] != 0) {
+                    takenArray[index][arr[k]]++
                 }
             }
         }

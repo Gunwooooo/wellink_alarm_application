@@ -51,11 +51,11 @@ class AlarmReceiver : BroadcastReceiver(){
                 ADD_INTENT -> {
                     //복용 여부 확인을 위한 변수
 
-                    //들어오는 모든 pendingId 저장
-                    mPendingIdList.add(pendingId)
-
                     //알람 주기 및 기간 스킵 체크
                     if(alarmSkipCheck(pendingId)) return
+
+                    //들어오는 모든 pendingId 저장
+                    mPendingIdList.add(pendingId)
 
                     //서비스 인텐트 구성
                     intentToService.putExtra("ON_OFF", ADD_INTENT)

@@ -25,187 +25,191 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="25dp"/>
-    <LinearLayout
-        android:visibility="visible"
-        android:id="@+id/homeCalendarDialog_layout_taken"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
         <LinearLayout
+            android:visibility="visible"
+            android:id="@+id/homeCalendarDialog_layout_taken"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1">
-            <TextView
-                android:textColor="@color/toss_black_700"
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="0.15"
-                android:text="아침"
-                android:gravity="center_vertical"
-                android:fontFamily="@font/ps_bold"
-                android:textSize="23sp"/>
+            android:orientation="vertical">
             <LinearLayout
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/btn_border_yellow"
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="0.02"/>
-            <TextView
-                android:lineSpacingExtra="5dp"
-                android:id="@+id/homeCalendarDialog_textView_morning"
-                android:gravity="center_vertical"
-                android:layout_width="0dip"
-                android:layout_weight="0.82"
-                android:layout_height="match_parent"
-                android:text="OO약  OO약"
-                android:textSize="21sp"
-                android:textColor="@color/toss_black_150"
-                android:fontFamily="@font/ps_regular"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1">
-            <TextView
-                android:textColor="@color/toss_black_700"
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="0.15"
-                android:text="점심"
-                android:gravity="center_vertical"
-                android:fontFamily="@font/ps_bold"
-                android:textSize="23sp"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <TextView
+                    android:textColor="@color/toss_black_700"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.15"
+                    android:text="아침"
+                    android:gravity="center_vertical"
+                    android:fontFamily="@font/ps_bold"
+                    android:textSize="23sp"/>
+                <LinearLayout
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/btn_border_yellow"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.02"/>
+                <TextView
+                    android:lineSpacingExtra="5dp"
+                    android:id="@+id/homeCalendarDialog_textView_morning"
+                    android:gravity="center_vertical"
+                    android:layout_width="0dip"
+                    android:layout_weight="0.82"
+                    android:layout_height="match_parent"
+                    android:text="OO약  OO약"
+                    android:textSize="21sp"
+                    android:textColor="@color/toss_black_150"
+                    android:fontFamily="@font/ps_regular"/>
+            </LinearLayout>
             <LinearLayout
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/btn_border_avocado"
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="0.02"/>
-            <TextView
-                android:lineSpacingExtra="5dp"
-                android:id="@+id/homeCalendarDialog_textView_afternoon"
-                android:gravity="center_vertical"
-                android:layout_width="0dip"
-                android:layout_weight="0.82"
-                android:layout_height="match_parent"
-                android:text="OO약  OO약"
-                android:textSize="21sp"
-                android:textColor="@color/toss_black_150"
-                android:fontFamily="@font/ps_regular"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1">
-            <TextView
-                android:textColor="@color/toss_black_700"
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="0.15"
-                android:text="저녁"
-                android:gravity="center_vertical"
-                android:fontFamily="@font/ps_bold"
-                android:textSize="23sp"/>
+                android:layout_width="match_parent"
+                android:layout_height="40dp"/>
             <LinearLayout
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/btn_border_pistachio"
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="0.02"/>
-            <TextView
-                android:lineSpacingExtra="5dp"
-                android:id="@+id/homeCalendarDialog_textView_evening"
-                android:gravity="center_vertical"
-                android:layout_width="0dip"
-                android:layout_weight="0.82"
-                android:layout_height="match_parent"
-                android:text="OO약  OO약"
-                android:textSize="21sp"
-                android:textColor="@color/toss_black_150"
-                android:fontFamily="@font/ps_regular"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1">
-            <TextView
-                android:textColor="@color/toss_black_700"
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="0.15"
-                android:text="취침"
-                android:gravity="center_vertical"
-                android:fontFamily="@font/ps_bold"
-                android:textSize="23sp"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <TextView
+                    android:textColor="@color/toss_black_700"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.15"
+                    android:text="점심"
+                    android:gravity="center_vertical"
+                    android:fontFamily="@font/ps_bold"
+                    android:textSize="23sp"/>
+                <LinearLayout
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/btn_border_avocado"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.02"/>
+                <TextView
+                    android:lineSpacingExtra="5dp"
+                    android:id="@+id/homeCalendarDialog_textView_afternoon"
+                    android:gravity="center_vertical"
+                    android:layout_width="0dip"
+                    android:layout_weight="0.82"
+                    android:layout_height="match_parent"
+                    android:text="OO약  OO약"
+                    android:textSize="21sp"
+                    android:textColor="@color/toss_black_150"
+                    android:fontFamily="@font/ps_regular"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <TextView
+                    android:textColor="@color/toss_black_700"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.15"
+                    android:text="저녁"
+                    android:gravity="center_vertical"
+                    android:fontFamily="@font/ps_bold"
+                    android:textSize="23sp"/>
+                <LinearLayout
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/btn_border_pistachio"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.02"/>
+                <TextView
+                    android:lineSpacingExtra="5dp"
+                    android:id="@+id/homeCalendarDialog_textView_evening"
+                    android:gravity="center_vertical"
+                    android:layout_width="0dip"
+                    android:layout_weight="0.82"
+                    android:layout_height="match_parent"
+                    android:text="OO약  OO약"
+                    android:textSize="21sp"
+                    android:textColor="@color/toss_black_150"
+                    android:fontFamily="@font/ps_regular"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <TextView
+                    android:textColor="@color/toss_black_700"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.15"
+                    android:text="취침"
+                    android:gravity="center_vertical"
+                    android:fontFamily="@font/ps_bold"
+                    android:textSize="23sp"/>
 
-            <LinearLayout
-                android:layout_marginLeft="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginRight="15dp"
-                android:layout_weight="0.02"
-                android:background="@drawable/btn_border_sage" />
+                <LinearLayout
+                    android:layout_marginLeft="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="0.02"
+                    android:background="@drawable/btn_border_sage" />
 
-            <TextView
-                android:lineSpacingExtra="5dp"
-                android:id="@+id/homeCalendarDialog_textView_night"
-                android:layout_width="0dip"
+                <TextView
+                    android:lineSpacingExtra="5dp"
+                    android:id="@+id/homeCalendarDialog_textView_night"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.82"
+                    android:fontFamily="@font/ps_regular"
+                    android:gravity="center_vertical"
+                    android:text="OO약  OO약"
+                    android:textColor="@color/toss_black_150"
+                    android:textSize="21sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="40dp"
+                android:gravity="right"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.82"
-                android:fontFamily="@font/ps_regular"
-                android:gravity="center_vertical"
-                android:text="OO약  OO약"
-                android:textColor="@color/toss_black_150"
-                android:textSize="21sp" />
+                tools:ignore="RtlHardcoded">
+                <TextView
+                    android:gravity="center|bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="• 복용    "
+                    android:textSize="18sp"
+                    android:fontFamily="@font/ps_regular"
+                    android:textColor="@color/toss_blue_200"/>
+                <TextView
+                    android:gravity="center|bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="• 미복용     "
+                    android:textSize="18sp"
+                    android:fontFamily="@font/ps_regular"
+                    android:textColor="@color/text_red_200"/>
+                <TextView
+                    android:gravity="center|bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="• 복용예정"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/ps_regular"
+                    android:textColor="@color/toss_black_150"/>
+            </LinearLayout>
         </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="40dp"
-            android:gravity="right"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:ignore="RtlHardcoded">
-            <TextView
-                android:gravity="center|bottom"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="• 복용    "
-                android:textSize="18sp"
-                android:fontFamily="@font/ps_regular"
-                android:textColor="@color/toss_blue_200"/>
-            <TextView
-                android:gravity="center|bottom"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="• 미복용     "
-                android:textSize="18sp"
-                android:fontFamily="@font/ps_regular"
-                android:textColor="@color/text_red_200"/>
-            <TextView
-                android:gravity="center|bottom"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="• 복용예정"
-                android:textSize="18sp"
-                android:fontFamily="@font/ps_regular"
-                android:textColor="@color/toss_black_150"/>
-        </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
     <LinearLayout
         android:visibility="gone"
         android:id="@+id/homeCalendarDialog_layout_empty"
