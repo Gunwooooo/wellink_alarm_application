@@ -33,6 +33,7 @@ import com.hanait.wellinkalarmapplication.utils.Constants.ADD_INTENT
 import com.hanait.wellinkalarmapplication.utils.Constants.OFF_INTENT
 import com.hanait.wellinkalarmapplication.utils.Constants.mPendingIdList
 import com.hanait.wellinkalarmapplication.utils.Constants.startServiceFlag
+import com.hanait.wellinkalarmapplication.utils.CustomAlarmManager
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -96,28 +97,29 @@ class AlarmReceiver : BroadcastReceiver(){
         val strDate = cal.time.let { Constants.sdf.format(it) }
 
         //알람 주기 및 만기일 체크 후 울리게 하기
+
+
+
+        val alarmData = DatabaseManager.getInstance(context!!, "Alarms.db").selectAlarmAsId(pendingId / 4)!!
+
+        //만기일이 지났을 경우 알람 삭제
+        if(alarmData.expired != "" && strDate > alarmData.expired) {
+            Log.d("로그", "AlarmReceiver - onReceive : 만기일이 지났습니다.")
+            val alarmIntent = PendingIntent.getBroadcast(context, pendingId, Intent(context, AlarmReceiver::class.java), 0)
+            val alarmManager = context.let { ContextCompat.getSystemService(context!!, AlarmManager::class.java) }
+            alarmManager?.cancel(alarmIntent)
+
+            //DB에서 알람 삭제
+            DatabaseManager.getInstance(context!!, "Alarms.db").deleteAlarm(alarmData.name)
+        }
+
         //DB에서 해당하는 약 데이터 가져오기
         val mAlarmList: ArrayList<AlarmData>
         mAlarmList = context?.let { DatabaseManager.getInstance(it, "Alarms.db").selectCalendarItemAsDate(strDate) }!!
-        for(i in 0 until mAlarmList.size) {
-            Log.d("로그", "AlarmReceiver - onReceive : 오늘 등록돼있는 알람 리스트 : ${mAlarmList[i]}")
-        }
 
         //해당 주기에 맞는 알람이 맞는지 체크
         var alarmSkipCheck = true
         for(i in 0 until mAlarmList.size) {
-
-            //만기일이 지났을 경우 알람 삭제
-            if(mAlarmList[i].expired != "" && strDate > mAlarmList[i].expired) {
-                Log.d("로그", "AlarmReceiver - onReceive : 만기일이 지났습니다.")
-                val alarmIntent = PendingIntent.getBroadcast(context, pendingId, Intent(context, AlarmReceiver::class.java), 0)
-                val alarmManager = context.let { ContextCompat.getSystemService(context!!, AlarmManager::class.java) }
-                alarmManager?.cancel(alarmIntent)
-                
-                //DB에서 알람 삭제
-                DatabaseManager.getInstance(context!!, "Alarms.db").deleteAlarm(mAlarmList[i].name)
-            }
-
             //오늘 해당하는 알람이 아니면 check = false
             if(mAlarmList[i].id == (pendingId / 4)) {
                 alarmSkipCheck = false
@@ -125,6 +127,14 @@ class AlarmReceiver : BroadcastReceiver(){
         }
         if(alarmSkipCheck) {
             Log.d("로그", "AlarmReceiver - onReceive : 알람 울리는 날이 아닙니다.")
+
+            //DB에서 알람 데이터 가져와서 알람 재설정
+            when(pendingId % 4) {
+                0 -> CustomAlarmManager.getInstance(context).setAlarmManager(pendingId, alarmData.mampm, alarmData.mhour, alarmData.mminute)
+                1 -> CustomAlarmManager.getInstance(context).setAlarmManager(pendingId, alarmData.aampm, alarmData.ahour, alarmData.aminute)
+                2 -> CustomAlarmManager.getInstance(context).setAlarmManager(pendingId, alarmData.eampm, alarmData.ehour, alarmData.eminute)
+                3 -> CustomAlarmManager.getInstance(context).setAlarmManager(pendingId, alarmData.nampm, alarmData.nhour, alarmData.nminute)
+            }
             return true
         }
         return false

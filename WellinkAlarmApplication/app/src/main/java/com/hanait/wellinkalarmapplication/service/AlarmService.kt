@@ -61,19 +61,13 @@ class AlarmService: Service() {
 //              알람 id 받기
                 alarmData = DatabaseManager.getInstance(this, "Alarms.db").selectAlarmAsId(pendingId / 4)!!
 
-                //들어온 모든 서비스 갯수
-                Log.d("로그", "AlarmService - onStartCommand : 들어온 모든 서비스 갯수 : ${mPendingIdList.size}")
-
                 //노티 띄우기
                 startNotification(pendingId)
 
                 //벨소리 울리기
                 startMedia()
                 handler.postDelayed({
-                    Log.d("로그", "AlarmService - onStartCommand : pendingId : $pendingId   takenFlag : $takenFlag")
                     if(!takenFlag) {
-                        Log.d("로그", "AlarmService - onStartCommand : 알람 시간 종료!")
-
                         Toast.makeText(this, "약을 미복용했어요", Toast.LENGTH_SHORT).show()
 
                         //서비스 갯수만큼 반복
@@ -91,7 +85,6 @@ class AlarmService: Service() {
                 }, SERVICE_TIME_OUT)
             }
             OFF_INTENT -> {
-                Log.d("로그", "Alarmeceiver - onReceive : Service Off_intent 호출됨")
                 stopMedia(intent, pendingId)
                 stopSelf()
             }

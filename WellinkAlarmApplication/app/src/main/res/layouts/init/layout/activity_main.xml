@@ -13,30 +13,33 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.2813"/>
+        android:layout_weight="0.2513"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.25"
+        android:layout_weight="0.28"
         android:orientation="horizontal"
         android:weightSum="1">
         <LinearLayout
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.2666"/>
+            android:layout_weight="0.2166"/>
         <LinearLayout
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.4668">
-            <ImageView
-                android:src="@drawable/ic_alarm"
+            android:layout_weight="0.5668">
+            <com.airbnb.lottie.LottieAnimationView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:id="@+id/main_lottie"
+                app:lottie_rawRes="@raw/main_lottie"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.2666"/>
+            android:layout_weight="0.2166"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,7 +56,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:textColor="@color/toss_black_700"
-            android:text="약 시간을 알려주는 알림이"
+            android:text="약 알람과 복용 체크를 하나로"
             android:textSize="28sp"/>
     </LinearLayout>
     <LinearLayout
