@@ -106,9 +106,9 @@ class DatabaseManager(context: Context, fileName: String) :
 
     fun updateCalendar(calendarData: CalendarData, prevName: String) {
         val db = writableDatabase
-        db.execSQL("update CALENDARS set date=strftime('%Y-%m-%d', 'now', 'localtime'), name='${calendarData.name}'," +
+        db.execSQL("update CALENDARS set date=${calendarData.date}, name='${calendarData.name}'," +
                 "mtaken=${calendarData.mtaken}," + "ataken=${calendarData.ataken}," + "etaken=${calendarData.etaken}," + "ntaken=${calendarData.ntaken} " +
-                "where name='${prevName}';")
+                "where name='${prevName}' and date='${calendarData.date}';")
         db.close()
         Log.d("로그", "DatabaseManager - update : DB에 캘린더 저장됨")
     }

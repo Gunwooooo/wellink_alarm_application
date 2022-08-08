@@ -69,12 +69,12 @@ class AlarmReceiver : BroadcastReceiver(){
 
                         Log.d("로그", "AlarmService - onStartCommand : pendingId : $pendingId   takenFlag : $takenFlag")
                         //서비스는 한번만 호출하기
-                        if(startServiceFlag) {
+                        if(startServiceFlag && mPendingIdList.size != 0) {
                             Log.d("로그", "AlarmReceiver - onReceive : 서비스 호출합니다잉")
                             startServiceFlag = false
                             startService(intentToService)
                         }
-                    }, 10000) //10초동안 들어오는 서비스 모두 가져오기
+                    }, 7000) //10초동안 들어오는 서비스 모두 가져오기
                 }
                 OFF_INTENT -> {
                     Log.d("로그", "AlarmReceiver - onReceive : Reciever Off_intent 호출됨")
