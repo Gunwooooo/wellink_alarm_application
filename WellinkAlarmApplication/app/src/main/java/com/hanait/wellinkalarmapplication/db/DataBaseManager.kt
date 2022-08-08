@@ -118,7 +118,7 @@ class DatabaseManager(context: Context, fileName: String) :
     fun selectCalendarAsDateAndName(date: String, name: String) : CalendarData? {
         val db = readableDatabase
         val list: ArrayList<CalendarData> = ArrayList()
-        val cursor = db.rawQuery("select * from CALENDARS where date = '$date' and name= '$name'", null)
+        val cursor = db.rawQuery("select * from CALENDARS where date='$date' and name='$name'", null)
         while (cursor.moveToNext()) {
             val mCalendar = CalendarData()
             mCalendar.id = cursor.getInt((cursor.getColumnIndex("id")))

@@ -74,7 +74,7 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
     private fun setCalendarData(pendingId: Int, alarmName: String, taken: Int, calendarData: CalendarData?) {
         //서비스 시간 정해놓기 (미복용)
         var tmpCalendarData = CalendarData()
-        if(calendarData != null) tmpCalendarData = calendarData as CalendarData
+        if(calendarData != null) tmpCalendarData = calendarData
         tmpCalendarData.name = alarmName
         when(pendingId % 4) {
             0 -> tmpCalendarData.mtaken = taken
@@ -95,6 +95,8 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
     private fun getCalendarData(alarmName: String) : CalendarData? {
         val cal = Calendar.getInstance()
         val date = cal.time.let { Constants.sdf.format(it) }
+        Log.d("로그", "AlarmService - getCalendarData : @@@@@@@@@@@@@@@@@@@@@@@@@@")
+        Log.d("로그", "AlarmService - getCalendarData : 데이트 :  $date")
         if (DatabaseManager.getInstance(applicationContext, "Alarms.db")
                 .selectCalendarAsDateAndName(date, alarmName) != null
         ) {
@@ -140,6 +142,7 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
                         mPendingIdList[i] / 4)!!
                     //DB에서 캘린더 데이터 가져오기
                     val calendarData = getCalendarData(alarmData.name)
+                    Log.d("로그", "SetAlarmPopupActivity - onClick : 캘린더 데이터 : $calendarData")
                     //DB에 복용 정보 저장 or 수정 하기
                     setCalendarData(mPendingIdList[i], alarmData.name, 1, calendarData)
                 }

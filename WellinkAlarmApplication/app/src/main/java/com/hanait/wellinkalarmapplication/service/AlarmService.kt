@@ -76,6 +76,7 @@ class AlarmService: Service() {
                                 mPendingIdList[i] / 4)!!
                             //DB에서 캘린더 데이터 가져오기
                             val calendarData = getCalendarData(alarmData.name)
+                            Log.d("로그", "AlarmService - onStartCommand : 캘린더 데이터 : $calendarData")
                             //DB에 복용 정보 저장 or 수정 하기
                             setCalendarData(mPendingIdList[i], alarmData.name, calendarData)
                         }
@@ -95,7 +96,7 @@ class AlarmService: Service() {
     private fun setCalendarData(pendingId: Int, alarmName: String, calendarData: CalendarData?) {
         //서비스 시간 정해놓기 (미복용)
         var tmpCalendarData = CalendarData()
-        if(calendarData != null) tmpCalendarData = calendarData as CalendarData
+        if(calendarData != null) tmpCalendarData = calendarData
         tmpCalendarData.name = alarmName
         when(pendingId % 4) {
             0 -> tmpCalendarData.mtaken = 2
@@ -106,8 +107,10 @@ class AlarmService: Service() {
         //insert or modify 처리하기
         //해당 날짜와 이름에 복용 정보가 0이 아니면 modify
         if(calendarData == null) {
+            Log.d("로그", "AlarmService - setCalendarData : 복약 정보 insert")
             DatabaseManager.getInstance(this, "Alarms.db").insertCalendar(tmpCalendarData)
         } else {
+            Log.d("로그", "AlarmService - setCalendarData : 복약 정보 update")
             DatabaseManager.getInstance(this, "Alarms.db").updateCalendar(tmpCalendarData, alarmName)
         }
     }
@@ -116,6 +119,7 @@ class AlarmService: Service() {
     private fun getCalendarData(alarmName: String) : CalendarData? {
         val cal = Calendar.getInstance()
         val date = cal.time.let { Constants.sdf.format(it) }
+
         if (DatabaseManager.getInstance(applicationContext, "Alarms.db")
                 .selectCalendarAsDateAndName(date, alarmName) != null
         ) {
