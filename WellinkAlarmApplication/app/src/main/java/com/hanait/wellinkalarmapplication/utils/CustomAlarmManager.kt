@@ -40,7 +40,10 @@ class CustomAlarmManager(context: Context) {
         calendar.set(Calendar.MINUTE, minute)
         calendar.set(Calendar.SECOND, 0)
         if(calendar <= myCalendar) {
+            Log.d("로그", "CustomAlarmManager - setAlarmManager : 날짜 하루 뒤로 알람 설정")
             calendar.add(Calendar.DATE, 1)
+        } else {
+            Log.d("로그", "CustomAlarmManager - setAlarmManager : 그 당일로 알람 설정")
         }
         Log.d(
             "로그",

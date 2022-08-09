@@ -43,11 +43,6 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
 
         //모든 서비스 pendingId 가져오기
         pendingIdList = intent.getSerializableExtra("PendingIdList") as ArrayList<Int>
-
-        Log.d("로그", "SetAlarmPopupActivity - onCreate : 펜딩아이디리스트 사이즈 : ${pendingIdList.size}")
-        for (i in 0 until pendingIdList.size) {
-            Log.d("로그", "SetAlarmPopupActivity - onCreate : pendingId $i : ${pendingIdList[i]}")
-        }
         
         initView()
 
@@ -89,14 +84,13 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
         } else {
             DatabaseManager.getInstance(this, "Alarms.db").updateCalendar(tmpCalendarData, alarmName)
         }
+        Log.d("로그", "SetAlarmPopupActivity - onClick : 캘린더 데이터 후 : $tmpCalendarData")
     }
 
     //DB에서 복용 데이터 가져오기
     private fun getCalendarData(alarmName: String) : CalendarData? {
         val cal = Calendar.getInstance()
         val date = cal.time.let { Constants.sdf.format(it) }
-        Log.d("로그", "AlarmService - getCalendarData : @@@@@@@@@@@@@@@@@@@@@@@@@@")
-        Log.d("로그", "AlarmService - getCalendarData : 데이트 :  $date")
         if (DatabaseManager.getInstance(applicationContext, "Alarms.db")
                 .selectCalendarAsDateAndName(date, alarmName) != null
         ) {
@@ -136,13 +130,13 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
             binding.setAlarmPopupRippleBackgroundImageView -> {
                 Toast.makeText(this, "약을 복용했습니다.", Toast.LENGTH_SHORT).show()
                 takenFlag = true
-
+                Log.d("로그", "SetAlarmPopupActivity - onClick : 약 복용했습니다.")
                 for(i in 0 until mPendingIdList.size) {
                     val alarmData = DatabaseManager.getInstance(this, "Alarms.db").selectAlarmAsId(
                         mPendingIdList[i] / 4)!!
                     //DB에서 캘린더 데이터 가져오기
                     val calendarData = getCalendarData(alarmData.name)
-                    Log.d("로그", "SetAlarmPopupActivity - onClick : 캘린더 데이터 : $calendarData")
+                    Log.d("로그", "SetAlarmPopupActivity - onClick : 캘린더 데이터 전 : $calendarData")
                     //DB에 복용 정보 저장 or 수정 하기
                     setCalendarData(mPendingIdList[i], alarmData.name, 1, calendarData)
                 }

@@ -44,13 +44,15 @@ class AlarmReceiver : BroadcastReceiver(){
     override fun onReceive(context: Context?, intent: Intent?) {
         this.context = context
         var pendingId = intent?.extras?.getInt("PendingId")!!
-        Log.d("로그", "AlarmReceiver - onReceive : $pendingId 리시버 호출됨")
         val intentToService = Intent(context, AlarmService::class.java)
         try {
             val intentType = intent.extras?.getString("intentType")
             when(intentType) {
                 ADD_INTENT -> {
+                    Log.d("로그", "AlarmReceiver - onReceive : 리시버 add_intent 호출됨")
                     //복용 여부 확인을 위한 변수
+
+                    takenFlag = false
 
                     //알람 주기 및 기간 스킵 체크
                     if(alarmSkipCheck(pendingId)) return
@@ -66,8 +68,6 @@ class AlarmReceiver : BroadcastReceiver(){
                     handler.postDelayed({
                         //화면 깨우기
                         turnOnScreen()
-
-                        Log.d("로그", "AlarmService - onStartCommand : pendingId : $pendingId   takenFlag : $takenFlag")
                         //서비스는 한번만 호출하기
                         if(startServiceFlag && mPendingIdList.size != 0) {
                             Log.d("로그", "AlarmReceiver - onReceive : 서비스 호출합니다잉")
@@ -77,7 +77,7 @@ class AlarmReceiver : BroadcastReceiver(){
                     }, 7000) //10초동안 들어오는 서비스 모두 가져오기
                 }
                 OFF_INTENT -> {
-                    Log.d("로그", "AlarmReceiver - onReceive : Reciever Off_intent 호출됨")
+                    Log.d("로그", "AlarmReceiver - onReceive : 리시버 Off_intent 호출됨")
                     pendingId = intent.extras?.getInt("PendingId")!!
                     intentToService.putExtra("ON_OFF", OFF_INTENT)
                     intentToService.putExtra("PendingId", pendingId)
@@ -97,9 +97,6 @@ class AlarmReceiver : BroadcastReceiver(){
         val strDate = cal.time.let { Constants.sdf.format(it) }
 
         //알람 주기 및 만기일 체크 후 울리게 하기
-
-
-
         val alarmData = DatabaseManager.getInstance(context!!, "Alarms.db").selectAlarmAsId(pendingId / 4)!!
 
         //만기일이 지났을 경우 알람 삭제
@@ -128,7 +125,7 @@ class AlarmReceiver : BroadcastReceiver(){
         if(alarmSkipCheck) {
             Log.d("로그", "AlarmReceiver - onReceive : 알람 울리는 날이 아닙니다.")
 
-            //DB에서 알람 데이터 가져와서 알람 재설정
+            //주기에 해당안되는 알람 재설정 DB에서 알람 데이터 가져와서 알람 재설정
             when(pendingId % 4) {
                 0 -> CustomAlarmManager.getInstance(context).setAlarmManager(pendingId, alarmData.mampm, alarmData.mhour, alarmData.mminute)
                 1 -> CustomAlarmManager.getInstance(context).setAlarmManager(pendingId, alarmData.aampm, alarmData.ahour, alarmData.aminute)

@@ -54,10 +54,9 @@ class AlarmService: Service() {
         val onOff = intent?.extras?.getString("ON_OFF")
         val pendingId = intent?.extras?.getInt("PendingId")!!
 
-        Log.d("로그", "AlarmService - onStartCommand : $pendingId 서비스 호출됨")
         when(onOff) {
             ADD_INTENT -> {
-
+                Log.d("로그", "AlarmService - onStartCommand : 서비스 add_intent 호출됨")
 //              알람 id 받기
                 alarmData = DatabaseManager.getInstance(this, "Alarms.db").selectAlarmAsId(pendingId / 4)!!
 
@@ -69,7 +68,7 @@ class AlarmService: Service() {
                 handler.postDelayed({
                     if(!takenFlag) {
                         Toast.makeText(this, "약을 미복용했어요", Toast.LENGTH_SHORT).show()
-
+                        Log.d("로그", "AlarmService - onStartCommand : 약 복용 시간 지남 및 takenFlag : false")
                         //서비스 갯수만큼 반복
                         for(i in 0 until mPendingIdList.size) {
                             val alarmData = DatabaseManager.getInstance(this, "Alarms.db").selectAlarmAsId(
@@ -86,6 +85,7 @@ class AlarmService: Service() {
                 }, SERVICE_TIME_OUT)
             }
             OFF_INTENT -> {
+                Log.d("로그", "AlarmService - onStartCommand : 서비스 off_intent 호출됨")
                 stopMedia(intent, pendingId)
                 stopSelf()
             }
@@ -142,7 +142,6 @@ class AlarmService: Service() {
                 2 -> CustomAlarmManager.getInstance(applicationContext).setAlarmManager(mPendingIdList[i], alarmData.eampm, alarmData.ehour, alarmData.eminute)
                 3 -> CustomAlarmManager.getInstance(applicationContext).setAlarmManager(mPendingIdList[i], alarmData.nampm, alarmData.nhour, alarmData.nminute)
             }
-
         }
         Log.d("로그", "AlarmService - onDestroy : 서비스 디스트로이 호출")
         
@@ -153,7 +152,6 @@ class AlarmService: Service() {
         //서비스 리스트 비우기
         mPendingIdList.clear()
         startServiceFlag = true
-        takenFlag = false
     }
 
     //알림 소리 끄기
