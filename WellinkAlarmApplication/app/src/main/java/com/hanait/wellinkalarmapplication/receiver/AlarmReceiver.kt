@@ -45,6 +45,19 @@ class AlarmReceiver : BroadcastReceiver(){
         this.context = context
         var pendingId = intent?.extras?.getInt("PendingId")!!
         val intentToService = Intent(context, AlarmService::class.java)
+
+        //부팅시 알람 재등록 필요
+        if("android.intent.action.BOOT_COMPLETED" == intent.action) {
+            Log.d("로그", "AlarmReceiver - onReceive : 재부팅 되었습니다!")
+            //DB 알람 조회 후 모든 알람 재등록
+            val alarmList = DatabaseManager.getInstance(context!!, "Alarms.db").selectAlarmAll()
+            Log.d("로그", "AlarmReceiver - onReceive : alarmList 사이즈 : ${alarmList.size}")
+            for(i in 0 until alarmList.size) {
+                setAlarmManager(alarmList[i])
+            }
+        }
+
+
         try {
             val intentType = intent.extras?.getString("intentType")
             when(intentType) {
@@ -89,6 +102,19 @@ class AlarmReceiver : BroadcastReceiver(){
             Log.d("로그", "AlarmReceiver - onReceive : $e")
             e.printStackTrace()
         }
+    }
+
+    // 스위치에 따른 알람 울리게 설정 및 취소 설정
+    private fun setAlarmManager(alarmData: AlarmData) {
+        val pendingId = alarmData.id * 4
+        if(alarmData.mswitch == 1)
+            CustomAlarmManager.getInstance(context).setAlarmManager(pendingId, alarmData.mampm, alarmData.mhour, alarmData.mminute)
+        if(alarmData.aswitch == 1)
+            CustomAlarmManager.getInstance(context).setAlarmManager(pendingId + 1, alarmData.aampm, alarmData.ahour, alarmData.aminute)
+        if(alarmData.eswitch == 1)
+            CustomAlarmManager.getInstance(context).setAlarmManager(pendingId + 2, alarmData.eampm, alarmData.ehour, alarmData.eminute)
+        if(alarmData.nswitch == 1)
+            CustomAlarmManager.getInstance(context).setAlarmManager(pendingId + 3, alarmData.nampm, alarmData.nhour, alarmData.nminute)
     }
 
     //알림이 울리는 날인지 체크
