@@ -29,7 +29,6 @@ class HomeAlarmFragment : BaseFragment<FragmentHomeAlarmBinding>(FragmentHomeAla
         super.onViewCreated(view, savedInstanceState)
 
         binding.homeAlarmAddAlarm.setOnClickListener(this)
-        binding.homeAlarmFloatingButton.setOnClickListener(this)
         setTextAlarmCountAndExplain()
         recyclerViewCreate()
         for(i in 0 until mAlarmList.size) {
@@ -39,7 +38,7 @@ class HomeAlarmFragment : BaseFragment<FragmentHomeAlarmBinding>(FragmentHomeAla
 
     override fun onClick(v: View?) {
         when(v) {
-            binding.homeAlarmAddAlarm, binding.homeAlarmFloatingButton -> {
+            binding.homeAlarmAddAlarm-> {
                 tempAlarmData2 = null
                 val intent = Intent(context, SetAlarmActivity::class.java)
                 startActivity(intent)

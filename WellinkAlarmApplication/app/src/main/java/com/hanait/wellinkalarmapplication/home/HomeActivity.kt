@@ -14,6 +14,8 @@ import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.navigation.NavigationView
 import com.hanait.wellinkalarmapplication.R
 import com.hanait.wellinkalarmapplication.databinding.ActivityHomeBinding
+import com.hanait.wellinkalarmapplication.setAlarm.SetAlarmActivity
+import com.hanait.wellinkalarmapplication.utils.Constants.tempAlarmData2
 import com.hanait.wellinkalarmapplication.utils.OnSwipeTouchListener
 import kotlin.system.exitProcess
 

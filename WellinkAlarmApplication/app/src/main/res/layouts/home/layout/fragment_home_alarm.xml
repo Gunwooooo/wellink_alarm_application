@@ -41,13 +41,14 @@
                     android:layout_width="0dip"
                     android:layout_height="match_parent"
                     android:layout_weight="0.6"/>
+
                 <ImageView
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true"
                     android:id="@+id/homeAlarm_addAlarm"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:src="@drawable/ic_baseline_add_24"
                     app:tint="@color/toss_blue_200" />
             </LinearLayout>
@@ -98,19 +99,10 @@
                     app:layout_constrainedHeight="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHeight_max="380dp"
+                    app:layout_constraintHeight_max="370dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_gravity="end|bottom"
-            android:id="@+id/homeAlarm_floatingButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="30dp"
-            android:src="@drawable/drug"
-            app:backgroundTint="@color/StatusBarColor" />
 </FrameLayout>

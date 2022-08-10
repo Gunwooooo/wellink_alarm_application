@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -15,194 +16,190 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="15dp"/>
+        <TextView
+            android:layout_marginBottom="15dp"
+            android:id="@+id/homeAccount_textView_title"
+            android:layout_marginStart="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OOO님의 정보"
+            android:fontFamily="@font/ps_bold"
+            android:textSize="24sp"
+            android:textColor="@color/toss_black_700"/>
 
-    <TextView
-        android:layout_marginBottom="15dp"
-        android:id="@+id/homeAccount_textView_title"
-        android:layout_marginStart="16dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="OOO님의 정보"
-        android:fontFamily="@font/ps_bold"
-        android:textSize="24sp"
-        android:textColor="@color/toss_black_700"/>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/StatusBarColor"
-        app:cardCornerRadius="16dp"
-        android:layout_margin="16dp"
-        app:cardElevation="13dp">
-
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="18dp">
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/StatusBarColor"
+            app:cardCornerRadius="16dp"
+            android:layout_margin="16dp"
+            app:cardElevation="13dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="1">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="18dp">
 
                 <LinearLayout
-                    android:layout_width="0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.6">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
 
+                    <LinearLayout
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.6">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/ps_bold"
+                            android:text="관심 약/약물 정보"
+                            android:textColor="@color/toss_black_500"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.4" />
+
+                    <ImageView
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:id="@+id/homeAccount_addAlarm"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_baseline_add_24"
+                        app:tint="@color/border_yellow_200" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/homeAccount_textView_likeCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ps_regular"
+                        android:text="0개"
+                        android:textColor="@color/toss_black_700"
+                        android:textSize="34sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/homeAccount_textView_explain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ps_regular"
+                        android:text="저장된 약이 없어요"
+                        android:textColor="@color/toss_black_500"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:orientation="horizontal" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/homeAccount_recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="vertical"
+                        app:layout_constrainedHeight="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHeight_max="280dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/StatusBarColor"
+            app:cardCornerRadius="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:cardElevation="13dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="18dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/ps_bold"
-                        android:text="관심 약/약물 정보"
+                        android:text="내 정보 관리"
                         android:textColor="@color/toss_black_500"
                         android:textSize="20sp" />
                 </LinearLayout>
-
                 <LinearLayout
-                    android:layout_width="0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.4" />
-
-                <ImageView
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:id="@+id/homeAccount_addAlarm"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_baseline_add_24"
-                    app:tint="@color/border_yellow_200" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="5dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/homeAccount_textView_likeCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/ps_regular"
-                    android:text="0개"
-                    android:textColor="@color/toss_black_700"
-                    android:textSize="34sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="20dp" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/homeAccount_textView_explain"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/ps_regular"
-                    android:text="저장된 약이 없어요"
-                    android:textColor="@color/toss_black_500"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:orientation="horizontal" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/homeAccount_recyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="vertical"
-                    app:layout_constrainedHeight="true"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHeight_max="300dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/StatusBarColor"
-        app:cardCornerRadius="16dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:cardElevation="13dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="18dp">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/ps_bold"
-                    android:text="내 정보 관리"
-                    android:textColor="@color/toss_black_500"
-                    android:textSize="20sp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="20dp" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp">
+                    android:layout_height="20dp" />
                 <LinearLayout
-                    android:layout_weight="0.44"
-                    android:layout_width="0dip"
-                    android:layout_height="match_parent">
-                    <Button
-                        android:id="@+id/homeAccount_btn_rename"
-                        android:layout_width="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp">
+                    <LinearLayout
+                        android:layout_weight="0.44"
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent">
+                        <Button
+                            android:id="@+id/homeAccount_btn_rename"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/btn_border_blue"
+                            android:fontFamily="@font/ps_regular"
+                            android:stateListAnimator="@null"
+                            android:text="이름 변경"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dip"
                         android:layout_height="match_parent"
-                        android:background="@drawable/btn_border_blue"
-                        android:fontFamily="@font/ps_regular"
-                        android:stateListAnimator="@null"
-                        android:text="이름 변경"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.04"/>
-                <LinearLayout
-                    android:layout_weight="0.44"
-                    android:layout_width="0dip"
-                    android:layout_height="match_parent">
-                    <Button
-                        android:id="@+id/homeAccount_btn_reset"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/btn_border_gray"
-                        android:fontFamily="@font/ps_regular"
-                        android:stateListAnimator="@null"
-                        android:text="데이터 초기화"
-                        android:textColor="@color/toss_black_200"
-                        android:textSize="18sp" />
+                        android:layout_weight="0.04"/>
+                    <LinearLayout
+                        android:layout_weight="0.44"
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent">
+                        <Button
+                            android:id="@+id/homeAccount_btn_reset"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/btn_border_gray"
+                            android:fontFamily="@font/ps_regular"
+                            android:stateListAnimator="@null"
+                            android:text="데이터 초기화"
+                            android:textColor="@color/toss_black_200"
+                            android:textSize="18sp" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
 </LinearLayout>
