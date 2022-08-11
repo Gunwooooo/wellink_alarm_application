@@ -32,7 +32,8 @@
                 android:id="@+id/homeCalendar_prevBtn"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/ic_baseline_navigate_before_24"/>
+                android:src="@drawable/ic_baseline_navigate_before_24"
+                android:contentDescription="prevMonth" />
         </LinearLayout>
 
         <LinearLayout
@@ -63,7 +64,8 @@
                 android:id="@+id/homeCalendar_nextBtn"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/ic_baseline_navigate_next_24"/>
+                android:src="@drawable/ic_baseline_navigate_next_24"
+                android:contentDescription="NextMonth" />
         </LinearLayout>
     </LinearLayout>
     <!--요일-->
@@ -152,6 +154,8 @@
 
     <!--달력뷰-->
     <androidx.recyclerview.widget.RecyclerView
+        android:clickable="false"
+        android:focusable="false"
         android:overScrollMode="never"
         android:id="@+id/homeCalendar_recyclerView"
         android:layout_width="match_parent"
