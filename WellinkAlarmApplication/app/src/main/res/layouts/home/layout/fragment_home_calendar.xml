@@ -48,7 +48,7 @@
                 android:padding="16dp"
                 android:text="YYYY년  MM월"
                 android:textAlignment="center"
-                android:textSize="26sp" />
+                android:textSize="26dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -81,7 +81,7 @@
             android:fontFamily="@font/ps_bold"
             android:textColor="@color/text_red_200"
             android:text="일"
-            android:textSize="20sp" />
+            android:textSize="20dp" />
 
         <TextView
             android:padding="10dp"
@@ -92,7 +92,7 @@
             android:text="월"
             android:fontFamily="@font/ps_bold"
             android:textColor="@color/toss_black_500"
-            android:textSize="20sp" />
+            android:textSize="20dp" />
 
         <TextView
             android:padding="10dp"
@@ -103,7 +103,7 @@
             android:text="화"
             android:fontFamily="@font/ps_bold"
             android:textColor="@color/toss_black_500"
-            android:textSize="20sp" />
+            android:textSize="20dp" />
 
         <TextView
             android:padding="10dp"
@@ -114,7 +114,7 @@
             android:text="수"
             android:textColor="@color/toss_black_500"
             android:fontFamily="@font/ps_bold"
-            android:textSize="20sp" />
+            android:textSize="20dp" />
 
         <TextView
             android:padding="10dp"
@@ -125,7 +125,7 @@
             android:gravity="left|center_vertical"
             android:text="목"
             android:textColor="@color/toss_black_500"
-            android:textSize="20sp" />
+            android:textSize="20dp" />
 
         <TextView
             android:padding="10dp"
@@ -136,7 +136,7 @@
             android:text="금"
             android:textColor="@color/toss_black_500"
             android:fontFamily="@font/ps_bold"
-            android:textSize="20sp" />
+            android:textSize="20dp" />
 
         <TextView
             android:padding="10dp"
@@ -147,7 +147,7 @@
             android:gravity="left|center_vertical"
             android:text="토"
             android:fontFamily="@font/ps_bold"
-            android:textSize="20sp" />
+            android:textSize="20dp" />
     </LinearLayout>
 
     <!--달력뷰-->

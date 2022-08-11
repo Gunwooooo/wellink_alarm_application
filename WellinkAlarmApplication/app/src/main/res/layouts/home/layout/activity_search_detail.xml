@@ -27,71 +27,79 @@
         android:layout_height="wrap_content"
         android:text="약 상세 정보"
         android:fontFamily="@font/ps_bold"
-        android:textSize="24sp"
+        android:textSize="24dp"
         android:textColor="@color/toss_black_700"/>
 
-    <ImageView
-        android:src="@drawable/no_image"
-        android:padding="10dp"
-        android:id="@+id/homeSearchDetail_imageView"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="200dp"/>
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ImageView
+                android:src="@drawable/no_image"
+                android:padding="10dp"
+                android:id="@+id/homeSearchDetail_imageView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
 
-    <TextView
-        android:layout_marginTop="5dp"
-        android:id="@+id/homeSearchDetail_textView_itemName"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="약 이름"
-        android:fontFamily="@font/ps_regular"
-        android:textColor="@color/toss_black_700"
-        android:textSize="20sp"/>
+            <TextView
+                android:layout_marginTop="5dp"
+                android:id="@+id/homeSearchDetail_textView_itemName"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="약 이름"
+                android:fontFamily="@font/ps_regular"
+                android:textColor="@color/toss_black_700"
+                android:textSize="20dp"/>
 
-    <TextView
-        android:id="@+id/homeSearchDetail_textView_entpName"
-        android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="제조업체"
-        android:fontFamily="@font/ps_regular"
-        android:textColor="@color/toss_black_200"
-        android:textSize="20sp"/>
+            <TextView
+                android:id="@+id/homeSearchDetail_textView_entpName"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="제조업체"
+                android:fontFamily="@font/ps_regular"
+                android:textColor="@color/toss_black_200"
+                android:textSize="20dp"/>
 
-    <LinearLayout
-        android:layout_marginTop="15dp"
-        android:background="@color/toss_black_100"
-        android:layout_width="match_parent"
-        android:layout_height="15dp"/>
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:background="@color/toss_black_100"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"/>
 
-    <com.google.android.material.tabs.TabLayout
-        app:tabTextAppearance="@style/tab_text"
-        android:layout_margin="10dp"
-        android:id="@+id/homeSearchDetail_tabLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-        <!-- TabItem은 탭메뉴 하나를 의미한다. -->
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="복약" />
+            <com.google.android.material.tabs.TabLayout
+                app:tabTextAppearance="@style/tab_text"
+                android:layout_margin="10dp"
+                android:id="@+id/homeSearchDetail_tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+                <!-- TabItem은 탭메뉴 하나를 의미한다. -->
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="복약" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="용법" />
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="용법" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="주의" />
-    </com.google.android.material.tabs.TabLayout>
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="주의" />
+            </com.google.android.material.tabs.TabLayout>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/homeSearchDetail_viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/homeSearchDetail_viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

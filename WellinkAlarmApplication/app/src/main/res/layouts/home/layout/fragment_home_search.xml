@@ -15,7 +15,7 @@
         android:imeOptions="actionSearch"
         android:inputType="text"
         android:padding="13dp"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:drawableEnd="@drawable/ic_baseline_search_24"
         android:fontFamily="@font/ps_regular"
         android:hint="의약품명을 입력해주세요(ex 아스피린)"

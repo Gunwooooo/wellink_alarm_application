@@ -33,7 +33,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="복용중인 약"
-                        android:textSize="20sp"
+                        android:textSize="20dp"
                         android:fontFamily="@font/ps_bold"
                         android:textColor="@color/toss_black_500"/>
                 </LinearLayout>
@@ -63,7 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0개"
-                    android:textSize="34sp"
+                    android:textSize="34dp"
                     android:fontFamily="@font/ps_regular"
                     android:textColor="@color/toss_black_700"/>
             </LinearLayout>
@@ -81,7 +81,7 @@
                     android:fontFamily="@font/ps_regular"
                     android:text="현재 복용중인 약이 없어요"
                     android:textColor="@color/toss_black_500"
-                    android:textSize="16sp" />
+                    android:textSize="16dp" />
             </LinearLayout>
 
             <LinearLayout

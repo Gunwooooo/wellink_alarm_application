@@ -38,7 +38,7 @@ class AlarmService: Service() {
     private lateinit var mediaPlayer: MediaPlayer
 
     companion object {
-        const val SERVICE_TIME_OUT: Long = 20000 //1분
+        const val SERVICE_TIME_OUT: Long = 45000 //1분5
         const val CHANNEL_ID = "primary_notification_channel"
         var takenFlag = false
     }

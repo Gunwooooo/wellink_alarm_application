@@ -23,7 +23,7 @@
             android:layout_marginTop="80dp"
             android:text="이름을 알려주세요"
             android:textColor="@color/toss_black_700"
-            android:textSize="28sp" />
+            android:textSize="28dp" />
 
         <EditText
             android:id="@+id/setUserName_editText_userName"
@@ -34,7 +34,7 @@
             android:layout_marginTop="200dp"
             android:hint="홍길동"
             android:inputType="text"
-            android:textSize="50sp"
+            android:textSize="50dp"
             android:importantForAutofill="no" >
             <requestFocus />
         </EditText>
@@ -43,14 +43,15 @@
 
     <Button
         android:id="@+id/setUserName_btn_next"
-        android:layout_width="380dp"
+        android:layout_width="match_parent"
         android:layout_height="73dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/btn_border_blue"
         android:fontFamily="@font/ps_regular"
         android:stateListAnimator="@null"
         android:text="다음"
         android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:textSize="20dp" />
 </LinearLayout>

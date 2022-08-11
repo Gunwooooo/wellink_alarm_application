@@ -24,7 +24,7 @@
             android:textColor="@color/toss_black_700"
             android:fontFamily="@font/ps_bold"
             android:gravity="center"
-            android:textSize="28sp"/>
+            android:textSize="28dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -65,7 +65,7 @@
                     android:gravity="center"
                     android:textColor="@color/toss_black_700"
                     android:fontFamily="@font/ps_bold"
-                    android:textSize="21sp" />
+                    android:textSize="21dp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dip"
@@ -83,7 +83,7 @@
                     android:gravity="left|center_vertical"
                     android:textColor="@color/toss_black_700"
                     android:fontFamily="@font/ps_bold"
-                    android:textSize="24sp" />
+                    android:textSize="24dp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dip"
@@ -136,7 +136,7 @@
                     android:gravity="center"
                     android:textColor="@color/toss_black_700"
                     android:fontFamily="@font/ps_bold"
-                    android:textSize="21sp" />
+                    android:textSize="21dp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dip"
@@ -154,7 +154,7 @@
                     android:gravity="left|center_vertical"
                     android:textColor="@color/toss_black_700"
                     android:fontFamily="@font/ps_bold"
-                    android:textSize="24sp" />
+                    android:textSize="24dp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dip"
@@ -208,7 +208,7 @@
                     android:gravity="center"
                     android:textColor="@color/toss_black_700"
                     android:fontFamily="@font/ps_bold"
-                    android:textSize="21sp" />
+                    android:textSize="21dp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dip"
@@ -226,7 +226,7 @@
                     android:gravity="left|center_vertical"
                     android:textColor="@color/toss_black_700"
                     android:fontFamily="@font/ps_bold"
-                    android:textSize="24sp" />
+                    android:textSize="24dp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dip"
@@ -269,7 +269,7 @@
             <LinearLayout
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
-                android:layout_weight="0.1833">
+                android:layout_weight="0.1333">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -277,12 +277,12 @@
                     android:gravity="center"
                     android:textColor="@color/toss_black_700"
                     android:fontFamily="@font/ps_bold"
-                    android:textSize="21sp" />
+                    android:textSize="21dp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
-                android:layout_weight="0.05"/>
+                android:layout_weight="0.1"/>
             <LinearLayout
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
@@ -295,7 +295,7 @@
                     android:gravity="left|center_vertical"
                     android:textColor="@color/toss_black_700"
                     android:fontFamily="@font/ps_bold"
-                    android:textSize="24sp" />
+                    android:textSize="24dp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dip"
@@ -330,19 +330,20 @@
             android:fontFamily="@font/ps_regular"
             android:text="시간을 설정하고 스위치를 켜주세요!"
             android:textColor="@color/toss_black_500"
-            android:textSize="22sp" />
+            android:textSize="22dp" />
     </LinearLayout>
 
     <Button
         android:id="@+id/setAlarmTime_btn_next"
-        android:layout_width="380dp"
+        android:layout_width="match_parent"
         android:layout_height="73dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/btn_border_blue"
         android:fontFamily="@font/ps_regular"
         android:stateListAnimator="@null"
         android:text="다음"
         android:textColor="@color/white"
-        android:textSize="22sp" />
+        android:textSize="22dp" />
 </LinearLayout>

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".home.HomeSearchDetail3Fragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".home.HomeSearchDetail3Fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="20dp"
@@ -15,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="█ 이 약의 사용상 주의사항은 무엇입니까?"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:fontFamily="@font/ps_bold"
             android:textColor="@color/toss_blue_200"/>
 
@@ -26,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/toss_black_500"
-            android:textSize="18sp"
+            android:textSize="18dp"
             android:text="효능"
             android:fontFamily="@font/ps_regular"/>
 
@@ -35,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="█ 이 약은 어떤 이상반응이 나타날 수 있습니까?"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:fontFamily="@font/ps_bold"
             android:textColor="@color/toss_blue_200"/>
 
@@ -46,9 +44,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/toss_black_500"
-            android:textSize="18sp"
+            android:textSize="18dp"
             android:text="효능"
             android:fontFamily="@font/ps_regular"/>
 
     </LinearLayout>
-</ScrollView>

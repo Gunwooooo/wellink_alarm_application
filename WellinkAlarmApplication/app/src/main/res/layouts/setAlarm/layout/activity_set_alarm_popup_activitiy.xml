@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="12:32"
-            android:textSize="90sp"
+            android:textSize="90dp"
             android:textColor="@color/toss_blue_200"
             android:fontFamily="@font/ps_regular"/>
     </LinearLayout>
@@ -38,7 +38,7 @@
             android:layout_height="match_parent"
             android:textColor="@color/toss_blue_200"
             android:text="6월 20일 월요일"
-            android:textSize="22sp"
+            android:textSize="22dp"
             android:fontFamily="@font/ps_regular"/>
     </LinearLayout>
 
@@ -85,7 +85,7 @@
             android:layout_height="match_parent"
             android:text="OO 드실 시간이에요!"
             android:textColor="@color/toss_blue_200"
-            android:textSize="24sp"
+            android:textSize="24dp"
             android:fontFamily="@font/ps_bold"/>
     </LinearLayout>
 </LinearLayout>

@@ -17,10 +17,10 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/ps_bold"
             android:layout_gravity="center_horizontal|top"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="50dp"
             android:text="어떤 종류의 약을 드시나요?"
             android:textColor="@color/toss_black_700"
-            android:textSize="28sp" />
+            android:textSize="28dp" />
 
         <EditText
             android:id="@+id/setAlarmName_editText_alarmName"
@@ -28,10 +28,10 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:layout_gravity="center_horizontal|top"
-            android:layout_marginTop="180dp"
+            android:layout_marginTop="140dp"
             android:hint="감기약"
             android:inputType="text"
-            android:textSize="50sp"
+            android:textSize="50dp"
             android:importantForAutofill="no" >
             <requestFocus />
         </EditText>
@@ -40,14 +40,15 @@
 
     <Button
         android:id="@+id/setAlarmName_btn_next"
-        android:layout_width="380dp"
+        android:layout_width="match_parent"
         android:layout_height="73dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/btn_border_blue"
         android:fontFamily="@font/ps_regular"
         android:stateListAnimator="@null"
         android:text="다음"
         android:textColor="@color/white"
-        android:textSize="22sp" />
+        android:textSize="22dp" />
 </LinearLayout>
