@@ -32,7 +32,6 @@ class RetrofitManager {
 
             override fun onFailure(call: Call<SearchData>, t: Throwable) {
                 progressDialog.dismiss()
-                Log.d("로그", "RetrofitManager - onFailure : onFailure")
                 completion(CompletionResponse.FAIL, null)
             }
             override fun onResponse(call: Call<SearchData>, response: Response<SearchData>) {
@@ -54,11 +53,9 @@ class RetrofitManager {
 
             override fun onFailure(call: Call<SearchData>, t: Throwable) {
                 progressDialog.dismiss()
-                Log.d("로그", "RetrofitManager - onFailure : onFailure")
                 completion(CompletionResponse.FAIL, null)
             }
             override fun onResponse(call: Call<SearchData>, response: Response<SearchData>) {
-//                Log.d("로그", "RetrofitManager - onResponse : onResponse")
                 if(response.code() != 200) {
                     completion(CompletionResponse.FAIL, null)
                 }else {

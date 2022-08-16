@@ -48,7 +48,7 @@ class AlarmService: Service() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("UnspecifiedImmutableFlag")
+    @SuppressLint("UnspecifiedImmutableFlag", "NewApi")
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
         val onOff = intent?.extras?.getString("ON_OFF")
@@ -56,7 +56,6 @@ class AlarmService: Service() {
 
         when(onOff) {
             ADD_INTENT -> {
-                Log.d("로그", "AlarmService - onStartCommand : 서비스 add_intent 호출됨")
 //              알람 id 받기
                 alarmData = DatabaseManager.getInstance(this, "Alarms.db").selectAlarmAsId(pendingId / 4)!!
 
@@ -68,14 +67,12 @@ class AlarmService: Service() {
                 handler.postDelayed({
                     if(!takenFlag) {
                         Toast.makeText(this, "약을 미복용했어요", Toast.LENGTH_SHORT).show()
-                        Log.d("로그", "AlarmService - onStartCommand : 약 복용 시간 지남 및 takenFlag : false")
                         //서비스 갯수만큼 반복
                         for(i in 0 until mPendingIdList.size) {
                             val alarmData = DatabaseManager.getInstance(this, "Alarms.db").selectAlarmAsId(
                                 mPendingIdList[i] / 4)!!
                             //DB에서 캘린더 데이터 가져오기
                             val calendarData = getCalendarData(alarmData.name)
-                            Log.d("로그", "AlarmService - onStartCommand : 캘린더 데이터 : $calendarData")
                             //DB에 복용 정보 저장 or 수정 하기
                             setCalendarData(mPendingIdList[i], alarmData.name, calendarData)
                         }
@@ -85,7 +82,6 @@ class AlarmService: Service() {
                 }, SERVICE_TIME_OUT)
             }
             OFF_INTENT -> {
-                Log.d("로그", "AlarmService - onStartCommand : 서비스 off_intent 호출됨")
                 stopMedia(intent, pendingId)
                 stopSelf()
             }
@@ -107,10 +103,8 @@ class AlarmService: Service() {
         //insert or modify 처리하기
         //해당 날짜와 이름에 복용 정보가 0이 아니면 modify
         if(calendarData == null) {
-            Log.d("로그", "AlarmService - setCalendarData : 복약 정보 insert")
             DatabaseManager.getInstance(this, "Alarms.db").insertCalendar(tmpCalendarData)
         } else {
-            Log.d("로그", "AlarmService - setCalendarData : 복약 정보 update")
             DatabaseManager.getInstance(this, "Alarms.db").updateCalendar(tmpCalendarData, alarmName)
         }
     }
@@ -129,6 +123,7 @@ class AlarmService: Service() {
         return null
     }
     
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onDestroy() {
         super.onDestroy()
         //알람 재호출
@@ -143,7 +138,6 @@ class AlarmService: Service() {
                 3 -> CustomAlarmManager.getInstance(applicationContext).setAlarmManager(mPendingIdList[i], alarmData.nampm, alarmData.nhour, alarmData.nminute)
             }
         }
-        Log.d("로그", "AlarmService - onDestroy : 서비스 디스트로이 호출")
         
         //음악 제거
         mediaPlayer.stop()
@@ -174,6 +168,7 @@ class AlarmService: Service() {
     }
 
     //노티 만들기
+    @RequiresApi(Build.VERSION_CODES.S)
     @SuppressLint("UnspecifiedImmutableFlag")
     private fun startNotification(pendingId: Int) {
         //팝업 인텐트 설정
@@ -182,7 +177,7 @@ class AlarmService: Service() {
         }
         popupIntent.putExtra("PendingId", pendingId)
         popupIntent.putExtra("PendingIdList", mPendingIdList)
-        val popupPendingIntent = PendingIntent.getActivity(this, 0, popupIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val popupPendingIntent = PendingIntent.getActivity(this, 0, popupIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE)
         val title = makeNotificationTitle(alarmData, pendingId)
         val message = "배너를 클릭하고 '복용' 버튼을 꼭 눌러주세요."
         val notification = NotificationCompat.Builder(this, AlarmService.CHANNEL_ID)
@@ -198,7 +193,6 @@ class AlarmService: Service() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel(pendingId, notification)
         }
-        Log.d("로그", "AlarmService - startNotification : 알람 펜딩s 아이디 : $pendingId")
         startForeground(pendingId, notification.build())
     }
 
@@ -214,7 +208,6 @@ class AlarmService: Service() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel(pendingId: Int, notification: NotificationCompat.Builder) {
-        Log.d("로그", "AlarmService - createNotificationChannel : createNotification 호출됨!!!")
         val notificationChannel = NotificationChannel(CHANNEL_ID, "MyApp notification", NotificationManager.IMPORTANCE_HIGH)
         notificationChannel.enableLights(true)
         notificationChannel.lightColor = Color.RED

@@ -53,7 +53,6 @@ class HomeAccountActivity : AppCompatActivity(), View.OnClickListener{
         recyclerViewCreate()
 
         //타이틀 사용자 이름으로 설정
-        Log.d("로그", "HomeAccountActivity - onCreate :  유저 네임 $userName")
         binding.homeAccountTextViewTitle.text = "${userName}님의 정보"
 
         //toolbar 표시
@@ -69,7 +68,6 @@ class HomeAccountActivity : AppCompatActivity(), View.OnClickListener{
             object : LikeAdapter.OnItemClickListener {
                 override fun onItemClick(v: View, pos: Int) {
                     //상세 정보 보기
-                    Log.d("로그", "HomeAccountFragment - recyclerViewCreate : ${likeList[pos - 1]}")
                     val intent = Intent(applicationContext, SearchDetailActivity::class.java)
                     intent.putExtra("SearchData", likeList[pos - 1] )
                     startActivity(intent)

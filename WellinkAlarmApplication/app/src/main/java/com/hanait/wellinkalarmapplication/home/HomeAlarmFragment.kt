@@ -4,9 +4,11 @@ import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hanait.wellinkalarmapplication.R
@@ -32,7 +34,6 @@ class HomeAlarmFragment : BaseFragment<FragmentHomeAlarmBinding>(FragmentHomeAla
         setTextAlarmCountAndExplain()
         recyclerViewCreate()
         for(i in 0 until mAlarmList.size) {
-            Log.d("로그", "HomeAlarmFragment - onViewCreated : ${mAlarmList[i]}")
         }
     }
 
@@ -54,8 +55,6 @@ class HomeAlarmFragment : BaseFragment<FragmentHomeAlarmBinding>(FragmentHomeAla
             object : AlarmAdapter.OnItemClickListener {
                 override fun onItemClick(v: View, pos: Int) {
                     //알람 데이터 수정하기
-                    Log.d("로그", "HomeAlarmFragment - onItemClick : ${mAlarmList[pos - 1]}")
-
                     val intent = Intent(context, SetAlarmActivity::class.java)
                     tempAlarmData2 = AlarmData()
                     tempAlarmData2 = mAlarmList[pos - 1]
@@ -85,6 +84,7 @@ class HomeAlarmFragment : BaseFragment<FragmentHomeAlarmBinding>(FragmentHomeAla
     fun showDialog(alarmAdapter:AlarmAdapter, pos:Int) {
         val customDialog = CustomDialogFragment(R.layout.home_alarm_delete_dialog, null)
         customDialog.setDialogListener(object:CustomDialogFragment.DeleteDialogListener {
+            @RequiresApi(Build.VERSION_CODES.S)
             @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
             //삭제 예 버튼 클릭
             override fun onPositiveClicked() {
@@ -106,10 +106,9 @@ class HomeAlarmFragment : BaseFragment<FragmentHomeAlarmBinding>(FragmentHomeAla
                 val intent = Intent(context, AlarmReceiver::class.java)
                 for(i in 0 until 4) {
                     val pendingId = alarmId * 4 + i
-                    val alarmIntent = PendingIntent.getBroadcast(context, pendingId, intent, 0)
+                    val alarmIntent = PendingIntent.getBroadcast(context, pendingId, intent, 0 or PendingIntent.FLAG_MUTABLE)
                     val alarmManager = context?.let { ContextCompat.getSystemService(it, AlarmManager::class.java) }
                     alarmManager?.cancel(alarmIntent)
-                    Log.d("로그", "HomeAlarmFragment - onPositiveClicked : $pendingId 알람 삭제 됩니다")
                 }
                 customDialog.dismiss()
             }

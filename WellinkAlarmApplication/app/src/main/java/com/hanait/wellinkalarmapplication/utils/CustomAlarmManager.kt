@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import com.hanait.wellinkalarmapplication.receiver.AlarmReceiver
 import java.util.*
@@ -29,9 +30,9 @@ class CustomAlarmManager(context: Context) {
     }
 
     //실제 알람 설정
+    @RequiresApi(Build.VERSION_CODES.S)
     @SuppressLint("UnspecifiedImmutableFlag")
     fun setAlarmManager(pendingId: Int, ampm:Int, hour: Int, minute: Int) {
-        Log.d("로그", "SetAlarmTimeFragment - setAlarm : 설정 된 알람 아이디 : ampm:$ampm  hour:$hour  minute:$minute  pendingId:$pendingId")
         val myCalendar = Calendar.getInstance()
         val calendar = myCalendar.clone() as Calendar
         if(ampm == 1 && hour != 12)
@@ -40,23 +41,14 @@ class CustomAlarmManager(context: Context) {
         calendar.set(Calendar.MINUTE, minute)
         calendar.set(Calendar.SECOND, 0)
         if(calendar <= myCalendar) {
-            Log.d("로그", "CustomAlarmManager - setAlarmManager : 날짜 하루 뒤로 알람 설정")
             calendar.add(Calendar.DATE, 1)
-        } else {
-            Log.d("로그", "CustomAlarmManager - setAlarmManager : 그 당일로 알람 설정")
         }
-        Log.d(
-            "로그",
-            "setAlarm: 캘린더 시간 : pendingId:$pendingId   " + calendar[Calendar.YEAR] + "-" + calendar[Calendar.MONTH] + "-" + calendar[Calendar.DAY_OF_MONTH] + "   " + calendar[Calendar.HOUR_OF_DAY] + ":" + calendar[Calendar.MINUTE] + ":" + calendar[Calendar.SECOND]
-        )
-
         val intent = Intent(context, AlarmReceiver::class.java)
         intent.putExtra("intentType", Constants.ADD_INTENT)
         intent.putExtra("PendingId", pendingId)
-        val alarmIntent = PendingIntent.getBroadcast(context, pendingId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val alarmIntent = PendingIntent.getBroadcast(context, pendingId, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE)
         val alarmManager = context.let { ContextCompat.getSystemService(it, AlarmManager::class.java) }
         alarmManager?.cancel(alarmIntent)
-//        alarmManager?.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, alarmIntent)
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             alarmManager?.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, alarmIntent)
         } else {

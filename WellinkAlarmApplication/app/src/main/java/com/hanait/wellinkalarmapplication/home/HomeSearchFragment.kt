@@ -107,7 +107,6 @@ class HomeSearchFragment : BaseFragment<FragmentHomeSearchBinding>(FragmentHomeS
 
                 // 스크롤이 끝에 도달했는지 확인
                 if (!searchView.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount && itemTotalCount >= 70 && lastVisibleItemPosition % 70 == 0) {
-                    Log.d("로그", "HomeSearchFragment - onScrolled : 끝에 도달")
                     searchAdapter.deleteLoading()
                     if (itemName == "") model.loadSearchDataAsPage(++page)
                     else model.loadSearchDataAsItemName(itemName, ++page)

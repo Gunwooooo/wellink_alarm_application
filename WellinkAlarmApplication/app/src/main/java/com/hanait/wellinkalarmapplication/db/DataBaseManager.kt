@@ -35,7 +35,6 @@ class DatabaseManager(context: Context, fileName: String) :
         db.execSQL("CREATE TABLE LIKES(id INTEGER PRIMARY KEY AUTOINCREMENT, entpName TEXT, itemName TEXT," +
                 "itemSeq INTEGER, efcyQesitm TEXT, useMethodQesitm TEXT, atpnWarnQesitm TEXT, atpnQesitm TEXT, intrcQesitm TEXT, " +
                 "seQesitm TEXT, depositMethodQesitm TEXT, openDe TEXT, updateDe TEXT, itemImage TEXT);")
-        Log.d("로그", "DatabaseManager - insert : DB 생성")
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {}
@@ -47,7 +46,6 @@ class DatabaseManager(context: Context, fileName: String) :
                 "'${item.useMethodQesitm}', '${item.atpnWarnQesitm}', '${item.atpnQesitm}', '${item.intrcQesitm}', '${item.seQesitm}', '${item.depositMethodQesitm}', '${item.openDe}'," +
                 "'${item.updateDe}', '${item.itemImage}');")
         db.close()
-        Log.d("로그", "DatabaseManager - insertLike : 등록됨")
     }
 
     //등록된 약 가져오기
@@ -83,7 +81,6 @@ class DatabaseManager(context: Context, fileName: String) :
     fun deleteLike(searchDataItemSeq: Int) {
         val db = writableDatabase
         db.execSQL("delete from LIKES where itemSeq = $searchDataItemSeq;")
-        Log.d("로그", "DatabaseManager - deleteLike : 등록 삭제됨")
         db.close()
     }
 
@@ -91,7 +88,6 @@ class DatabaseManager(context: Context, fileName: String) :
     fun resetLike() {
         val db = writableDatabase
         db.execSQL("delete from LIKES;")
-        Log.d("로그", "DatabaseManager - resetCalendar : 등록 약 정보 초기화 완료")
         db.close()
     }
 
@@ -101,7 +97,6 @@ class DatabaseManager(context: Context, fileName: String) :
         db.execSQL("insert into CALENDARS (date, name, mtaken, ataken, etaken, ntaken) values(strftime('%Y-%m-%d', 'now', 'localtime'),'" + calendarData.name + "',"
                 + calendarData.mtaken + "," + calendarData.ataken + "," + calendarData.etaken + "," + calendarData.ntaken + ");")
         db.close()
-        Log.d("로그", "DatabaseManager - insert : DB에 캘린더 저장됨")
     }
 
     fun updateCalendar(calendarData: CalendarData, prevName: String) {
@@ -110,7 +105,6 @@ class DatabaseManager(context: Context, fileName: String) :
                 "mtaken=${calendarData.mtaken}, ataken=${calendarData.ataken}, etaken=${calendarData.etaken}, " +
                 "ntaken=${calendarData.ntaken} where name='${prevName}' and date='${calendarData.date}';")
         db.close()
-        Log.d("로그", "DatabaseManager - update : DB에 캘린더 저장됨")
     }
 
     //Id에 해당하는 알람 정보 가져오기
@@ -189,7 +183,6 @@ class DatabaseManager(context: Context, fileName: String) :
     fun deleteCalendarAsDateAndName(alarmName: String, date: String) {
         val db = writableDatabase
         db.execSQL("delete from CALENDARS where name = '$alarmName' and date = '$date';")
-        Log.d("로그", "DatabaseManager - deleteCalendarAsDateAndName : 오늘 복용 정보 삭제 완료")
         db.close()
     }
 
@@ -197,7 +190,6 @@ class DatabaseManager(context: Context, fileName: String) :
     fun resetCalendar() {
         val db = writableDatabase
         db.execSQL("delete from CALENDARS;")
-        Log.d("로그", "DatabaseManager - resetCalendar : 복용 정보 초기화 완료")
         db.close()
     }
     /////////////////////////////////// ---  알람  --- ////////////////////////////////////////////////////
@@ -212,7 +204,6 @@ class DatabaseManager(context: Context, fileName: String) :
                 "nampm=${alarmData.nampm}, nhour=${alarmData.nhour}, nminute=${alarmData.nminute}, nswitch=${alarmData.nswitch} " +
                 "where name='${prevName}';")
         db.close()
-        Log.d("로그", "DatabaseManager - insert : DB에 알람 저장됨")
     }
 
     fun insertAlarm(alarmData: AlarmData) {
@@ -223,7 +214,6 @@ class DatabaseManager(context: Context, fileName: String) :
                 + alarmData.eampm + "," + alarmData.ehour + "," + alarmData.eminute + "," + alarmData.eswitch + ","
                 + alarmData.nampm + "," + alarmData.nhour + "," + alarmData.nminute + "," + alarmData.nswitch + ");")
         db.close()
-        Log.d("로그", "DatabaseManager - insert : DB에 알람 저장됨")
     }
 
     //이름에 해당하는 알람 아이디 가져오기
@@ -371,7 +361,6 @@ class DatabaseManager(context: Context, fileName: String) :
     fun resetAlarm() {
         val db = writableDatabase
         db.execSQL("delete from ALARMS;")
-        Log.d("로그", "DatabaseManager - resetAlarm : 알람 정보 초기화 완료")
         db.close()
     }
 

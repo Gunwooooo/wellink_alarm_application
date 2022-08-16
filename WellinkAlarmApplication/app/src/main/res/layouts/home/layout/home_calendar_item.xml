@@ -22,7 +22,8 @@
             <TextView
                 android:id="@+id/homeCalendarItem_textView"
                 android:background="@drawable/calendar_item_border"
-                android:padding="7dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="test"

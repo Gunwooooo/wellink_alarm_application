@@ -39,8 +39,6 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
         //pendingId 가져오기
         pendingId = intent.getIntExtra("PendingId", 0)
 
-        Log.d("로그", "SetAlarmPopupActivitiy - onCreate : $pendingId 팝업 액티비티 호출됨!")
-
         //모든 서비스 pendingId 가져오기
         pendingIdList = intent.getSerializableExtra("PendingIdList") as ArrayList<Int>
         
@@ -49,7 +47,6 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
         //서비스 시간 정해놓기 (미복용)
         Handler().postDelayed({
             if(!takenFlag) {
-                Log.d("로그", "SetAlarmPopupActivity - onCreate : 알람 시간 종료 팝업 지우기!")
 
                 //서비스 갯수만큼 반복
                 for(i in 0 until mPendingIdList.size) {
@@ -84,7 +81,6 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
         } else {
             DatabaseManager.getInstance(this, "Alarms.db").updateCalendar(tmpCalendarData, alarmName)
         }
-        Log.d("로그", "SetAlarmPopupActivity - onClick : 캘린더 데이터 후 : $tmpCalendarData")
     }
 
     //DB에서 복용 데이터 가져오기
@@ -130,13 +126,11 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
             binding.setAlarmPopupRippleBackgroundImageView -> {
                 Toast.makeText(this, "약을 복용했습니다.", Toast.LENGTH_SHORT).show()
                 takenFlag = true
-                Log.d("로그", "SetAlarmPopupActivity - onClick : 약 복용했습니다.")
                 for(i in 0 until mPendingIdList.size) {
                     val alarmData = DatabaseManager.getInstance(this, "Alarms.db").selectAlarmAsId(
                         mPendingIdList[i] / 4)!!
                     //DB에서 캘린더 데이터 가져오기
                     val calendarData = getCalendarData(alarmData.name)
-                    Log.d("로그", "SetAlarmPopupActivity - onClick : 캘린더 데이터 전 : $calendarData")
                     //DB에 복용 정보 저장 or 수정 하기
                     setCalendarData(mPendingIdList[i], alarmData.name, 1, calendarData)
                 }

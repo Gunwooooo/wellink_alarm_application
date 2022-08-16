@@ -35,11 +35,6 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
         init()
         initCalendarList()
         setTodayBorder()
-
-        Log.d("로그", "HomeCalendarFragment - onViewCreated : 캐ㅔㄹ린더 데이터 사이즈  :${mCalendarList.size}")
-        for(i in 0 until mCalendarList.size) {
-            Log.d("로그", "HomeCalendarFragment - onViewCreated : 캘린더 리스트 i:0    data : ${mCalendarList[i]}")
-        }
     }
 
     @SuppressLint("ClickableViewAccessibility", "SimpleDateFormat")

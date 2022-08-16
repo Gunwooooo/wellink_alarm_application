@@ -4,10 +4,12 @@ import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import com.hanait.wellinkalarmapplication.R
 import com.hanait.wellinkalarmapplication.databinding.FragmentSetAlarmExpiredBinding
@@ -34,6 +36,7 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
         init()
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     @SuppressLint("SetTextI18n")
     override fun onClick(v: View?) {
         when(v) {
@@ -51,8 +54,10 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
 
                 //임시 데이터 삭제
                 tempAlarmData2 = null
-                val intent = Intent(context, HomeActivity::class.java)
+
+                val intent = Intent(activity, HomeActivity::class.java)
                 startActivity(intent)
+
             }
 
             binding.setAlarmExpiredBtnSecond -> {
@@ -93,7 +98,6 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
         var expiredDate = ""
         cal.add(Calendar.DAY_OF_MONTH, (numberPickerValue - 1) * tempAlarmData.period)
         expiredDate = cal.time.let { Constants.sdf.format(it) }
-        Log.d("로그", "만기 날짜 : $expiredDate")
         return expiredDate
     }
 
@@ -140,15 +144,14 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
             Toast.makeText(context, "약이 수정되었습니다.", Toast.LENGTH_SHORT).show()
         }
         Constants.mAlarmList = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectAlarmAll()
-        Log.d("로그", "HomeAlarmFragment - getAlarmList : 알람 갯수 : ${Constants.mAlarmList.size}")
     }
 
 
 
     // 스위치에 따른 알람 울리게 설정 및 취소 설정
+    @RequiresApi(Build.VERSION_CODES.S)
     private fun setAllAlarmManager() {
         val pendingId = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectAlarmIdAsName(tempAlarmData.name)?.times(4) ?: return
-        Log.d("로그", "SetAlarmExpiredFragment - setAllAlarmManager : $pendingId")
         if(tempAlarmData.mswitch == 1)
             CustomAlarmManager.getInstance(context).setAlarmManager(pendingId, tempAlarmData.mampm, tempAlarmData.mhour, tempAlarmData.mminute)
         else deleteAlarmManager(pendingId)
@@ -164,6 +167,7 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
     }
 
     //알람 취소
+    @RequiresApi(Build.VERSION_CODES.S)
     @SuppressLint("UnspecifiedImmutableFlag")
     private fun deleteAlarmManager(pendingId: Int) {
         val alarmManager = context?.let {
@@ -173,7 +177,7 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
             )
         }
         val intent = Intent(context, AlarmReceiver::class.java)
-        val alarmIntent = PendingIntent.getBroadcast(context, pendingId, intent, 0)
+        val alarmIntent = PendingIntent.getBroadcast(context, pendingId, intent, 0 or PendingIntent.FLAG_MUTABLE)
         alarmManager?.cancel(alarmIntent)
     }
 }

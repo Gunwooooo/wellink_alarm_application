@@ -22,7 +22,6 @@ object RetrofitClient {
         val client = OkHttpClient.Builder()
 
         val loggingInterceptor = HttpLoggingInterceptor { message ->
-//            Log.d("로그", "RetrofitClient - getClient : $message")
         }
 
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)

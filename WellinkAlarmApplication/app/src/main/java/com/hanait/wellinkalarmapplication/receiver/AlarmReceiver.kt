@@ -48,10 +48,8 @@ class AlarmReceiver : BroadcastReceiver(){
 
         //부팅시 알람 재등록 필요
         if("android.intent.action.BOOT_COMPLETED" == intent.action) {
-            Log.d("로그", "AlarmReceiver - onReceive : 재부팅 되었습니다!")
             //DB 알람 조회 후 모든 알람 재등록
             val alarmList = DatabaseManager.getInstance(context!!, "Alarms.db").selectAlarmAll()
-            Log.d("로그", "AlarmReceiver - onReceive : alarmList 사이즈 : ${alarmList.size}")
             for(i in 0 until alarmList.size) {
                 setAlarmManager(alarmList[i])
             }
@@ -62,7 +60,6 @@ class AlarmReceiver : BroadcastReceiver(){
             val intentType = intent.extras?.getString("intentType")
             when(intentType) {
                 ADD_INTENT -> {
-                    Log.d("로그", "AlarmReceiver - onReceive : 리시버 add_intent 호출됨")
                     //복용 여부 확인을 위한 변수
 
                     takenFlag = false
@@ -83,14 +80,12 @@ class AlarmReceiver : BroadcastReceiver(){
                         turnOnScreen()
                         //서비스는 한번만 호출하기
                         if(startServiceFlag && mPendingIdList.size != 0) {
-                            Log.d("로그", "AlarmReceiver - onReceive : 서비스 호출합니다잉")
                             startServiceFlag = false
                             startService(intentToService)
                         }
                     }, 7000) //10초동안 들어오는 서비스 모두 가져오기
                 }
                 OFF_INTENT -> {
-                    Log.d("로그", "AlarmReceiver - onReceive : 리시버 Off_intent 호출됨")
                     pendingId = intent.extras?.getInt("PendingId")!!
                     intentToService.putExtra("ON_OFF", OFF_INTENT)
                     intentToService.putExtra("PendingId", pendingId)
@@ -99,12 +94,12 @@ class AlarmReceiver : BroadcastReceiver(){
                 }
             }
         } catch (e: Exception) {
-            Log.d("로그", "AlarmReceiver - onReceive : $e")
             e.printStackTrace()
         }
     }
 
     // 스위치에 따른 알람 울리게 설정 및 취소 설정
+    @RequiresApi(Build.VERSION_CODES.S)
     private fun setAlarmManager(alarmData: AlarmData) {
         val pendingId = alarmData.id * 4
         if(alarmData.mswitch == 1)
@@ -118,6 +113,7 @@ class AlarmReceiver : BroadcastReceiver(){
     }
 
     //알림이 울리는 날인지 체크
+    @RequiresApi(Build.VERSION_CODES.S)
     private fun alarmSkipCheck(pendingId: Int) : Boolean {
         val cal = Calendar.getInstance()
         val strDate = cal.time.let { Constants.sdf.format(it) }
@@ -127,7 +123,6 @@ class AlarmReceiver : BroadcastReceiver(){
 
         //만기일이 지났을 경우 알람 삭제
         if(alarmData.expired != "" && strDate > alarmData.expired) {
-            Log.d("로그", "AlarmReceiver - onReceive : 만기일이 지났습니다.")
             val alarmIntent = PendingIntent.getBroadcast(context, pendingId, Intent(context, AlarmReceiver::class.java), 0)
             val alarmManager = context.let { ContextCompat.getSystemService(context!!, AlarmManager::class.java) }
             alarmManager?.cancel(alarmIntent)
@@ -149,8 +144,6 @@ class AlarmReceiver : BroadcastReceiver(){
             }
         }
         if(alarmSkipCheck) {
-            Log.d("로그", "AlarmReceiver - onReceive : 알람 울리는 날이 아닙니다.")
-
             //주기에 해당안되는 알람 재설정 DB에서 알람 데이터 가져와서 알람 재설정
             when(pendingId % 4) {
                 0 -> CustomAlarmManager.getInstance(context).setAlarmManager(pendingId, alarmData.mampm, alarmData.mhour, alarmData.mminute)
