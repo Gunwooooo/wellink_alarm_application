@@ -11,7 +11,7 @@ android {
         applicationId "com.hanait.wellinkalarmapplication"
         minSdk 21
         targetSdk 31
-        versionCode 7
+        versionCode 8
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -109,4 +109,7 @@ dependencies {
 
     // 의존성 추가
     implementation 'androidx.work:work-runtime-ktx:2.7.1'
+
+    //circle indicator
+    implementation 'me.relex:circleindicator:2.1.6'
 }

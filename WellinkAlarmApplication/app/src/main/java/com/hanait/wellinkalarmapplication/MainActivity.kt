@@ -6,9 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.hanait.wellinkalarmapplication.databinding.ActivityMainBinding
-import com.hanait.wellinkalarmapplication.home.HomeActivity
-import com.hanait.wellinkalarmapplication.utils.Constants
-import com.hanait.wellinkalarmapplication.utils.Constants.userName
+import com.hanait.wellinkalarmapplication.utils.MainViewPagerFragmentAdapter
 import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -23,7 +21,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         binding.mainBtnStart.setOnClickListener(this)
 
-
+        val viewPager = binding.mainViewPager
+        viewPager.adapter = MainViewPagerFragmentAdapter(this)
+        binding.mainIndicator.setViewPager(viewPager)
+        binding.mainIndicator.createIndicators(5, 0)
     }
 
     @Override

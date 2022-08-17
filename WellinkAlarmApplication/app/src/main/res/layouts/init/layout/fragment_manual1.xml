@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".manual.ManualFragment1"
+    android:weightSum="1"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.85">
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/main_lottie"
+            app:lottie_rawRes="@raw/main_lottie"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.15">
+        <TextView
+            android:fontFamily="@font/ps_bold"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@color/toss_black_700"
+            android:text="약 알람과 복용 체크를 하나로"
+            android:textSize="28dp"/>
+    </LinearLayout>
+
+</LinearLayout>
