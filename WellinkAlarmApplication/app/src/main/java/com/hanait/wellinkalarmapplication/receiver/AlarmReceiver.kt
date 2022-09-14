@@ -1,49 +1,41 @@
 package com.hanait.wellinkalarmapplication.receiver
 
-import android.annotation.SuppressLint
 import android.app.AlarmManager
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.Context.POWER_SERVICE
 import android.content.Intent
-import android.graphics.Color
-import android.media.MediaPlayer
 import android.os.Build
 import android.os.Handler
-import android.os.PowerManager
-import android.provider.Settings
 import android.util.Log
-import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
-import com.hanait.wellinkalarmapplication.R
 import com.hanait.wellinkalarmapplication.db.DatabaseManager
 import com.hanait.wellinkalarmapplication.model.AlarmData
 
 import com.hanait.wellinkalarmapplication.service.AlarmService
 import com.hanait.wellinkalarmapplication.service.AlarmService.Companion.takenFlag
-import com.hanait.wellinkalarmapplication.setAlarm.SetAlarmPopupActivity
 
 import com.hanait.wellinkalarmapplication.utils.Constants
 import com.hanait.wellinkalarmapplication.utils.Constants.ADD_INTENT
 import com.hanait.wellinkalarmapplication.utils.Constants.OFF_INTENT
+import com.hanait.wellinkalarmapplication.utils.Constants.mAlarmList
 import com.hanait.wellinkalarmapplication.utils.Constants.mPendingIdList
 import com.hanait.wellinkalarmapplication.utils.Constants.startServiceFlag
 import com.hanait.wellinkalarmapplication.utils.CustomAlarmManager
-import java.text.SimpleDateFormat
 import java.util.*
 
 class AlarmReceiver : BroadcastReceiver(){
     var context : Context? = null
     private val handler = Handler()
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onReceive(context: Context?, intent: Intent?) {
+        Log.d("로그", "AlarmReceiver - onReceive : 리시버 호출됨")
         this.context = context
         var pendingId = intent?.extras?.getInt("PendingId")!!
+        val isMediaOnTmp = intent.extras?.getString("IsMediaOn")
+        val isVibrationTmp = intent.extras?.getString("IsVibrationOn")
         val intentToService = Intent(context, AlarmService::class.java)
 
         //부팅시 알람 재등록 필요
@@ -73,11 +65,11 @@ class AlarmReceiver : BroadcastReceiver(){
                     //서비스 인텐트 구성
                     intentToService.putExtra("ON_OFF", ADD_INTENT)
                     intentToService.putExtra("PendingId", pendingId)
+                    intentToService.putExtra("IsMediaOn", isMediaOnTmp)
+                    intentToService.putExtra("IsVibrationOn", isVibrationTmp)
 
                     //버전 체크 후 서비스 불러오기
                     handler.postDelayed({
-                        //화면 깨우기
-                        turnOnScreen()
                         //서비스는 한번만 호출하기
                         if(startServiceFlag && mPendingIdList.size != 0) {
                             startServiceFlag = false
@@ -89,6 +81,8 @@ class AlarmReceiver : BroadcastReceiver(){
                     pendingId = intent.extras?.getInt("PendingId")!!
                     intentToService.putExtra("ON_OFF", OFF_INTENT)
                     intentToService.putExtra("PendingId", pendingId)
+                    intentToService.putExtra("IsMediaOn", isMediaOnTmp)
+                    intentToService.putExtra("IsVibrationOn", isVibrationTmp)
                     //버전 체크 후 서비스 불러오기
                     startService(intentToService)
                 }
@@ -129,6 +123,7 @@ class AlarmReceiver : BroadcastReceiver(){
 
             //DB에서 알람 삭제
             DatabaseManager.getInstance(context!!, "Alarms.db").deleteAlarm(alarmData.name)
+            mAlarmList = DatabaseManager.getInstance(context!!, "Alarms.db").selectAlarmAll()
         }
 
         //DB에서 해당하는 약 데이터 가져오기
@@ -160,16 +155,5 @@ class AlarmReceiver : BroadcastReceiver(){
     private fun startService(intentToService: Intent) {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) this.context!!.startForegroundService(intentToService)
         else this.context!!.startService(intentToService)
-    }
-
-    //화면 깨우기
-    private fun turnOnScreen() {
-        val powerManager = this.context?.getSystemService(POWER_SERVICE) as PowerManager
-        val wakeLock = powerManager.newWakeLock(
-            PowerManager.SCREEN_BRIGHT_WAKE_LOCK or
-                    PowerManager.ACQUIRE_CAUSES_WAKEUP or
-                    PowerManager.ON_AFTER_RELEASE, "app:alarm"
-        )
-        wakeLock.acquire(10*60*1000L /*10 minutes*/)
     }
 }

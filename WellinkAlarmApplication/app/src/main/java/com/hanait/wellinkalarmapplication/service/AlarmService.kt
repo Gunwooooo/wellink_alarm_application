@@ -9,9 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.media.MediaPlayer
-import android.os.Build
-import android.os.Handler
-import android.os.IBinder
+import android.os.*
 import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
@@ -36,7 +34,9 @@ class AlarmService: Service() {
     private val handler = Handler()
     lateinit var alarmData: AlarmData
     private lateinit var mediaPlayer: MediaPlayer
-
+    private lateinit var vibratorPlayer: Vibrator
+    private var isMediaOnTmp = ""
+    private var isVibrationOnTmp = ""
     companion object {
         const val SERVICE_TIME_OUT: Long = 45000 //1분5
         const val CHANNEL_ID = "primary_notification_channel"
@@ -50,9 +50,11 @@ class AlarmService: Service() {
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("UnspecifiedImmutableFlag", "NewApi")
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-
+        Log.d("로그", "AlarmService - onStartCommand : 서비스 호출됨")
         val onOff = intent?.extras?.getString("ON_OFF")
         val pendingId = intent?.extras?.getInt("PendingId")!!
+        isMediaOnTmp = intent.extras?.getString("IsMediaOn")!!
+        isVibrationOnTmp = intent.extras?.getString("IsVibrationOn")!!
 
         when(onOff) {
             ADD_INTENT -> {
@@ -63,7 +65,14 @@ class AlarmService: Service() {
                 startNotification(pendingId)
 
                 //벨소리 울리기
-                startMedia()
+                if(isMediaOnTmp == "1")  {
+                    Log.d("로그", "AlarmService - onStartCommand : AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                    startMedia()
+                }
+                if(isVibrationOnTmp == "1") {
+                    Log.d("로그", "AlarmService - onStartCommand : BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                    startVibration()
+                }
                 handler.postDelayed({
                     if(!takenFlag) {
                         Toast.makeText(this, "약을 미복용했어요", Toast.LENGTH_SHORT).show()
@@ -82,7 +91,8 @@ class AlarmService: Service() {
                 }, SERVICE_TIME_OUT)
             }
             OFF_INTENT -> {
-                stopMedia(intent, pendingId)
+                if(isMediaOnTmp == "1") stopMedia(intent, pendingId)
+                if(isVibrationOnTmp == "1") stopVibration()
                 stopSelf()
             }
         }
@@ -122,7 +132,7 @@ class AlarmService: Service() {
         }
         return null
     }
-    
+
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onDestroy() {
         super.onDestroy()
@@ -138,11 +148,15 @@ class AlarmService: Service() {
                 3 -> CustomAlarmManager.getInstance(applicationContext).setAlarmManager(mPendingIdList[i], alarmData.nampm, alarmData.nhour, alarmData.nminute)
             }
         }
-        
+
         //음악 제거
-        mediaPlayer.stop()
-        mediaPlayer.reset()
-        
+        if(isMediaOnTmp == "1") {
+            mediaPlayer.stop()
+            mediaPlayer.reset()
+        }
+
+        if(isVibrationOnTmp == "1") stopVibration()
+
         //서비스 리스트 비우기
         mPendingIdList.clear()
         startServiceFlag = true
@@ -150,6 +164,8 @@ class AlarmService: Service() {
 
     //알림 소리 끄기
     private fun stopMedia(intent: Intent, pendingId: Int) {
+        Log.d("로그", "AlarmService - stopMedia : 스탑 미디어")
+
         val pendingId2 = intent.extras?.getInt("PendingId")
         if(mediaPlayer.isPlaying && pendingId == pendingId2) {
             mediaPlayer.stop()
@@ -160,11 +176,34 @@ class AlarmService: Service() {
     //알림 소리 켜기
     private fun startMedia() {
         //알람 소리 플레이
+        Log.d("로그", "AlarmService - startMedia : 미디어 스타트")
         val uri = Settings.System.DEFAULT_ALARM_ALERT_URI
         mediaPlayer = MediaPlayer.create(this, uri)
         if(!mediaPlayer.isPlaying) {
             mediaPlayer.start()
         }
+    }
+
+    //진동 켜기
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun startVibration() {
+        Log.d("로그", "AlarmService - startVibration : 스타트 진동")
+        vibratorPlayer = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val vibratorManager = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+            vibratorManager.defaultVibrator
+        } else {
+            @Suppress("DEPRECATION")
+            getSystemService(VIBRATOR_SERVICE) as Vibrator
+        }
+        val pattern = longArrayOf(1000, 2000, 1000, 2000)
+        val amplitudes = intArrayOf(100, 0, 100, 0)
+        val vibrationEffect = VibrationEffect.createWaveform(pattern, amplitudes, 0)
+        vibratorPlayer.vibrate(vibrationEffect)
+    }
+    //진동 끄기
+    private fun stopVibration() {
+        Log.d("로그", "AlarmService - stopVibration : 스탑 진동")
+        vibratorPlayer.cancel()
     }
 
     //노티 만들기
@@ -177,6 +216,8 @@ class AlarmService: Service() {
         }
         popupIntent.putExtra("PendingId", pendingId)
         popupIntent.putExtra("PendingIdList", mPendingIdList)
+        popupIntent.putExtra("IsMediaOn", isMediaOnTmp)
+        popupIntent.putExtra("IsVibrationOn", isVibrationOnTmp)
         val popupPendingIntent = PendingIntent.getActivity(this, 0, popupIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE)
         val title = makeNotificationTitle(alarmData, pendingId)
         val message = "배너를 클릭하고 '복용' 버튼을 꼭 눌러주세요."

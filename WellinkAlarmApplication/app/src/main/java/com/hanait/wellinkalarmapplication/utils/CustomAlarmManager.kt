@@ -6,10 +6,11 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import com.hanait.wellinkalarmapplication.receiver.AlarmReceiver
+import com.hanait.wellinkalarmapplication.utils.Constants.isMediaOn
+import com.hanait.wellinkalarmapplication.utils.Constants.isVibrationOn
 import java.util.*
 
 class CustomAlarmManager(context: Context) {
@@ -46,6 +47,9 @@ class CustomAlarmManager(context: Context) {
         val intent = Intent(context, AlarmReceiver::class.java)
         intent.putExtra("intentType", Constants.ADD_INTENT)
         intent.putExtra("PendingId", pendingId)
+        intent.putExtra("IsMediaOn", isMediaOn)
+        intent.putExtra("IsVibrationOn", isVibrationOn)
+
         val alarmIntent = PendingIntent.getBroadcast(context, pendingId, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE)
         val alarmManager = context.let { ContextCompat.getSystemService(it, AlarmManager::class.java) }
         alarmManager?.cancel(alarmIntent)

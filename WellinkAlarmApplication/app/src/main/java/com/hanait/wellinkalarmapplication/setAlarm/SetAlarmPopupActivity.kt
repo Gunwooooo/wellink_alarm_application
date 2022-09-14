@@ -29,6 +29,8 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding : ActivitySetAlarmPopupActivitiyBinding
     private var pendingId = 0
     private var pendingIdList: ArrayList<Int> = ArrayList()
+    private var isMediaOnTmp = ""
+    private var isVibrationOnTmp = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +40,8 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
 
         //pendingId 가져오기
         pendingId = intent.getIntExtra("PendingId", 0)
+        isMediaOnTmp = intent.extras?.getString("IsMediaOn")!!
+        isVibrationOnTmp = intent.extras?.getString("IsVibrationOn")!!
 
         //모든 서비스 pendingId 가져오기
         pendingIdList = intent.getSerializableExtra("PendingIdList") as ArrayList<Int>
@@ -139,6 +143,8 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
                 val intent = Intent(this, AlarmReceiver::class.java)
                 intent.putExtra("intentType", Constants.OFF_INTENT)
                 intent.putExtra("PendingId", pendingId)
+                intent.putExtra("IsMediaOn", isMediaOnTmp)
+                intent.putExtra("IsVibrationOn", isVibrationOnTmp)
                 sendBroadcast(intent)
 
                 finishAndRemoveTask() // 액티비티 종료 + 태스크 리스트에서 지우기

@@ -6,7 +6,6 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface IRetrofit {
-
     @GET(API.LOAD_SEARCH_DATA)
     fun loadSearchDataAsPage(
         @Query("serviceKey", encoded = true) serviceKey: String,
@@ -21,5 +20,4 @@ interface IRetrofit {
         @Query("pageNo") pageNo: Int,
         @Query("numOfRows") numOfRows: Int,
     ): Call<SearchData>
-
 }

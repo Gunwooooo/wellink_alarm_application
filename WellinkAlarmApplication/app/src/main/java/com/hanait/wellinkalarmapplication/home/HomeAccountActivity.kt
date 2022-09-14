@@ -1,36 +1,27 @@
 package com.hanait.wellinkalarmapplication.home
 
 import android.annotation.SuppressLint
-import android.app.AlarmManager
-import android.app.PendingIntent
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.CompoundButton
 import android.widget.Toast
-import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hanait.wellinkalarmapplication.MainActivity
 import com.hanait.wellinkalarmapplication.R
 import com.hanait.wellinkalarmapplication.SetUserNameActivity
 import com.hanait.wellinkalarmapplication.databinding.ActivityHomeAccountBinding
-import com.hanait.wellinkalarmapplication.databinding.ActivitySetAlarmBinding
 import com.hanait.wellinkalarmapplication.db.DatabaseManager
-import com.hanait.wellinkalarmapplication.model.AlarmData
 import com.hanait.wellinkalarmapplication.model.Item
-import com.hanait.wellinkalarmapplication.model.SearchData
-import com.hanait.wellinkalarmapplication.receiver.AlarmReceiver
-import com.hanait.wellinkalarmapplication.setAlarm.SetAlarmActivity
-import com.hanait.wellinkalarmapplication.setAlarm.SetAlarmNameFragment
-import com.hanait.wellinkalarmapplication.utils.Constants
+import com.hanait.wellinkalarmapplication.utils.Constants.isMediaOn
+import com.hanait.wellinkalarmapplication.utils.Constants.isVibrationOn
 import com.hanait.wellinkalarmapplication.utils.Constants.prefs
 import com.hanait.wellinkalarmapplication.utils.Constants.userName
 import com.hanait.wellinkalarmapplication.utils.CustomDialogFragment
-import java.util.*
 
-class HomeAccountActivity : AppCompatActivity(), View.OnClickListener{
+class HomeAccountActivity : AppCompatActivity(), View.OnClickListener, CompoundButton.OnCheckedChangeListener{
 
 
     private lateinit var binding : ActivityHomeAccountBinding
@@ -45,6 +36,13 @@ class HomeAccountActivity : AppCompatActivity(), View.OnClickListener{
         binding.homeAccountBtnReset.setOnClickListener(this)
         binding.homeAccountBtnRename.setOnClickListener(this)
         binding.homeAccountAddAlarm.setOnClickListener(this)
+        binding.homeAccountSwitchMedia.setOnCheckedChangeListener(this)
+        binding.homeAccountSwitchVibration.setOnCheckedChangeListener(this)
+
+
+        //벨소리 진동 스위치 셋팅
+        binding.homeAccountSwitchMedia.isChecked = isMediaOn == "1"
+        binding.homeAccountSwitchVibration.isChecked = isVibrationOn == "1"
 
         //등록된 약 정보 가져오기
         likeList = DatabaseManager.getInstance(this, "Alarms.db").selectLikeAll()
@@ -84,6 +82,29 @@ class HomeAccountActivity : AppCompatActivity(), View.OnClickListener{
         val layoutManager = LinearLayoutManager(this)
         likeView.layoutManager = layoutManager
         likeView.adapter = likeAdapter
+    }
+
+    override fun onCheckedChanged(v: CompoundButton?, isChecked: Boolean) {
+        when(v) {
+            binding.homeAccountSwitchMedia -> {
+                if(isChecked) {
+                    isMediaOn = "1"
+                    prefs.setString("media_on", "1")
+                } else {
+                    isMediaOn = "0"
+                    prefs.setString("media_on", "0")
+                }
+            }
+            binding.homeAccountSwitchVibration -> {
+                if(isChecked) {
+                    isVibrationOn = "1"
+                    prefs.setString("vibration_on", "1")
+                } else {
+                    isVibrationOn = "0"
+                    prefs.setString("vibration_on", "0")
+                }
+            }
+        }
     }
 
     //등록 약물 갯수 및 상단 설명 글 수정
@@ -146,7 +167,7 @@ class HomeAccountActivity : AppCompatActivity(), View.OnClickListener{
                 DatabaseManager.getInstance(applicationContext, "Alarms.db").resetLike()
 
                 Toast.makeText(applicationContext, "데이터가 초기화되었습니다.", Toast.LENGTH_SHORT).show()
-                
+
                 //메인 화면으로 이동
                 val intent = Intent(applicationContext, MainActivity::class.java)
                 startActivity(intent)

@@ -19,6 +19,10 @@ object Constants {
     //사용자 이름 저장을 위한 프리퍼런스
     lateinit var prefs: PreferenceManager
 
+    //알람 진동 및 벨소리 설정 프리퍼런스
+    lateinit var isMediaOn: String
+    lateinit var isVibrationOn: String
+
     //알림 설정 시 사용하는 임시 데이터
     lateinit var tempAlarmData: AlarmData
     //알람 수정 시 사용하는 임시 데이터

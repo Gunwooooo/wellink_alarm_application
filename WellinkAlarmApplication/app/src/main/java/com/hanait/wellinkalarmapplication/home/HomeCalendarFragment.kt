@@ -66,10 +66,11 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
     @SuppressLint("SimpleDateFormat")
     private fun getCalendarAsMonth(cal: Calendar) {
 
+        val year = SimpleDateFormat("yyyy").format(cal.time)
         val month = SimpleDateFormat("MM").format(cal.time)
         //아이콘 표시를 위한 arrayList
         //index -> 0:데이터 유무  1:복용갯수  2:미복용갯수  3:오늘날자 체크 4:복용 예정 약 개수
-        mCalendarList = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectCalendarAsMonth(month)
+        mCalendarList = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectCalendarAsMonth(year, month)
         takenArray = Array(32) { IntArray(5) { 0 } }
 
         //오늘 날짜 체크하기
@@ -81,8 +82,8 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
             takenArray[todayCal.get(Calendar.DAY_OF_MONTH)][3] = 1
         }
 
-        //복용 예정일 알람 개수 저장 -> 알약 아이콘 투명하게 표시하기 위해서
-        if(todayCal.get(Calendar.MONTH) <= cal.get(Calendar.MONTH)) {
+        //복용 예정일 알람 개수 저장
+        if(todayCal.get(Calendar.YEAR) < cal.get(Calendar.YEAR) || todayCal.get(Calendar.MONTH) <= cal.get(Calendar.MONTH)) {
             for (i in j until 32) {
                 val tempCal = GregorianCalendar()
                 tempCal.set(Calendar.YEAR, cal.get(Calendar.YEAR))

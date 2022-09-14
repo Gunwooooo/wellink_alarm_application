@@ -157,11 +157,11 @@ class DatabaseManager(context: Context, fileName: String) :
 
     //모든 캘린더 데이터 가져오기
     @SuppressLint("Recycle", "Range")
-    fun selectCalendarAsMonth(month: String): ArrayList<CalendarData> {
+    fun selectCalendarAsMonth(year: String, month: String): ArrayList<CalendarData> {
         val db = readableDatabase
         val list: ArrayList<CalendarData> = ArrayList()
         val cursor = db.rawQuery(
-            "select * from CALENDARS where strftime('%m', date) = '$month'",
+            "select * from CALENDARS where strftime('%Y%m', date) = '$year$month'",
             null
         )
         while (cursor.moveToNext()) {

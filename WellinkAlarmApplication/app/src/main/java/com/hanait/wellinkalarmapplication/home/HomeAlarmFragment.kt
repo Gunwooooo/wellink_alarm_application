@@ -33,8 +33,6 @@ class HomeAlarmFragment : BaseFragment<FragmentHomeAlarmBinding>(FragmentHomeAla
         binding.homeAlarmAddAlarm.setOnClickListener(this)
         setTextAlarmCountAndExplain()
         recyclerViewCreate()
-        for(i in 0 until mAlarmList.size) {
-        }
     }
 
     override fun onClick(v: View?) {
