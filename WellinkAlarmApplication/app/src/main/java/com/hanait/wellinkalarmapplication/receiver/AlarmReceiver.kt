@@ -31,7 +31,6 @@ class AlarmReceiver : BroadcastReceiver(){
 
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onReceive(context: Context?, intent: Intent?) {
-        Log.d("로그", "AlarmReceiver - onReceive : 리시버 호출됨")
         this.context = context
         var pendingId = intent?.extras?.getInt("PendingId")!!
         val isMediaOnTmp = intent.extras?.getString("IsMediaOn")
