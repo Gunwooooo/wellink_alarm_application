@@ -5,11 +5,13 @@
       <map>
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/drawable-v24/btn_border_avocado.xml" value="0.2155" />
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/drawable-v24/btn_border_blue.xml" value="0.2295" />
+        <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/drawable-v24/btn_border_gray.xml" value="0.1445" />
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/drawable-v24/btn_border_pistachio.xml" value="0.2155" />
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/drawable-v24/btn_border_sage.xml" value="0.2155" />
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/drawable-v24/btn_border_yellow.xml" value="0.2155" />
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/drawable/calendar_item_border.xml" value="0.2405" />
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.196" />
+        <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/drawable/search_edittext_border.xml" value="0.128" />
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/home/layout/activity_home.xml" value="0.24048913043478262" />
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/home/layout/activity_home_account.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/home/layout/activity_search_detail.xml" value="0.264" />
@@ -35,8 +37,10 @@
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/home/layout/search_detail_haeder_image.xml" value="0.24895833333333334" />
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/home/layout/search_detail_header_image.xml" value="0.1933876811594203" />
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/init/layout/activity_main.xml" value="0.184375" />
+        <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/init/layout/activity_set_alarm_vibration_and_media.xml" value="0.24739583333333334" />
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/init/layout/activity_set_user_name.xml" value="0.27898550724637683" />
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/init/layout/activity_splash.xml" value="0.184375" />
+        <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/init/layout/fragment_manual1.xml" value="0.16259057971014493" />
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/init/layout/fragment_manual2.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/init/layout/fragment_manual3.xml" value="0.18115942028985507" />
         <entry key="..\:/Users/USER/Desktop/git/wellink_alarm_application/WellinkAlarmApplication/app/src/main/res/layouts/init/layout/fragment_manual4.xml" value="0.22826086956521738" />

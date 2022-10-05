@@ -17,6 +17,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.hanait.wellinkalarmapplication.R
 import com.hanait.wellinkalarmapplication.db.DatabaseManager
+import com.hanait.wellinkalarmapplication.db.PreferenceManager
 import com.hanait.wellinkalarmapplication.model.AlarmData
 import com.hanait.wellinkalarmapplication.model.CalendarData
 import com.hanait.wellinkalarmapplication.setAlarm.SetAlarmPopupActivity
@@ -24,6 +25,7 @@ import com.hanait.wellinkalarmapplication.utils.Constants
 import com.hanait.wellinkalarmapplication.utils.Constants.ADD_INTENT
 import com.hanait.wellinkalarmapplication.utils.Constants.OFF_INTENT
 import com.hanait.wellinkalarmapplication.utils.Constants.mPendingIdList
+import com.hanait.wellinkalarmapplication.utils.Constants.prefs
 import com.hanait.wellinkalarmapplication.utils.Constants.startServiceFlag
 import com.hanait.wellinkalarmapplication.utils.CustomAlarmManager
 import java.text.SimpleDateFormat
@@ -53,8 +55,10 @@ class AlarmService: Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val onOff = intent?.extras?.getString("ON_OFF")
         val pendingId = intent?.extras?.getInt("PendingId")!!
-        isMediaOnTmp = intent.extras?.getString("IsMediaOn")!!
-        isVibrationOnTmp = intent.extras?.getString("IsVibrationOn")!!
+
+        prefs = PreferenceManager(applicationContext)
+        isMediaOnTmp = prefs.getString("media_on", "0")
+        isVibrationOnTmp = prefs.getString("vibration_on", "1")
 
         when(onOff) {
             ADD_INTENT -> {
@@ -81,22 +85,20 @@ class AlarmService: Service() {
                             setCalendarData(mPendingIdList[i], alarmData.name, calendarData)
                         }
                         //서비스 종료
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            stopForeground(true);
-                        } else {
-                            stopSelf();
-                        }
+//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                            stopForeground(true);
+//                        } else {
+                        stopSelf();
                     }
                 }, SERVICE_TIME_OUT)
             }
             OFF_INTENT -> {
                 if(isMediaOnTmp == "1") stopMedia(intent, pendingId)
                 if(isVibrationOnTmp == "1") stopVibration()
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    stopForeground(true);
-                } else {
-                    stopSelf();
-                }
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                    stopForeground(true);
+//                } else {
+                stopSelf();
             }
         }
         return START_NOT_STICKY
@@ -145,10 +147,10 @@ class AlarmService: Service() {
                 mPendingIdList[i] / 4)!!
             //DB에서 알람 데이터 가져와서 알람 재설정
             when(mPendingIdList[i] % 4) {
-                0 -> CustomAlarmManager.getInstance(applicationContext).setAlarmManager(mPendingIdList[i], alarmData.mampm, alarmData.mhour, alarmData.mminute)
-                1 -> CustomAlarmManager.getInstance(applicationContext).setAlarmManager(mPendingIdList[i], alarmData.aampm, alarmData.ahour, alarmData.aminute)
-                2 -> CustomAlarmManager.getInstance(applicationContext).setAlarmManager(mPendingIdList[i], alarmData.eampm, alarmData.ehour, alarmData.eminute)
-                3 -> CustomAlarmManager.getInstance(applicationContext).setAlarmManager(mPendingIdList[i], alarmData.nampm, alarmData.nhour, alarmData.nminute)
+                0 -> CustomAlarmManager.getInstance(applicationContext).setAlarmManager(mPendingIdList[i], alarmData.mampm, alarmData.mhour, alarmData.mminute, isMediaOnTmp, isVibrationOnTmp)
+                1 -> CustomAlarmManager.getInstance(applicationContext).setAlarmManager(mPendingIdList[i], alarmData.aampm, alarmData.ahour, alarmData.aminute, isMediaOnTmp, isVibrationOnTmp)
+                2 -> CustomAlarmManager.getInstance(applicationContext).setAlarmManager(mPendingIdList[i], alarmData.eampm, alarmData.ehour, alarmData.eminute, isMediaOnTmp, isVibrationOnTmp)
+                3 -> CustomAlarmManager.getInstance(applicationContext).setAlarmManager(mPendingIdList[i], alarmData.nampm, alarmData.nhour, alarmData.nminute, isMediaOnTmp, isVibrationOnTmp)
             }
         }
 
@@ -163,9 +165,7 @@ class AlarmService: Service() {
         //서비스 리스트 비우기
         mPendingIdList.clear()
         startServiceFlag = true
-        
-        //화면 끄기
-        wakeLock.release()
+
     }
 
     //알림 소리 끄기
@@ -197,7 +197,7 @@ class AlarmService: Service() {
             @Suppress("DEPRECATION")
             getSystemService(VIBRATOR_SERVICE) as Vibrator
         }
-        val pattern = longArrayOf(1000, 2000, 1000, 2000)
+        val pattern = longArrayOf(1000, 2000, 2000, 2000)
         val amplitudes = intArrayOf(80, 0, 80, 0)
         val vibrationEffect = VibrationEffect.createWaveform(pattern, amplitudes, 0)
         vibratorPlayer.vibrate(vibrationEffect)
@@ -217,8 +217,6 @@ class AlarmService: Service() {
         }
         popupIntent.putExtra("PendingId", pendingId)
         popupIntent.putExtra("PendingIdList", mPendingIdList)
-        popupIntent.putExtra("IsMediaOn", isMediaOnTmp)
-        popupIntent.putExtra("IsVibrationOn", isVibrationOnTmp)
         val popupPendingIntent = PendingIntent.getActivity(this, 0, popupIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE)
         val title = makeNotificationTitle(alarmData, pendingId)
         val message = "배너를 클릭하고 '복용' 버튼을 꼭 눌러주세요."

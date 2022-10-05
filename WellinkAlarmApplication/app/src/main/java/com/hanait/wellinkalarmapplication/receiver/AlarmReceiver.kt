@@ -19,6 +19,8 @@ import com.hanait.wellinkalarmapplication.service.AlarmService.Companion.takenFl
 import com.hanait.wellinkalarmapplication.utils.Constants
 import com.hanait.wellinkalarmapplication.utils.Constants.ADD_INTENT
 import com.hanait.wellinkalarmapplication.utils.Constants.OFF_INTENT
+import com.hanait.wellinkalarmapplication.utils.Constants.isMediaOn
+import com.hanait.wellinkalarmapplication.utils.Constants.isVibrationOn
 import com.hanait.wellinkalarmapplication.utils.Constants.mAlarmList
 import com.hanait.wellinkalarmapplication.utils.Constants.mPendingIdList
 import com.hanait.wellinkalarmapplication.utils.Constants.startServiceFlag
@@ -31,10 +33,9 @@ class AlarmReceiver : BroadcastReceiver(){
 
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onReceive(context: Context?, intent: Intent?) {
+
         this.context = context
         var pendingId = intent?.extras?.getInt("PendingId")!!
-        val isMediaOnTmp = intent.extras?.getString("IsMediaOn")
-        val isVibrationTmp = intent.extras?.getString("IsVibrationOn")
         val intentToService = Intent(context, AlarmService::class.java)
 
         //부팅시 알람 재등록 필요
@@ -64,8 +65,6 @@ class AlarmReceiver : BroadcastReceiver(){
                     //서비스 인텐트 구성
                     intentToService.putExtra("ON_OFF", ADD_INTENT)
                     intentToService.putExtra("PendingId", pendingId)
-                    intentToService.putExtra("IsMediaOn", isMediaOnTmp)
-                    intentToService.putExtra("IsVibrationOn", isVibrationTmp)
 
                     //버전 체크 후 서비스 불러오기
                     handler.postDelayed({
@@ -80,8 +79,6 @@ class AlarmReceiver : BroadcastReceiver(){
                     pendingId = intent.extras?.getInt("PendingId")!!
                     intentToService.putExtra("ON_OFF", OFF_INTENT)
                     intentToService.putExtra("PendingId", pendingId)
-                    intentToService.putExtra("IsMediaOn", isMediaOnTmp)
-                    intentToService.putExtra("IsVibrationOn", isVibrationTmp)
                     //버전 체크 후 서비스 불러오기
                     startService(intentToService)
                 }
@@ -96,13 +93,13 @@ class AlarmReceiver : BroadcastReceiver(){
     private fun setAlarmManager(alarmData: AlarmData) {
         val pendingId = alarmData.id * 4
         if(alarmData.mswitch == 1)
-            CustomAlarmManager.getInstance(context).setAlarmManager(pendingId, alarmData.mampm, alarmData.mhour, alarmData.mminute)
+            CustomAlarmManager.getInstance(context).setAlarmManager(pendingId, alarmData.mampm, alarmData.mhour, alarmData.mminute, isMediaOn, isVibrationOn)
         if(alarmData.aswitch == 1)
-            CustomAlarmManager.getInstance(context).setAlarmManager(pendingId + 1, alarmData.aampm, alarmData.ahour, alarmData.aminute)
+            CustomAlarmManager.getInstance(context).setAlarmManager(pendingId + 1, alarmData.aampm, alarmData.ahour, alarmData.aminute, isMediaOn, isVibrationOn)
         if(alarmData.eswitch == 1)
-            CustomAlarmManager.getInstance(context).setAlarmManager(pendingId + 2, alarmData.eampm, alarmData.ehour, alarmData.eminute)
+            CustomAlarmManager.getInstance(context).setAlarmManager(pendingId + 2, alarmData.eampm, alarmData.ehour, alarmData.eminute, isMediaOn, isVibrationOn)
         if(alarmData.nswitch == 1)
-            CustomAlarmManager.getInstance(context).setAlarmManager(pendingId + 3, alarmData.nampm, alarmData.nhour, alarmData.nminute)
+            CustomAlarmManager.getInstance(context).setAlarmManager(pendingId + 3, alarmData.nampm, alarmData.nhour, alarmData.nminute, isMediaOn, isVibrationOn)
     }
 
     //알림이 울리는 날인지 체크
@@ -140,10 +137,10 @@ class AlarmReceiver : BroadcastReceiver(){
         if(alarmSkipCheck) {
             //주기에 해당안되는 알람 재설정 DB에서 알람 데이터 가져와서 알람 재설정
             when(pendingId % 4) {
-                0 -> CustomAlarmManager.getInstance(context).setAlarmManager(pendingId, alarmData.mampm, alarmData.mhour, alarmData.mminute)
-                1 -> CustomAlarmManager.getInstance(context).setAlarmManager(pendingId, alarmData.aampm, alarmData.ahour, alarmData.aminute)
-                2 -> CustomAlarmManager.getInstance(context).setAlarmManager(pendingId, alarmData.eampm, alarmData.ehour, alarmData.eminute)
-                3 -> CustomAlarmManager.getInstance(context).setAlarmManager(pendingId, alarmData.nampm, alarmData.nhour, alarmData.nminute)
+                0 -> CustomAlarmManager.getInstance(context).setAlarmManager(pendingId, alarmData.mampm, alarmData.mhour, alarmData.mminute, isMediaOn, isVibrationOn)
+                1 -> CustomAlarmManager.getInstance(context).setAlarmManager(pendingId, alarmData.aampm, alarmData.ahour, alarmData.aminute, isMediaOn, isVibrationOn)
+                2 -> CustomAlarmManager.getInstance(context).setAlarmManager(pendingId, alarmData.eampm, alarmData.ehour, alarmData.eminute, isMediaOn, isVibrationOn)
+                3 -> CustomAlarmManager.getInstance(context).setAlarmManager(pendingId, alarmData.nampm, alarmData.nhour, alarmData.nminute, isMediaOn, isVibrationOn)
             }
             return true
         }

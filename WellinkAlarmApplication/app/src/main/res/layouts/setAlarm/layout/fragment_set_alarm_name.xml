@@ -35,7 +35,6 @@
             android:importantForAutofill="no" >
             <requestFocus />
         </EditText>
-
     </FrameLayout>
 
     <Button

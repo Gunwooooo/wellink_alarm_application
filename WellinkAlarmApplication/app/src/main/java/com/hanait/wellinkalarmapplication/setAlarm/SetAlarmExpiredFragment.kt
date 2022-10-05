@@ -18,6 +18,8 @@ import com.hanait.wellinkalarmapplication.home.HomeActivity
 import com.hanait.wellinkalarmapplication.receiver.AlarmReceiver
 import com.hanait.wellinkalarmapplication.utils.BaseFragment
 import com.hanait.wellinkalarmapplication.utils.Constants
+import com.hanait.wellinkalarmapplication.utils.Constants.isMediaOn
+import com.hanait.wellinkalarmapplication.utils.Constants.isVibrationOn
 import com.hanait.wellinkalarmapplication.utils.Constants.prevFragment
 import com.hanait.wellinkalarmapplication.utils.Constants.progressBar
 import com.hanait.wellinkalarmapplication.utils.Constants.tempAlarmData
@@ -153,16 +155,17 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
     private fun setAllAlarmManager() {
         val pendingId = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectAlarmIdAsName(tempAlarmData.name)?.times(4) ?: return
         if(tempAlarmData.mswitch == 1)
-            CustomAlarmManager.getInstance(context).setAlarmManager(pendingId, tempAlarmData.mampm, tempAlarmData.mhour, tempAlarmData.mminute)
+            CustomAlarmManager.getInstance(context).setAlarmManager(pendingId, tempAlarmData.mampm, tempAlarmData.mhour, tempAlarmData.mminute, isMediaOn, isVibrationOn
+            )
         else deleteAlarmManager(pendingId)
         if(tempAlarmData.aswitch == 1)
-            CustomAlarmManager.getInstance(context).setAlarmManager(pendingId + 1, tempAlarmData.aampm, tempAlarmData.ahour, tempAlarmData.aminute)
+            CustomAlarmManager.getInstance(context).setAlarmManager(pendingId + 1, tempAlarmData.aampm, tempAlarmData.ahour, tempAlarmData.aminute, isMediaOn, isVibrationOn)
         else deleteAlarmManager(pendingId + 1)
         if(tempAlarmData.eswitch == 1)
-            CustomAlarmManager.getInstance(context).setAlarmManager(pendingId + 2, tempAlarmData.eampm, tempAlarmData.ehour, tempAlarmData.eminute)
+            CustomAlarmManager.getInstance(context).setAlarmManager(pendingId + 2, tempAlarmData.eampm, tempAlarmData.ehour, tempAlarmData.eminute, isMediaOn, isVibrationOn)
         else deleteAlarmManager(pendingId + 2)
         if(tempAlarmData.nswitch == 1)
-            CustomAlarmManager.getInstance(context).setAlarmManager(pendingId + 3, tempAlarmData.nampm, tempAlarmData.nhour, tempAlarmData.nminute)
+            CustomAlarmManager.getInstance(context).setAlarmManager(pendingId + 3, tempAlarmData.nampm, tempAlarmData.nhour, tempAlarmData.nminute, isMediaOn, isVibrationOn)
         else deleteAlarmManager(pendingId + 3)
     }
 

@@ -49,7 +49,7 @@ class SetUserNameActivity : AppCompatActivity(), View.OnClickListener {
                     finish()
                     return
                 }
-                val intent = Intent(this, SetAlarmActivity::class.java)
+                val intent = Intent(this, SetAlarmVibrationAndMediaActivity::class.java)
                 startActivity(intent)
             }
         }

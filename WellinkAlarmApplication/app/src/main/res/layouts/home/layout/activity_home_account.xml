@@ -162,7 +162,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:fontFamily="@font/ps_bold"
-                            android:text="알람 설정"
+                            android:text="알림 설정"
                             android:textColor="@color/toss_black_500"
                             android:textSize="20dp" />
                     </LinearLayout>
