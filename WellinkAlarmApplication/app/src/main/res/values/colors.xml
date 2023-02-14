@@ -10,6 +10,7 @@
     <color name="StatusBarColor">#FAFAFA</color>
 
     <color name="toss_blue_100">#eaf3fe</color>
+    <color name="toss_blue_150">#D6E5F8</color>
     <color name="toss_blue_200">#487fee</color>
     <color name="toss_blue_700">#355eb0</color>
     <color name="toss_black_100">#f2f4f6</color>

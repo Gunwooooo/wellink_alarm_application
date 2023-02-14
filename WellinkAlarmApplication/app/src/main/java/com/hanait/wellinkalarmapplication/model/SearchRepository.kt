@@ -24,7 +24,6 @@ class SearchRepository {
             }
         })
     }
-
     @SuppressLint("NotifyDataSetChanged")
     fun loadSearchDataAsItemName(itemName: String, page: Int) {
         //공공데이터 가져오기
@@ -39,5 +38,4 @@ class SearchRepository {
             }
         })
     }
-
 }

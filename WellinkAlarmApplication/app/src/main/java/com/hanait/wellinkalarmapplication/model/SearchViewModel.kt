@@ -8,7 +8,6 @@ class SearchViewModel: ViewModel() {
     private val item: LiveData<Items>
         get() = searchRepository._item
 
-
     fun loadSearchDataAsPage(page: Int){
         searchRepository.loadSearchDataAsPage(page)
     }

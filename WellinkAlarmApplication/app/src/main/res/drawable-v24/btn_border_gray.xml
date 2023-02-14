@@ -7,7 +7,7 @@
             android:shape="rectangle">
             <corners
                 android:radius="15dp" />
-            <solid android:color="@color/toss_blue_200"/>
+            <solid android:color="@color/toss_blue_150"/>
         </shape>
     </item>
 
@@ -37,7 +37,7 @@
             android:shape="rectangle">
             <corners
                 android:radius="15dp" />
-            <solid android:color="@color/toss_blue_200"/>
+            <solid android:color="@color/toss_black_100"/>
         </shape>
     </item>
 

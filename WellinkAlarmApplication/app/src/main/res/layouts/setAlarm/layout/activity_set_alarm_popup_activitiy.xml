@@ -49,6 +49,7 @@
         android:layout_weight="0.52">
 
         <com.skyfishjy.library.RippleBackground
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/setAlarmPopup_rippleBackground"
@@ -63,9 +64,21 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/drug" />
+
+            <TextView
+                android:paddingTop="170dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/ps_bold"
+                android:text="약을 터치해주세요!"
+                android:textColor="@color/toss_blue_700"
+                android:textSize="28dp" />
         </com.skyfishjy.library.RippleBackground>
     </LinearLayout>
 
