@@ -7,16 +7,18 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="StatusBarColor">#FAFAFA</color>
+    <color name="StatusBarColor">#FFFFFF</color>
 
     <color name="toss_blue_100">#eaf3fe</color>
     <color name="toss_blue_150">#D6E5F8</color>
     <color name="toss_blue_200">#487fee</color>
     <color name="toss_blue_700">#355eb0</color>
     <color name="toss_black_100">#f2f4f6</color>
+    <color name="toss_black_120">#E8E8E8</color>
     <color name="toss_black_150">#c7c7c7</color>
     <color name="toss_black_200">#6d7582</color>
     <color name="toss_black_500">#505866</color>
+    <color name="toss_black_600">#364357</color>
     <color name="toss_black_700">#1a1e27</color>
 
 

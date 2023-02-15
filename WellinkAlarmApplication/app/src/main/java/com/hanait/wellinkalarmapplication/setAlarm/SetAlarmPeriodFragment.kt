@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.NumberPicker
 import androidx.core.content.ContextCompat
 import com.hanait.wellinkalarmapplication.R
@@ -44,25 +45,29 @@ class SetAlarmPeriodFragment : BaseFragment<FragmentSetAlarmPeriodBinding>(Fragm
                 
                 binding.setAlarmPeriodSpaceLayout.visibility = View.GONE
                 binding.setAlarmPeriodNumberPickerLayout.visibility = View.VISIBLE
-                binding.setAlarmPeriodBtnSecond.setBackgroundResource(R.drawable.btn_border_blue)
-                binding.setAlarmPeriodBtnSecond.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                binding.setAlarmPeriodBtnFirst.setBackgroundResource(R.drawable.btn_border_gray)
-                binding.setAlarmPeriodBtnFirst.setTextColor(ContextCompat.getColor(requireContext(), R.color.toss_black_200))
+
+                //버튼 활성화 변경
+                changeButtonColor(binding.setAlarmPeriodBtnSecond, binding.setAlarmPeriodBtnFirst)
             }
             binding.setAlarmPeriodBtnFirst -> {
                 numberPickerValue = 1
 
+                binding.setAlarmPeriodTextViewExplain.text = "매일마다 알림을 울려드릴게요!"
+
                 binding.setAlarmPeriodSpaceLayout.visibility = View.VISIBLE
                 binding.setAlarmPeriodNumberPickerLayout.visibility = View.GONE
-                binding.setAlarmPeriodBtnFirst.setBackgroundResource(R.drawable.btn_border_blue)
-                binding.setAlarmPeriodBtnFirst.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                binding.setAlarmPeriodBtnSecond.setBackgroundResource(R.drawable.btn_border_gray)
-                binding.setAlarmPeriodBtnSecond.setTextColor(ContextCompat.getColor(requireContext(), R.color.toss_black_200))
 
-                binding.setAlarmPeriodTextViewExplain.text = "매일마다 알림을 울려드릴게요!"
+                //버튼 활성화 변경
+                changeButtonColor(binding.setAlarmPeriodBtnFirst, binding.setAlarmPeriodBtnSecond)
 
             }
         }
+    }
+
+    //버튼 토글 기능
+    private fun changeButtonColor(onButton: Button, offButton: Button) {
+        onButton.isEnabled = false
+        offButton.isEnabled = true
     }
 
     @SuppressLint("SetTextI18n")

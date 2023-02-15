@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -71,24 +72,29 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
 
                 binding.setAlarmExpiredSpaceLayout.visibility = View.GONE
                 binding.setAlarmExpiredNumberPickerLayout.visibility = View.VISIBLE
-                binding.setAlarmExpiredBtnSecond.setBackgroundResource(R.drawable.btn_border_blue)
-                binding.setAlarmExpiredBtnSecond.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                binding.setAlarmExpiredBtnFirst.setBackgroundResource(R.drawable.btn_border_gray)
-                binding.setAlarmExpiredBtnFirst.setTextColor(ContextCompat.getColor(requireContext(), R.color.toss_black_200))
+
+                //버튼 활성화 변경
+                changeButtonColor(binding.setAlarmExpiredBtnSecond, binding.setAlarmExpiredBtnFirst)
             }
             binding.setAlarmExpiredBtnFirst -> {
                 numberPickerValue  = 0
 
+                binding.setAlarmExpiredTextViewExplain.text = "만기일 없이 알림을 울려드릴게요!"
+
                 binding.setAlarmExpiredSpaceLayout.visibility = View.VISIBLE
                 binding.setAlarmExpiredNumberPickerLayout.visibility = View.GONE
-                binding.setAlarmExpiredBtnFirst.setBackgroundResource(R.drawable.btn_border_blue)
-                binding.setAlarmExpiredBtnFirst.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                binding.setAlarmExpiredBtnSecond.setBackgroundResource(R.drawable.btn_border_gray)
-                binding.setAlarmExpiredBtnSecond.setTextColor(ContextCompat.getColor(requireContext(), R.color.toss_black_200))
 
-                binding.setAlarmExpiredTextViewExplain.text = "만기일 없이 알림을 울려드릴게요!"
+                //버튼 활성화 변경
+                changeButtonColor(binding.setAlarmExpiredBtnFirst, binding.setAlarmExpiredBtnSecond)
+
             }
         }
+    }
+
+    //버튼 토글 기능
+    private fun changeButtonColor(onButton: Button, offButton: Button) {
+        onButton.isEnabled = false
+        offButton.isEnabled = true
     }
 
     //만기날짜 가져오기

@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,7 +27,7 @@
             android:gravity="center"
             android:text="OO약을\n며칠 드시나요?"
             android:textColor="@color/toss_black_700"
-            android:textSize="28dp" />
+            android:textSize="27dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -51,13 +52,14 @@
             <Button
                 android:id="@+id/setAlarmExpired_btn_first"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/btn_border_blue"
+                android:layout_height="63dp"
+                android:background="@drawable/btn_border_gray_reverse"
+                android:enabled="false"
                 android:fontFamily="@font/ps_regular"
                 android:stateListAnimator="@null"
                 android:text="정해지지 않았어요"
                 android:textColor="@color/white"
-                android:textSize="19dp" />
+                android:textSize="16dp" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dip"
@@ -70,13 +72,13 @@
             <Button
                 android:id="@+id/setAlarmExpired_btn_second"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/btn_border_gray"
+                android:layout_height="63dp"
+                android:background="@drawable/btn_border_gray_reverse"
                 android:fontFamily="@font/ps_regular"
                 android:stateListAnimator="@null"
                 android:text="정해져 있어요"
-                android:textColor="@color/toss_black_200"
-                android:textSize="19dp" />
+                android:textColor="@color/white"
+                android:textSize="16dp" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dip"
@@ -119,7 +121,7 @@
             android:text="만기일 없이 알림을 울려드릴게요!"
             android:fontFamily="@font/ps_regular"
             android:textColor="@color/toss_black_500"
-            android:textSize="22dp"/>
+            android:textSize="18dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -133,7 +135,7 @@
     <Button
         android:id="@+id/setAlarmExpired_btn_next"
         android:layout_width="match_parent"
-        android:layout_height="73dp"
+        android:layout_height="63dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
@@ -142,5 +144,5 @@
         android:stateListAnimator="@null"
         android:text="설정 완료"
         android:textColor="@color/white"
-        android:textSize="22dp" />
+        android:textSize="21dp" />
 </LinearLayout>

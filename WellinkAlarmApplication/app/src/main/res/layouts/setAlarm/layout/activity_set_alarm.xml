@@ -17,6 +17,7 @@
         android:max="100"/>
 
     <androidx.appcompat.widget.Toolbar
+        android:background="@color/white"
         android:id="@+id/setAlarm_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,6 +25,7 @@
         android:theme="?attr/actionBarTheme"/>
 
     <FrameLayout
+        android:background="@color/white"
         android:id="@+id/setAlarm_frameId"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

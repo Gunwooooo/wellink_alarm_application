@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".home.HomeAccountActivity"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
@@ -18,17 +19,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="15dp"/>
-
-    <TextView
-        android:layout_marginBottom="15dp"
-        android:id="@+id/homeAccount_textView_title"
-        android:layout_marginStart="16dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="약 상세 정보"
-        android:fontFamily="@font/ps_bold"
-        android:textSize="24dp"
-        android:textColor="@color/toss_black_700"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -73,23 +63,27 @@
                 android:layout_height="15dp"/>
 
             <com.google.android.material.tabs.TabLayout
-                app:tabTextAppearance="@style/tab_text"
-                android:layout_margin="10dp"
                 android:id="@+id/homeSearchDetail_tabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/ripple_white_radius_20"
+                app:tabTextAppearance="@style/tab_text">
                 <!-- TabItem은 탭메뉴 하나를 의미한다. -->
                 <com.google.android.material.tabs.TabItem
+                    android:background="@drawable/ripple_white_radius_20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="복약" />
 
                 <com.google.android.material.tabs.TabItem
+                    android:background="@drawable/ripple_white_radius_20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="용법" />
 
                 <com.google.android.material.tabs.TabItem
+                    android:background="@drawable/ripple_white_radius_20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="주의" />

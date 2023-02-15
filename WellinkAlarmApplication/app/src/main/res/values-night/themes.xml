@@ -4,13 +4,13 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/toss_blue_200</item>
         <item name="colorPrimaryVariant">@color/toss_blue_700</item>
-        <item name="colorOnPrimary">@color/StatusBarColor</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorOnPrimary</item>
+        <item name="android:statusBarColor" >?attr/colorOnPrimary</item>
         <!-- Customize your theme here. -->
         <!-- progress color -->
         <item name="colorAccent">@color/toss_blue_200</item>
@@ -19,11 +19,6 @@
     <style name="Theme.WellinkAlarmApplication.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="Widget.BottomNavigationView"
-        parent="Widget.Design.BottomNavigationView">
-        <item name="fontFamily">@font/ps_regular</item>
     </style>
 
     <style name="numberPickerCustomSize">

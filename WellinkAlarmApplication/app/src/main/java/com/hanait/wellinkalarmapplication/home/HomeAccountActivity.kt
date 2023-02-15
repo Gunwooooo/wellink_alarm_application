@@ -50,13 +50,10 @@ class HomeAccountActivity : AppCompatActivity(), View.OnClickListener, CompoundB
         setTextAlarmCountAndExplain()
         recyclerViewCreate()
 
-        //타이틀 사용자 이름으로 설정
-        binding.homeAccountTextViewTitle.text = "${userName}님의 정보"
-
         //toolbar 표시
         setSupportActionBar(binding.homeAccountToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = ""
+        supportActionBar?.title = "설정"
     }
 
     private fun recyclerViewCreate() {

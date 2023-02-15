@@ -6,9 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SetUserNameActivity">
-
-
+    tools:context=".SetUserNameActivity"
+    android:background="@color/white">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -44,10 +43,10 @@
     <Button
         android:id="@+id/setUserName_btn_next"
         android:layout_width="match_parent"
-        android:layout_height="73dp"
+        android:layout_height="63dp"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/btn_border_blue"
         android:fontFamily="@font/ps_regular"
         android:stateListAnimator="@null"

@@ -31,7 +31,7 @@ class SearchDetailActivity : AppCompatActivity(), View.OnClickListener {
         //toolbar 표시
         setSupportActionBar(binding.homeSearchDetailToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = ""
+        supportActionBar?.title = "약 상세 정보"
 
         //데이터 가져오기
         val intent = intent

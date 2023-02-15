@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,7 +27,7 @@
             android:gravity="center"
             android:text="OO님 환영합니다!\n알림의 진동과 소리를 설정해주세요."
             android:textColor="@color/toss_black_700"
-            android:textSize="25dp" />
+            android:textSize="24dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -41,7 +42,7 @@
             android:gravity="center"
             android:text="나중에 설정에서 변경이 가능해요"
             android:textColor="@color/toss_black_200"
-            android:textSize="18dp" />
+            android:textSize="16dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -68,7 +69,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="벨소리"
-                    android:textSize="23dp"
+                    android:textSize="21dp"
                     android:fontFamily="@font/ps_regular"
                     android:textColor="@color/toss_black_700"/>
                 <Switch
@@ -85,7 +86,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="진동"
-                    android:textSize="23dp"
+                    android:textSize="21dp"
                     android:fontFamily="@font/ps_regular"
                     android:textColor="@color/toss_black_700"/>
                 <Switch
@@ -107,7 +108,7 @@
     <Button
         android:id="@+id/setAlarmVibrationAndMedia_btn_next"
         android:layout_width="match_parent"
-        android:layout_height="73dp"
+        android:layout_height="64dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"

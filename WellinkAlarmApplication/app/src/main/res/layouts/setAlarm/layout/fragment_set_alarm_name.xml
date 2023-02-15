@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -20,7 +21,7 @@
             android:layout_marginTop="50dp"
             android:text="어떤 종류의 약을 드시나요?"
             android:textColor="@color/toss_black_700"
-            android:textSize="28dp" />
+            android:textSize="27dp" />
 
         <EditText
             android:id="@+id/setAlarmName_editText_alarmName"
@@ -40,7 +41,7 @@
     <Button
         android:id="@+id/setAlarmName_btn_next"
         android:layout_width="match_parent"
-        android:layout_height="73dp"
+        android:layout_height="63dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
@@ -49,5 +50,5 @@
         android:stateListAnimator="@null"
         android:text="다음"
         android:textColor="@color/white"
-        android:textSize="22dp" />
+        android:textSize="21dp" />
 </LinearLayout>

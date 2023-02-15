@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".home.HomeAccountActivity"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
@@ -16,19 +17,11 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"/>
 
-    <TextView
-        android:layout_marginBottom="15dp"
-        android:id="@+id/homeAccount_textView_title"
-        android:layout_marginStart="16dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="OOO님의 정보"
-        android:fontFamily="@font/ps_bold"
-        android:textSize="24dp"
-        android:textColor="@color/toss_black_700"/>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,16 +30,16 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/StatusBarColor"
+                android:backgroundTint="@color/white"
                 app:cardCornerRadius="16dp"
-                android:layout_margin="16dp"
-                app:cardElevation="13dp">
+                app:cardUseCompatPadding="true"
+                app:cardElevation="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="18dp">
+                    android:padding="16dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -123,21 +116,13 @@
                         android:layout_height="10dp"
                         android:orientation="horizontal" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:scrollbars="vertical"
+                        android:nestedScrollingEnabled="true"
+                        android:id="@+id/homeAccount_recyclerView"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/homeAccount_recyclerView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:scrollbars="vertical"
-                            app:layout_constrainedHeight="true"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHeight_max="280dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:layout_height="wrap_content" />
+
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -146,15 +131,13 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/StatusBarColor"
                 app:cardCornerRadius="16dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                app:cardElevation="13dp">
+                app:cardUseCompatPadding="true"
+                app:cardElevation="8dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:padding="18dp">
+                    android:padding="16dp">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -211,16 +194,13 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/StatusBarColor"
                 app:cardCornerRadius="16dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="20dp"
-                app:cardElevation="13dp">
+                app:cardUseCompatPadding="true"
+                app:cardElevation="8dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:padding="18dp">
+                    android:padding="16dp">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -269,12 +249,18 @@
                                 android:fontFamily="@font/ps_regular"
                                 android:stateListAnimator="@null"
                                 android:text="데이터 초기화"
-                                android:textColor="@color/toss_black_200"
+                                android:textColor="@color/white"
                                 android:textSize="18dp" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

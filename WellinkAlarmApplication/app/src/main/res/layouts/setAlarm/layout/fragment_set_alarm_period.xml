@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     android:weightSum="1">
 
     <LinearLayout
@@ -26,7 +27,7 @@
             android:gravity="center"
             android:text="OO약을\n주기적으로 드시나요?"
             android:textColor="@color/toss_black_700"
-            android:textSize="28dp" />
+            android:textSize="27dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -51,13 +52,14 @@
             <Button
                 android:id="@+id/setAlarmPeriod_btn_first"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/btn_border_blue"
+                android:layout_height="63dp"
+                android:enabled="false"
+                android:background="@drawable/btn_border_gray_reverse"
                 android:fontFamily="@font/ps_regular"
                 android:stateListAnimator="@null"
                 android:text="매일 먹어요"
                 android:textColor="@color/white"
-                android:textSize="19dp" />
+                android:textSize="16dp" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dip"
@@ -70,13 +72,13 @@
             <Button
                 android:id="@+id/setAlarmPeriod_btn_second"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/btn_border_gray"
+                android:layout_height="63dp"
+                android:background="@drawable/btn_border_gray_reverse"
                 android:fontFamily="@font/ps_regular"
                 android:stateListAnimator="@null"
                 android:text="주기적으로 먹어요"
-                android:textColor="@color/toss_black_200"
-                android:textSize="19dp" />
+                android:textColor="@color/white"
+                android:textSize="16dp" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dip"
@@ -100,8 +102,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="    일마다"
-            android:textSize="32dp"
+            android:text="    일을 주기로"
+            android:textSize="27dp"
             android:fontFamily="@font/ps_regular"
             android:textColor="@color/toss_black_500"/>
     </LinearLayout>
@@ -118,7 +120,7 @@
             android:text="매일 알림을 울려드릴게요!"
             android:fontFamily="@font/ps_regular"
             android:textColor="@color/toss_black_500"
-            android:textSize="22dp"/>
+            android:textSize="16dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -131,7 +133,7 @@
     <Button
         android:id="@+id/setAlarmPeriod_btn_next"
         android:layout_width="match_parent"
-        android:layout_height="73dp"
+        android:layout_height="63dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
@@ -140,5 +142,5 @@
         android:stateListAnimator="@null"
         android:text="다음"
         android:textColor="@color/white"
-        android:textSize="22dp" />
+        android:textSize="21dp" />
 </LinearLayout>

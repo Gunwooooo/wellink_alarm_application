@@ -8,7 +8,7 @@
     android:orientation="horizontal"
     android:clickable="true"
     android:focusable="true"
-    android:background="?attr/selectableItemBackground"
+    android:background="@drawable/ripple_white_radius_20"
     android:weightSum="1">
 
     <LinearLayout
@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="아스피린프로텍트정100mg/바이엘코리아"
-            android:textSize="18dp"
+            android:textSize="17dp"
             android:gravity="left"
             android:fontFamily="@font/ps_regular"
             android:textColor="@color/toss_black_700"/>

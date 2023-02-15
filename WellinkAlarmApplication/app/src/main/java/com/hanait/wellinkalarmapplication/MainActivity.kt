@@ -5,28 +5,43 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.hanait.wellinkalarmapplication.databinding.ActivityMainBinding
 import com.hanait.wellinkalarmapplication.utils.MainViewPagerFragmentAdapter
 import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
+    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    private val glide by lazy { Glide.with(this) }
 
-    private lateinit var binding: ActivityMainBinding
     private var waitTime = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.mainBtnStart.setOnClickListener(this)
-
+        //사용 설명서 뷰페이저 연결
         val viewPager = binding.mainViewPager
         viewPager.adapter = MainViewPagerFragmentAdapter(this)
         binding.mainIndicator.setViewPager(viewPager)
-        binding.mainIndicator.createIndicators(5, 0)
+        binding.mainIndicator.createIndicators(4, 0)
+
+        binding.mainBtnStart.setOnClickListener(this)
     }
 
+    override fun onClick(v: View?) {
+        when (v) {
+            binding.mainBtnStart -> {
+                val intent = Intent(this, SetUserNameActivity::class.java)
+                //초기 알람 설정 스킵 여부 체크
+                intent.putExtra("SkipSetAlarm", false)
+                startActivity(intent)
+                return
+            }
+        }
+    }
+
+    //뒤로가기 앱 종료
     @Override
     override fun onBackPressed() {
         if(System.currentTimeMillis() - waitTime >=1500 ) {
@@ -36,17 +51,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             moveTaskToBack(true); // 태스크를 백그라운드로 이동
             finishAffinity()
             exitProcess(0)
-        }
-    }
-
-    override fun onClick(v: View?) {
-        when(v) {
-            binding.mainBtnStart -> {
-                val intent = Intent(this, SetUserNameActivity::class.java)
-                intent.putExtra("SkipSetAlarm", false)
-                startActivity(intent)
-                return
-            }
         }
     }
 }

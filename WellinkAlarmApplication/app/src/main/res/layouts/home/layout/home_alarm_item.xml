@@ -8,7 +8,7 @@
     android:orientation="horizontal"
     android:clickable="true"
     android:focusable="true"
-    android:background="?attr/selectableItemBackground"
+    android:background="@drawable/ripple_white_radius_20"
     android:weightSum="1">
 
     <LinearLayout
@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:layout_weight="0.09">
         <TextView
-            android:textSize="20dp"
+            android:textSize="21dp"
             android:id="@+id/homeAlarmItem_textView_num"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -53,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="약 이름"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:gravity="left"
                 android:fontFamily="@font/ps_bold"
                 android:textColor="@color/toss_black_700"/>
@@ -74,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="아침"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:fontFamily="@font/ps_regular"
                 android:textColor="@color/toss_black_150"/>
             <TextView
@@ -83,7 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="점심"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:fontFamily="@font/ps_regular"
                 android:textColor="@color/toss_black_150"/>
             <TextView
@@ -92,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="저녁"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:fontFamily="@font/ps_regular"
                 android:textColor="@color/toss_black_150"/>
             <TextView
@@ -101,7 +101,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="취침"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:fontFamily="@font/ps_regular"
                 android:textColor="@color/toss_black_150"/>
         </LinearLayout>
