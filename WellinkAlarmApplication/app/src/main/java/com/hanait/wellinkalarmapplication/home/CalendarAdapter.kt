@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.hanait.wellinkalarmapplication.R
 import com.hanait.wellinkalarmapplication.home.HomeCalendarFragment.Companion.takenArray
 import java.util.*
@@ -22,6 +23,8 @@ class CalendarAdapter(
     cal: GregorianCalendar
 ) :
     RecyclerView.Adapter<CalendarAdapter.VH>() {
+
+    private val glide by lazy { Glide.with(context) }
 
     private val DAY_TYPE = 0
     private val DAY_BLUE_TYPE = 1
@@ -79,9 +82,9 @@ class CalendarAdapter(
                     return
                 }
                 if(takenArray[index][0] == 0 ) return
-                else if(takenArray[index][1] > 0 && takenArray[index][2] == 0) dayImageView.setImageResource(R.drawable.check)
-                else if(takenArray[index][1] > 0 && takenArray[index][2] > 0) dayImageView.setImageResource(R.drawable.warn)
-                else dayImageView.setImageResource(R.drawable.cancel)
+                else if(takenArray[index][1] > 0 && takenArray[index][2] == 0) glide.load(R.drawable.check).into(dayImageView)
+                else if(takenArray[index][1] > 0 && takenArray[index][2] > 0) glide.load(R.drawable.warn).into(dayImageView)
+                else glide.load(R.drawable.cancel).into(dayImageView)
             }
         }
         fun setEmptyDayNextTextView(day: String?, color:Int) {
