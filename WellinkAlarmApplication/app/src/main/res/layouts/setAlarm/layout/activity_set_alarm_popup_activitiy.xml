@@ -42,6 +42,21 @@
             android:fontFamily="@font/ps_regular"/>
     </LinearLayout>
 
+
+    <TextView
+        android:layout_marginTop="16dp"
+        android:lineSpacingExtra="5dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/setAlarmPopup_textView_explain"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OO 드실 시간이에요!"
+        android:textColor="@color/toss_black_700"
+        android:textSize="21dp"
+        android:fontFamily="@font/ps_regular"/>
+
     <LinearLayout
         android:gravity="center"
         android:layout_width="match_parent"
@@ -69,15 +84,6 @@
                 android:focusable="true"
                 android:src="@drawable/drug" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:fontFamily="@font/ps_bold"
-                android:paddingTop="170dp"
-                android:text="약을 터치해주세요!"
-                android:textColor="@color/toss_blue_700"
-                android:textSize="26dp" />
         </com.skyfishjy.library.RippleBackground>
     </LinearLayout>
 
@@ -87,17 +93,17 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="0.23">
+
         <TextView
-            android:lineSpacingExtra="5dp"
+            android:gravity="center"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
-            android:id="@+id/setAlarmPopup_textView_explain"
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="OO 드실 시간이에요!"
-            android:textColor="@color/toss_blue_200"
-            android:textSize="21dp"
-            android:fontFamily="@font/ps_bold"/>
+            android:fontFamily="@font/ps_bold"
+            android:text="약을 터치해주세요!"
+            android:textColor="@color/toss_blue_700"
+            android:textSize="26dp" />
+
     </LinearLayout>
 </LinearLayout>

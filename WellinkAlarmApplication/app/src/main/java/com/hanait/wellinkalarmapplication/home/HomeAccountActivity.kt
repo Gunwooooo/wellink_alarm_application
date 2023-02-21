@@ -14,10 +14,13 @@ import com.hanait.wellinkalarmapplication.R
 import com.hanait.wellinkalarmapplication.SetUserNameActivity
 import com.hanait.wellinkalarmapplication.databinding.ActivityHomeAccountBinding
 import com.hanait.wellinkalarmapplication.db.DatabaseManager
+import com.hanait.wellinkalarmapplication.model.AlarmData
 import com.hanait.wellinkalarmapplication.model.Item
+import com.hanait.wellinkalarmapplication.utils.Constants
 import com.hanait.wellinkalarmapplication.utils.Constants.isMediaOn
 import com.hanait.wellinkalarmapplication.utils.Constants.isVibrationOn
 import com.hanait.wellinkalarmapplication.utils.Constants.prefs
+import com.hanait.wellinkalarmapplication.utils.Constants.tempAlarmData2
 import com.hanait.wellinkalarmapplication.utils.Constants.userName
 import com.hanait.wellinkalarmapplication.utils.CustomDialogFragment
 
@@ -162,6 +165,9 @@ class HomeAccountActivity : AppCompatActivity(), View.OnClickListener, CompoundB
 
                 //등록 약 데이터 초기화
                 DatabaseManager.getInstance(applicationContext, "Alarms.db").resetLike()
+
+                //전역변수 초기화
+                tempAlarmData2 = null
 
                 Toast.makeText(applicationContext, "데이터가 초기화되었습니다.", Toast.LENGTH_SHORT).show()
 

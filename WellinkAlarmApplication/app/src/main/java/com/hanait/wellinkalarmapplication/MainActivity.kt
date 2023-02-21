@@ -12,7 +12,6 @@ import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private val glide by lazy { Glide.with(this) }
 
     private var waitTime = 0L
 

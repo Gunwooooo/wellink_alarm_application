@@ -10,6 +10,7 @@
     android:weightSum="1">
 
     <ProgressBar
+        android:background="@color/white"
         android:id="@+id/setAlarm_progressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"

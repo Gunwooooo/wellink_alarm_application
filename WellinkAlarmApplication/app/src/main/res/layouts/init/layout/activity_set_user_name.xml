@@ -22,7 +22,7 @@
             android:layout_marginTop="60dp"
             android:text="이름을 알려주세요"
             android:textColor="@color/toss_black_700"
-            android:textSize="28dp" />
+            android:textSize="27dp" />
 
         <EditText
             android:id="@+id/setUserName_editText_userName"
