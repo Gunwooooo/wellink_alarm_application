@@ -10,48 +10,43 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:layout_margin="16dp"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.85">
+        android:layout_weight="1">
         <ImageView
             android:id="@+id/manual1_imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
-    <LinearLayout
-        android:gravity="center_vertical"
+
+    <TextView
+        android:fontFamily="@font/ps_bold"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.15"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/toss_black_700"
+        android:text="약 알람과 복용 체크를 한 번에"
+        android:textSize="18dp"/>
+
+    <LinearLayout
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
         <TextView
             android:fontFamily="@font/ps_bold"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="@color/toss_black_700"
-            android:text="약 알람과 복용 체크를 한 번에"
-            android:textSize="21dp"/>
-        <LinearLayout
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/ps_bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/toss_black_150"
-                android:text="화면을 넘겨 사용 방법을 익히세요"
-                android:textSize="18dp"/>
-            <ImageView
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_width="21dp"
-                android:layout_height="21dp"
-                android:src="@drawable/finger"/>
-        </LinearLayout>
-
+            android:textColor="@color/toss_black_150"
+            android:text="화면을 넘겨 사용 방법을 익히세요"
+            android:textSize="16dp"/>
+        <ImageView
+            android:layout_marginStart="8dp"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:src="@drawable/finger"/>
     </LinearLayout>
+
 </LinearLayout>

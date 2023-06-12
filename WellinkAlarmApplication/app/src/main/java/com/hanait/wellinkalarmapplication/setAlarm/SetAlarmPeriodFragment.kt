@@ -41,9 +41,8 @@ class SetAlarmPeriodFragment : BaseFragment<FragmentSetAlarmPeriodBinding>(Fragm
                 numberPickerValue = 2
                 binding.setAlarmPeriodNumberPicker.value = 2
 
-                binding.setAlarmPeriodTextViewExplain.text = "2일마다 알림을 울려드릴게요!"
-                
-                binding.setAlarmPeriodSpaceLayout.visibility = View.GONE
+                binding.setAlarmPeriodTextViewExplain.text = "2일마다 알림을 울릴게요!"
+
                 binding.setAlarmPeriodNumberPickerLayout.visibility = View.VISIBLE
 
                 //버튼 활성화 변경
@@ -52,9 +51,8 @@ class SetAlarmPeriodFragment : BaseFragment<FragmentSetAlarmPeriodBinding>(Fragm
             binding.setAlarmPeriodBtnFirst -> {
                 numberPickerValue = 1
 
-                binding.setAlarmPeriodTextViewExplain.text = "매일마다 알림을 울려드릴게요!"
+                binding.setAlarmPeriodTextViewExplain.text = "매일 알림을 울릴게요!"
 
-                binding.setAlarmPeriodSpaceLayout.visibility = View.VISIBLE
                 binding.setAlarmPeriodNumberPickerLayout.visibility = View.GONE
 
                 //버튼 활성화 변경
@@ -80,7 +78,7 @@ class SetAlarmPeriodFragment : BaseFragment<FragmentSetAlarmPeriodBinding>(Fragm
         //액션바 다시 보이게하기(뒤로가기)
         val mActivity = activity as SetAlarmActivity
         mActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding.setAlarmPeriodTextViewQuestion.text = "${tempAlarmData.name}을(를)\n주기적으로 드시나요?"
+        binding.setAlarmPeriodTextViewQuestion.text = "${tempAlarmData.name}을(를) 주기적으로 드세요?"
 
         binding.setAlarmPeriodBtnNext.setOnClickListener(this)
         binding.setAlarmPeriodBtnFirst.setOnClickListener(this)
@@ -90,7 +88,7 @@ class SetAlarmPeriodFragment : BaseFragment<FragmentSetAlarmPeriodBinding>(Fragm
         binding.setAlarmPeriodNumberPicker.maxValue = 30
         binding.setAlarmPeriodNumberPicker.minValue = 2
         binding.setAlarmPeriodNumberPicker.setOnValueChangedListener { _, _, newVal ->
-            binding.setAlarmPeriodTextViewExplain.text = "${newVal}일마다 알림을 울려드릴게요!"
+            binding.setAlarmPeriodTextViewExplain.text = "${newVal}일마다 알림을 울릴게요!"
             numberPickerValue = newVal
         }
 
@@ -99,7 +97,7 @@ class SetAlarmPeriodFragment : BaseFragment<FragmentSetAlarmPeriodBinding>(Fragm
             binding.setAlarmPeriodBtnSecond.performClick()
             numberPickerValue = tempAlarmData2!!.period
             binding.setAlarmPeriodNumberPicker.value = tempAlarmData2!!.period
-            binding.setAlarmPeriodTextViewExplain.text = "${tempAlarmData2!!.period}일마다 알림을 울려드릴게요!"
+            binding.setAlarmPeriodTextViewExplain.text = "${tempAlarmData2!!.period}일마다 알림을 울릴게요!"
         }
     }
 

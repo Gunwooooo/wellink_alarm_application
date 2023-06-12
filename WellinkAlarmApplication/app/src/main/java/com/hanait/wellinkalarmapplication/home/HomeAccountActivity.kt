@@ -56,7 +56,7 @@ class HomeAccountActivity : AppCompatActivity(), View.OnClickListener, CompoundB
         //toolbar 표시
         setSupportActionBar(binding.homeAccountToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "설정"
+        supportActionBar?.title = "내 정보"
     }
 
     private fun recyclerViewCreate() {

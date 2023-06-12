@@ -5,334 +5,289 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:orientation="vertical">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.2"/>
-
-    <LinearLayout
+        android:layout_weight="0.5" />
+    <TextView
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.285">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="몇 시에 약을 드시나요?"
-            android:textColor="@color/toss_black_700"
-            android:fontFamily="@font/ps_bold"
-            android:gravity="center"
-            android:textSize="27dp"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.105"/>
+        android:layout_height="wrap_content"
+        android:text="몇 시에 약을 드시나요?"
+        android:textColor="@color/toss_black_700"
+        android:fontFamily="@font/ps_bold"
+        android:gravity="center"
+        android:textSize="24dp"/>
 
     <androidx.cardview.widget.CardView
+        app:contentPadding="16dp"
+        android:layout_marginTop="16dp"
         android:clickable="true"
         android:focusable="true"
         android:id="@+id/setAlarmTime_cardView_morning"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="63dp"
         android:backgroundTint="@color/StatusBarColor"
         app:cardCornerRadius="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        app:cardElevation="13dp">
+        app:cardElevation="8dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:weightSum="1"
             android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="0dip"
+
+            <ImageView
+                android:id="@+id/setAlarmTime_imageView_morning"
+                android:layout_gravity="center"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+
+            <TextView
+                android:layout_marginStart="4dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="0.1" />
+                android:text="아침"
+                android:gravity="center"
+                android:textColor="@color/toss_black_700"
+                android:fontFamily="@font/ps_bold"
+                android:textSize="18dp" />
 
             <LinearLayout
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
-                android:layout_weight="0.1333">
+                android:layout_weight="1">
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="아침"
                     android:gravity="center"
-                    android:textColor="@color/toss_black_700"
-                    android:fontFamily="@font/ps_bold"
-                    android:textSize="21dp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1"/>
-            <LinearLayout
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="0.35">
-                <TextView
                     android:id="@+id/setAlarmTime_textView_mTime"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="오전 7:00"
-                    android:gravity="left|center_vertical"
                     android:textColor="@color/toss_black_700"
                     android:fontFamily="@font/ps_bold"
-                    android:textSize="24dp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2167">
-                <Switch
-                    android:id="@+id/setAlarmTime_switch_morning"
-                    tools:ignore="UseSwitchCompatOrMaterialXml"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
+                    android:textSize="18dp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dip"
+            <Switch
+                android:layout_marginStart="16dp"
+                android:id="@+id/setAlarmTime_switch_morning"
+                tools:ignore="UseSwitchCompatOrMaterialXml"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="0.1"/>
+                />
+
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
 
     <androidx.cardview.widget.CardView
+        app:contentPadding="16dp"
         android:clickable="true"
         android:focusable="true"
         android:id="@+id/setAlarmTime_cardView_afternoon"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="63dp"
         android:backgroundTint="@color/StatusBarColor"
         app:cardCornerRadius="16dp"
         android:layout_margin="16dp"
-        app:cardElevation="13dp">
+        app:cardElevation="8dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:weightSum="1"
             android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/setAlarmTime_imageView_afternoon"
+                android:layout_gravity="center"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+
+
+            <TextView
+                android:layout_marginStart="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="점심"
+                android:gravity="center"
+                android:textColor="@color/toss_black_700"
+                android:fontFamily="@font/ps_bold"
+                android:textSize="18dp" />
+
             <LinearLayout
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
-                android:layout_weight="0.1"/>
-            <LinearLayout
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1333">
+                android:layout_weight="1">
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="점심"
                     android:gravity="center"
-                    android:textColor="@color/toss_black_700"
-                    android:fontFamily="@font/ps_bold"
-                    android:textSize="21dp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1"/>
-            <LinearLayout
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="0.35">
-                <TextView
                     android:id="@+id/setAlarmTime_textView_aTime"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="오후 12:30"
-                    android:gravity="left|center_vertical"
                     android:textColor="@color/toss_black_700"
                     android:fontFamily="@font/ps_bold"
-                    android:textSize="24dp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2167">
-                <Switch
-                    android:id="@+id/setAlarmTime_switch_afternoon"
-                    tools:ignore="UseSwitchCompatOrMaterialXml"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:textSize="18dp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1"/>
+            <Switch
+                android:layout_marginStart="16dp"
+                android:id="@+id/setAlarmTime_switch_afternoon"
+                tools:ignore="UseSwitchCompatOrMaterialXml"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
-
-
     <androidx.cardview.widget.CardView
+        app:contentPadding="16dp"
         android:clickable="true"
         android:focusable="true"
         android:id="@+id/setAlarmTime_cardView_evening"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="63dp"
         android:backgroundTint="@color/StatusBarColor"
         app:cardCornerRadius="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        app:cardElevation="13dp">
+        app:cardElevation="8dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:weightSum="1"
             android:orientation="horizontal">
-            <LinearLayout
-                android:layout_width="0dip"
+
+            <ImageView
+                android:id="@+id/setAlarmTime_imageView_evening"
+                android:layout_gravity="center"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+
+            <TextView
+                android:layout_marginStart="4dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="0.1"/>
-            <LinearLayout
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1333">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="저녁"
-                    android:gravity="center"
-                    android:textColor="@color/toss_black_700"
-                    android:fontFamily="@font/ps_bold"
-                    android:textSize="21dp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1"/>
-            <LinearLayout
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="0.35">
-                <TextView
-                    android:id="@+id/setAlarmTime_textView_eTime"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="오후 6:30"
-                    android:gravity="left|center_vertical"
-                    android:textColor="@color/toss_black_700"
-                    android:fontFamily="@font/ps_bold"
-                    android:textSize="24dp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2167">
-                <Switch
-                    android:id="@+id/setAlarmTime_switch_evening"
-                    tools:ignore="UseSwitchCompatOrMaterialXml"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-            </LinearLayout>
+                android:text="저녁"
+                android:gravity="center"
+                android:textColor="@color/toss_black_700"
+                android:fontFamily="@font/ps_bold"
+                android:textSize="18dp" />
 
             <LinearLayout
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
-                android:layout_weight="0.1"/>
+                android:layout_weight="1">
+                <TextView
+                    android:gravity="center"
+                    android:id="@+id/setAlarmTime_textView_eTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="오후 6:30"
+                    android:textColor="@color/toss_black_700"
+                    android:fontFamily="@font/ps_bold"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+            <Switch
+                android:layout_marginStart="16dp"
+                android:id="@+id/setAlarmTime_switch_evening"
+                tools:ignore="UseSwitchCompatOrMaterialXml"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        app:contentPadding="16dp"
         android:clickable="true"
         android:focusable="true"
         android:id="@+id/setAlarmTime_cardView_night"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="63dp"
         android:backgroundTint="@color/StatusBarColor"
         app:cardCornerRadius="16dp"
         android:layout_margin="16dp"
-        app:cardElevation="13dp">
+        app:cardElevation="8dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:weightSum="1"
             android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/setAlarmTime_imageView_night"
+                android:layout_gravity="center"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+
+
+            <TextView
+                android:layout_marginStart="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="취침"
+                android:gravity="center"
+                android:textColor="@color/toss_black_700"
+                android:fontFamily="@font/ps_bold"
+                android:textSize="18dp" />
+
             <LinearLayout
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
-                android:layout_weight="0.1"/>
-            <LinearLayout
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1333">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="취침"
-                    android:gravity="center"
-                    android:textColor="@color/toss_black_700"
-                    android:fontFamily="@font/ps_bold"
-                    android:textSize="21dp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1"/>
-            <LinearLayout
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="0.35">
+                android:layout_weight="1">
                 <TextView
                     android:id="@+id/setAlarmTime_textView_nTime"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="오후 10:00"
-                    android:gravity="left|center_vertical"
+                    android:gravity="center"
                     android:textColor="@color/toss_black_700"
                     android:fontFamily="@font/ps_bold"
-                    android:textSize="24dp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2167">
-                <Switch
-                    android:id="@+id/setAlarmTime_switch_night"
-                    tools:ignore="UseSwitchCompatOrMaterialXml"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:textSize="18dp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1"/>
+            <Switch
+                android:layout_marginStart="16dp"
+                android:id="@+id/setAlarmTime_switch_night"
+                tools:ignore="UseSwitchCompatOrMaterialXml"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.407">
+        android:layout_weight="0.5"/>
 
-        <TextView
-            android:layout_marginBottom="25dp"
-            android:gravity="bottom|center_horizontal"
-            android:id="@+id/setAlarmTime_textView_explain"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/ps_regular"
-            android:text="시간을 설정하고 스위치를 켜주세요!"
-            android:textColor="@color/toss_black_500"
-            android:textSize="21dp" />
-    </LinearLayout>
+    <TextView
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_horizontal"
+        android:id="@+id/setAlarmTime_textView_explain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ps_regular"
+        android:text="시간을 설정하고 스위치를 켜주세요!"
+        android:textColor="@color/toss_black_500"
+        android:textSize="16dp" />
 
     <Button
         android:id="@+id/setAlarmTime_btn_next"

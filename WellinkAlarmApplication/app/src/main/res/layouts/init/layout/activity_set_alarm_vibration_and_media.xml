@@ -12,48 +12,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.125"/>
+        android:layout_weight="0.5"/>
+
+    <TextView
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/setAlarmVibrationAndMedia_textView_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ps_bold"
+        android:gravity="center"
+        android:text="알림의 진동과 소리를 설정해주세요."
+        android:textColor="@color/toss_black_700"
+        android:textSize="22dp" />
+
+
+    <TextView
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ps_regular"
+        android:gravity="center"
+        android:text="나중에 설정에서 변경이 가능해요."
+        android:textColor="@color/toss_black_200"
+        android:textSize="16dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.125">
-
-        <TextView
-            android:id="@+id/setAlarmVibrationAndMedia_textView_question"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/ps_bold"
-            android:gravity="center"
-            android:text="OO님 환영합니다!\n알림의 진동과 소리를 설정해주세요."
-            android:textColor="@color/toss_black_700"
-            android:textSize="24dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.05">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/ps_regular"
-            android:gravity="center"
-            android:text="나중에 설정에서 변경이 가능해요"
-            android:textColor="@color/toss_black_200"
-            android:textSize="16dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.192"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.265"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="1">
         <LinearLayout
@@ -102,13 +90,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.242"
+        android:layout_weight="0.5"
         android:orientation="horizontal" />
 
     <Button
         android:id="@+id/setAlarmVibrationAndMedia_btn_next"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="63dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"

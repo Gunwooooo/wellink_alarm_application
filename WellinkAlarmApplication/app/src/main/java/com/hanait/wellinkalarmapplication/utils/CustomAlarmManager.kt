@@ -51,14 +51,11 @@ class CustomAlarmManager(context: Context) {
         val alarmIntent = PendingIntent.getBroadcast(context, pendingId, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE)
         val alarmManager = context.let { ContextCompat.getSystemService(it, AlarmManager::class.java) }
         alarmManager?.cancel(alarmIntent)
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            alarmManager?.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, alarmIntent)
-        } else {
-            val alarmClockInfo = AlarmManager.AlarmClockInfo(calendar.timeInMillis, null)
-            alarmManager?.setAlarmClock(alarmClockInfo, alarmIntent)
-//            alarmManager?.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, alarmIntent)
-        }
+//        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+//            alarmManager?.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, alarmIntent)
+//        } else {
         val alarmClockInfo = AlarmManager.AlarmClockInfo(calendar.timeInMillis, null)
         alarmManager?.setAlarmClock(alarmClockInfo, alarmIntent)
+//            alarmManager?.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, alarmIntent)
     }
 }

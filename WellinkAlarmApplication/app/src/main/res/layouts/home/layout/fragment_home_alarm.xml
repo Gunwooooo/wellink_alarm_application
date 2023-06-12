@@ -8,10 +8,10 @@
     tools:context=".home.HomeAlarmFragment"
     android:orientation="vertical">
     <androidx.cardview.widget.CardView
+        android:layout_margin="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/StatusBarColor"
-        app:cardUseCompatPadding="true"
         app:cardElevation="8dp"
         app:cardCornerRadius="16dp">
         <LinearLayout
@@ -28,68 +28,49 @@
                 <LinearLayout
                     android:layout_width="0dip"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.4">
+                    android:layout_weight="1">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="복용중인 약"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
                         android:fontFamily="@font/ps_bold"
                         android:textColor="@color/toss_black_500"/>
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.6"/>
 
                 <ImageView
                     android:id="@+id/homeAlarm_addAlarm"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:focusable="true"
                     android:src="@drawable/ic_baseline_add_24"
                     app:tint="@color/toss_blue_200" />
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="5dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/homeAlarm_textView_alarmCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0개"
-                    android:textSize="34dp"
-                    android:fontFamily="@font/ps_regular"
-                    android:textColor="@color/toss_black_700"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="20dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/homeAlarm_textView_explain"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/ps_regular"
-                    android:text="현재 복용중인 약이 없어요"
-                    android:textColor="@color/toss_black_500"
-                    android:textSize="16dp" />
-            </LinearLayout>
+            <TextView
+                android:layout_marginTop="8dp"
+                android:id="@+id/homeAlarm_textView_alarmCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0개"
+                android:textSize="27dp"
+                android:fontFamily="@font/ps_regular"
+                android:textColor="@color/toss_black_700"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:orientation="horizontal" />
+            <TextView
+                android:layout_marginTop="8dp"
+                android:id="@+id/homeAlarm_textView_explain"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/ps_regular"
+                android:text="현재 복용중인 약이 없어요"
+                android:textColor="@color/toss_black_500"
+                android:textSize="16dp" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginTop="8dp"
                 android:id="@+id/homeAlarm_recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

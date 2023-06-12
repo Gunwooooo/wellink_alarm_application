@@ -12,33 +12,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.125"/>
+        android:layout_weight="0.5"/>
+
+    <TextView
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/setAlarmPeriod_textView_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ps_bold"
+        android:gravity="center"
+        android:text="OO약을 주기적으로 드시나요?"
+        android:textColor="@color/toss_black_700"
+        android:textSize="24dp" />
 
     <LinearLayout
+        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.125">
-
-        <TextView
-            android:id="@+id/setAlarmPeriod_textView_question"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/ps_bold"
-            android:gravity="center"
-            android:text="OO약을\n주기적으로 드시나요?"
-            android:textColor="@color/toss_black_700"
-            android:textSize="27dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.125"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.115"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="1">
         <LinearLayout
@@ -88,10 +79,10 @@
 
     <LinearLayout
         android:visibility="gone"
+        android:layout_marginTop="16dp"
         android:id="@+id/setAlarmPeriod_numberPicker_layout"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.384"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center">
         <NumberPicker
@@ -111,25 +102,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.125">
-        <TextView
-            android:id="@+id/setAlarmPeriod_textView_explain"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="매일 알림을 울려드릴게요!"
-            android:fontFamily="@font/ps_regular"
-            android:textColor="@color/toss_black_500"
-            android:textSize="16dp"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:visibility="visible"
-        android:id="@+id/setAlarmPeriod_space_layout"
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.384"
+        android:layout_weight="0.5"
         android:orientation="horizontal"/>
+
+    <TextView
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/setAlarmPeriod_textView_explain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="매일 알림을 울려드릴게요!"
+        android:fontFamily="@font/ps_regular"
+        android:textColor="@color/toss_black_500"
+        android:textSize="16dp"/>
+
     <Button
         android:id="@+id/setAlarmPeriod_btn_next"
         android:layout_width="match_parent"

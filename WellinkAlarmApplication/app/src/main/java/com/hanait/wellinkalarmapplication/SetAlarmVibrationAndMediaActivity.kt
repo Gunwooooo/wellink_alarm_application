@@ -23,7 +23,6 @@ class SetAlarmVibrationAndMediaActivity : AppCompatActivity(), View.OnClickListe
         binding = ActivitySetAlarmVibrationAndMediaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.setAlarmVibrationAndMediaTextViewQuestion.text = "${userName}님 환영합니다!\n알림의 진동과 소리를 설정해주세요."
         binding.setAlarmVibrationAndMediaBtnNext.setOnClickListener(this)
 
     }

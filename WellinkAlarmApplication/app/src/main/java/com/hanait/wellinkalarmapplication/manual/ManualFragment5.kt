@@ -14,5 +14,5 @@ class ManualFragment5 : BaseFragment<FragmentManual5Binding>(FragmentManual5Bind
     private val glide by lazy { Glide.with(this) }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        glide.load(R.drawable.manual6).centerCrop().into(binding.manual5ImageView)
+        glide.load(R.drawable.manual4).into(binding.manual5ImageView)
     }}

@@ -17,6 +17,4 @@ class ManualFragment1 : BaseFragment<FragmentManual1Binding>(FragmentManual1Bind
         super.onViewCreated(view, savedInstanceState)
         glide.load(R.drawable.manual1).into(binding.manual1ImageView)
     }
-
-
 }

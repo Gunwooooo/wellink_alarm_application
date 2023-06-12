@@ -1,26 +1,17 @@
 package com.hanait.wellinkalarmapplication.setAlarm
 
-import android.R
 import android.annotation.SuppressLint
-import android.app.AlarmManager
-import android.app.PendingIntent
 import android.app.TimePickerDialog
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.CompoundButton
 import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
+import com.bumptech.glide.Glide
+import com.hanait.wellinkalarmapplication.R
 import com.hanait.wellinkalarmapplication.databinding.FragmentSetAlarmTimeBinding
-import com.hanait.wellinkalarmapplication.db.DatabaseManager
-import com.hanait.wellinkalarmapplication.home.HomeActivity
-import com.hanait.wellinkalarmapplication.receiver.AlarmReceiver
 import com.hanait.wellinkalarmapplication.utils.BaseFragment
-import com.hanait.wellinkalarmapplication.utils.Constants.ADD_INTENT
-import com.hanait.wellinkalarmapplication.utils.Constants.mAlarmList
 import com.hanait.wellinkalarmapplication.utils.Constants.prevFragment
 import com.hanait.wellinkalarmapplication.utils.Constants.progressBar
 import com.hanait.wellinkalarmapplication.utils.Constants.tempAlarmData
@@ -29,6 +20,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentSetAlarmTimeBinding::inflate), View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+
+    private val glide by lazy { Glide.with(this) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -82,9 +75,10 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
             saveTimeData(v, tmpAmpm, tmpHour, minute)
             switch.isChecked = true
         }
+
         //스피너형 다이어로그 생성
-        val timePickerDialog = TimePickerDialog(context, R.style .Theme_Holo_Dialog_NoActionBar, timeSetListener, cHour, cMinute, false)
-        timePickerDialog.window?.setBackgroundDrawableResource(R.color.transparent)
+        val timePickerDialog = TimePickerDialog(context, android.R.style.Theme_Holo_Dialog_NoActionBar, timeSetListener, cHour, cMinute, false)
+        timePickerDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         timePickerDialog.show()
     }
 
@@ -145,7 +139,7 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
         if(binding.setAlarmTimeSwitchMorning.isChecked) explainText += "아침"
         if(binding.setAlarmTimeSwitchAfternoon.isChecked) explainText += " 점심"
         if(binding.setAlarmTimeSwitchEvening.isChecked) explainText += " 저녁"
-        if(binding.setAlarmTimeSwitchNight.isChecked) explainText += " 취침전"
+        if(binding.setAlarmTimeSwitchNight.isChecked) explainText += " 취침 전"
         binding.setAlarmTimeTextViewExplain.text = "${explainText}에 알려드릴게요!"
     }
 
@@ -153,6 +147,12 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
     private fun init() {
         prevFragment = SetAlarmPeriodFragment()
         progressBar.progress = 60
+
+        //이미지 넣기
+        glide.load(R.drawable.morning).into(binding.setAlarmTimeImageViewMorning)
+        glide.load(R.drawable.afternoon).into(binding.setAlarmTimeImageViewAfternoon)
+        glide.load(R.drawable.evening).into(binding.setAlarmTimeImageViewEvening)
+        glide.load(R.drawable.night).into(binding.setAlarmTimeImageViewNight)
 
         binding.setAlarmTimeBtnNext.setOnClickListener(this)
         binding.setAlarmTimeCardViewMorning.setOnClickListener(this)

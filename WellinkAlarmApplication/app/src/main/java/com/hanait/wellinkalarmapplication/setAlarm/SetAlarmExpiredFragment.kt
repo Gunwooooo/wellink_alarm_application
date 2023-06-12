@@ -67,10 +67,9 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
                 numberPickerValue = 2
                 binding.setAlarmExpiredNumberPicker.value = 2
 
-                binding.setAlarmExpiredTextViewExplain.text = "${tempAlarmData.period}일마다 2회 알림을 설정할게요!" +
+                binding.setAlarmExpiredTextViewExplain.text = "${tempAlarmData.period}일마다 2회 알림을 울릴게요!" +
                         "\n만기일은 ${getExpiredDate()} 이에요."
 
-                binding.setAlarmExpiredSpaceLayout.visibility = View.GONE
                 binding.setAlarmExpiredNumberPickerLayout.visibility = View.VISIBLE
 
                 //버튼 활성화 변경
@@ -79,9 +78,8 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
             binding.setAlarmExpiredBtnFirst -> {
                 numberPickerValue  = 0
 
-                binding.setAlarmExpiredTextViewExplain.text = "만기일 없이 알림을 울려드릴게요!"
+                binding.setAlarmExpiredTextViewExplain.text = "만기일 없이 알림을 울릴게요!"
 
-                binding.setAlarmExpiredSpaceLayout.visibility = View.VISIBLE
                 binding.setAlarmExpiredNumberPickerLayout.visibility = View.GONE
 
                 //버튼 활성화 변경
@@ -114,7 +112,7 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
         prevFragment = SetAlarmTimeFragment()
         progressBar.progress = 80
 
-        binding.setAlarmExpiredTextViewQuestion.text = "${tempAlarmData.name}을(를)\n며칠 동안 드시나요?"
+        binding.setAlarmExpiredTextViewQuestion.text = "${tempAlarmData.name}을(를) 며칠 동안 드시나요?"
         numberPickerValue = 0
 
         binding.setAlarmExpiredBtnNext.setOnClickListener(this)
@@ -126,7 +124,7 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
         binding.setAlarmExpiredNumberPicker.minValue = 2
         binding.setAlarmExpiredNumberPicker.setOnValueChangedListener { _, _, newVal ->
             numberPickerValue = newVal
-            binding.setAlarmExpiredTextViewExplain.text = "${tempAlarmData.period}일마다 ${newVal}회 알림을 울려드릴게요!" +
+            binding.setAlarmExpiredTextViewExplain.text = "${tempAlarmData.period}일마다 ${newVal}회 알림을 울릴게요!" +
                     "\n만기일은 ${getExpiredDate()} 입니다."
         }
 
@@ -135,7 +133,7 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
             binding.setAlarmExpiredBtnSecond.performClick()
             numberPickerValue = tempAlarmData2!!.expiredInt
             binding.setAlarmExpiredNumberPicker.value = tempAlarmData2!!.expiredInt
-            binding.setAlarmExpiredTextViewExplain.text = "${tempAlarmData.period}일마다 ${tempAlarmData2!!.expiredInt}회 알림을 울려드릴게요!" +
+            binding.setAlarmExpiredTextViewExplain.text = "${tempAlarmData.period}일마다 ${tempAlarmData2!!.expiredInt}회 알림을 울릴게요!" +
                     "\n만기일은 ${getExpiredDate()} 입니다."
         }
     }

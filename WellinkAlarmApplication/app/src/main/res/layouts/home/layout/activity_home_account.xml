@@ -28,11 +28,13 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/white"
                 app:cardCornerRadius="16dp"
-                app:cardUseCompatPadding="true"
                 app:cardElevation="8dp">
 
                 <LinearLayout
@@ -50,7 +52,7 @@
                         <LinearLayout
                             android:layout_width="0dip"
                             android:layout_height="match_parent"
-                            android:layout_weight="0.6">
+                            android:layout_weight="1">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -58,65 +60,43 @@
                                 android:fontFamily="@font/ps_bold"
                                 android:text="관심 약/약물 정보"
                                 android:textColor="@color/toss_black_500"
-                                android:textSize="20dp" />
+                                android:textSize="18dp" />
                         </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dip"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.4" />
 
                         <ImageView
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:clickable="true"
                             android:focusable="true"
                             android:id="@+id/homeAccount_addAlarm"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
                             android:src="@drawable/ic_baseline_add_24"
                             app:tint="@color/border_yellow_200" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="5dp" />
+                    <TextView
+                        android:layout_marginTop="8dp"
+                        android:id="@+id/homeAccount_textView_likeCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ps_regular"
+                        android:text="0개"
+                        android:textColor="@color/toss_black_700"
+                        android:textSize="27dp" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
 
-                        <TextView
-                            android:id="@+id/homeAccount_textView_likeCount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/ps_regular"
-                            android:text="0개"
-                            android:textColor="@color/toss_black_700"
-                            android:textSize="34dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp" />
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/homeAccount_textView_explain"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/ps_regular"
-                            android:text="저장된 약이 없어요"
-                            android:textColor="@color/toss_black_500"
-                            android:textSize="16dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="10dp"
-                        android:orientation="horizontal" />
+                    <TextView
+                        android:layout_marginTop="8dp"
+                        android:id="@+id/homeAccount_textView_explain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ps_regular"
+                        android:text="저장된 약이 없어요"
+                        android:textColor="@color/toss_black_500"
+                        android:textSize="16dp" />
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginTop="8dp"
                         android:scrollbars="vertical"
                         android:nestedScrollingEnabled="true"
                         android:id="@+id/homeAccount_recyclerView"
@@ -127,11 +107,13 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/StatusBarColor"
                 app:cardCornerRadius="16dp"
-                app:cardUseCompatPadding="true"
                 app:cardElevation="8dp">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -141,24 +123,24 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:fontFamily="@font/ps_bold"
                             android:text="알림 설정"
                             android:textColor="@color/toss_black_500"
-                            android:textSize="20dp" />
+                            android:textSize="18dp" />
                     </LinearLayout>
                     <LinearLayout
+                        android:layout_marginTop="16dp"
                         android:layout_width="match_parent"
-                        android:layout_height="10dp" />
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
                         <TextView
                             android:gravity="center"
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:text="벨소리"
                             android:textSize="18dp"
                             android:fontFamily="@font/ps_regular"
@@ -167,15 +149,17 @@
                             android:id="@+id/homeAccount_switch_media"
                             tools:ignore="UseSwitchCompatOrMaterialXml"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="wrap_content" />
                     </LinearLayout>
                     <LinearLayout
+                        android:layout_marginTop="8dp"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
                         <TextView
                             android:gravity="center"
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:text="진동"
                             android:textSize="18dp"
                             android:fontFamily="@font/ps_regular"
@@ -184,17 +168,19 @@
                             android:id="@+id/homeAccount_switch_vibration"
                             tools:ignore="UseSwitchCompatOrMaterialXml"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="wrap_content" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/StatusBarColor"
                 app:cardCornerRadius="16dp"
-                app:cardUseCompatPadding="true"
                 app:cardElevation="8dp">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -210,14 +196,12 @@
                             android:fontFamily="@font/ps_bold"
                             android:text="내 정보 관리"
                             android:textColor="@color/toss_black_500"
-                            android:textSize="20dp" />
+                            android:textSize="18dp" />
                     </LinearLayout>
                     <LinearLayout
+                        android:layout_marginTop="16dp"
                         android:layout_width="match_parent"
-                        android:layout_height="20dp" />
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp">
+                        android:layout_height="57dp">
                         <LinearLayout
                             android:layout_weight="0.44"
                             android:layout_width="0dip"
@@ -255,7 +239,6 @@
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
 
             <LinearLayout
                 android:layout_width="match_parent"

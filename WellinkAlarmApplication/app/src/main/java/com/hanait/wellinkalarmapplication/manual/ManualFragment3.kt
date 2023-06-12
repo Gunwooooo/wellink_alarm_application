@@ -13,6 +13,6 @@ class ManualFragment3 : BaseFragment<FragmentManual3Binding>(FragmentManual3Bind
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //초기 글라이드로 이미지 불러오기
-        glide.load(R.drawable.manual3).centerCrop().into(binding.manual3ImageView)
+        glide.load(R.drawable.manual3).into(binding.manual3ImageView)
     }
 }

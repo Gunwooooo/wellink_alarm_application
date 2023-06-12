@@ -12,33 +12,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.125"/>
+        android:layout_weight="0.5"/>
+
+    <TextView
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/setAlarmExpired_textView_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ps_bold"
+        android:gravity="center"
+        android:text="OO약을 며칠 드시나요?"
+        android:textColor="@color/toss_black_700"
+        android:textSize="24dp" />
 
     <LinearLayout
+        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.125">
-
-        <TextView
-            android:id="@+id/setAlarmExpired_textView_question"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/ps_bold"
-            android:gravity="center"
-            android:text="OO약을\n며칠 드시나요?"
-            android:textColor="@color/toss_black_700"
-            android:textSize="27dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.125"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.115"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="1">
         <LinearLayout
@@ -87,11 +78,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="16dp"
         android:visibility="gone"
         android:id="@+id/setAlarmExpired_numberPicker_layout"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.349"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center">
         <NumberPicker
@@ -103,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="    일"
-            android:textSize="32dp"
+            android:textSize="27dp"
             android:fontFamily="@font/ps_regular"
             android:textColor="@color/toss_black_500"/>
     </LinearLayout>
@@ -111,26 +102,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.16">
-        <TextView
-            android:lineSpacingExtra ="7dp"
-            android:id="@+id/setAlarmExpired_textView_explain"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="만기일 없이 알림을 울려드릴게요!"
-            android:fontFamily="@font/ps_regular"
-            android:textColor="@color/toss_black_500"
-            android:textSize="18dp"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:visibility="visible"
-        android:id="@+id/setAlarmExpired_space_layout"
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.349"
+        android:layout_weight="0.5"
         android:orientation="horizontal" />
+
+    <TextView
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:lineSpacingExtra ="7dp"
+        android:id="@+id/setAlarmExpired_textView_explain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="만기일 없이 알림을 울려드릴게요!"
+        android:fontFamily="@font/ps_regular"
+        android:textColor="@color/toss_black_500"
+        android:textSize="16dp"/>
 
     <Button
         android:id="@+id/setAlarmExpired_btn_next"

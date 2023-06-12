@@ -9,27 +9,24 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:padding="16dp"
+        android:background="@drawable/image_border"
+        android:layout_margin="16dp"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.85">
+        android:layout_weight="1">
         <ImageView
+            android:padding="3dp"
             android:id="@+id/manual3_imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.15">
-        <TextView
-            android:fontFamily="@font/ps_bold"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textColor="@color/toss_black_700"
-            android:text="알람이 울리면\n상단의 메세지를 누르세요."
-            android:textSize="21dp"/>
-    </LinearLayout>
 
+    <TextView
+        android:fontFamily="@font/ps_bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/toss_black_700"
+        android:text="알람이 울리면\n상단의 메세지를 누르세요."
+        android:textSize="18dp"/>
 </LinearLayout>

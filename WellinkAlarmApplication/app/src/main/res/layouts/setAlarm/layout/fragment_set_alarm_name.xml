@@ -8,35 +8,42 @@
     android:orientation="vertical"
     android:background="@color/white">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="1">
+        android:layout_weight="0.5"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/ps_bold"
-            android:layout_gravity="center_horizontal|top"
-            android:layout_marginTop="50dp"
-            android:text="어떤 종류의 약을 드시나요?"
-            android:textColor="@color/toss_black_700"
-            android:textSize="27dp" />
+    <TextView
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ps_bold"
+        android:text="어떤 종류의 약을 드시나요?"
+        android:textColor="@color/toss_black_700"
+        android:textSize="24dp" />
 
-        <EditText
-            android:id="@+id/setAlarmName_editText_alarmName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:layout_gravity="center_horizontal|top"
-            android:layout_marginTop="140dp"
-            android:hint="감기약"
-            android:inputType="text"
-            android:textSize="50dp"
-            android:importantForAutofill="no" >
-            <requestFocus />
-        </EditText>
-    </FrameLayout>
+    <EditText
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:id="@+id/setAlarmName_editText_alarmName"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:hint="감기약"
+        android:inputType="text"
+        android:textSize="38dp"
+        android:importantForAutofill="no" >
+        <requestFocus />
+    </EditText>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.5"/>
 
     <Button
         android:id="@+id/setAlarmName_btn_next"

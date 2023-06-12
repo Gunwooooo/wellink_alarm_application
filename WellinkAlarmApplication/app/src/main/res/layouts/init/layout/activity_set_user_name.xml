@@ -9,36 +9,40 @@
     tools:context=".SetUserNameActivity"
     android:background="@color/white">
 
-    <FrameLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="1">
+        android:layout_weight="0.5"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/ps_bold"
-            android:layout_gravity="center_horizontal|top"
-            android:layout_marginTop="60dp"
-            android:text="이름을 알려주세요"
-            android:textColor="@color/toss_black_700"
-            android:textSize="27dp" />
+    <TextView
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ps_bold"
+        android:text="이름을 알려주세요."
+        android:textColor="@color/toss_black_700"
+        android:textSize="24dp" />
 
-        <EditText
-            android:id="@+id/setUserName_editText_userName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:layout_gravity="center_horizontal|top"
-            android:layout_marginTop="150dp"
-            android:hint="홍길동"
-            android:inputType="text"
-            android:textSize="50dp"
-            android:importantForAutofill="no" >
-            <requestFocus />
-        </EditText>
+    <EditText
+        android:layout_marginTop="16dp"
+        android:id="@+id/setUserName_editText_userName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:hint="이름"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:textSize="38dp">
 
-    </FrameLayout>
+        <requestFocus />
+    </EditText>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.5"/>
 
     <Button
         android:id="@+id/setUserName_btn_next"
