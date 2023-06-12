@@ -55,6 +55,7 @@
                             android:layout_weight="1">
 
                             <TextView
+                                android:gravity="bottom"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/ps_bold"
@@ -96,7 +97,7 @@
                         android:textSize="16dp" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
                         android:scrollbars="vertical"
                         android:nestedScrollingEnabled="true"
                         android:id="@+id/homeAccount_recyclerView"

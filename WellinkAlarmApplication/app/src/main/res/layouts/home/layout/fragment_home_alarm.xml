@@ -30,6 +30,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1">
                     <TextView
+                        android:gravity="bottom"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="복용중인 약"
@@ -70,7 +71,7 @@
                 android:textSize="16dp" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:id="@+id/homeAlarm_recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

@@ -46,8 +46,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="아스피린프로텍트정100mg/바이엘코리아"
-            android:textSize="17dp"
-            android:gravity="left"
+            android:textSize="16dp"
+            android:gravity="start"
             android:fontFamily="@font/ps_regular"
             android:textColor="@color/toss_black_700"/>
     </LinearLayout>
@@ -68,8 +68,8 @@
             android:layout_gravity="center"
             android:clickable="true"
             android:focusable="true"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:src="@drawable/ic_baseline_close_24"
             app:tint="@color/border_yellow_200"/>
     </LinearLayout>

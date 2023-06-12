@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:text="약 이름"
                 android:textSize="18dp"
-                android:gravity="left"
+                android:gravity="start"
                 android:fontFamily="@font/ps_bold"
                 android:textColor="@color/toss_black_700"/>
 
@@ -120,8 +120,8 @@
             android:layout_gravity="center"
             android:clickable="true"
             android:focusable="true"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:src="@drawable/ic_baseline_close_24"
             app:tint="@color/toss_blue_200"/>
     </LinearLayout>
