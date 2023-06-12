@@ -14,64 +14,52 @@
 
     <!--헤더-->
     <LinearLayout
+        android:gravity="center"
         android:padding="3dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
         android:background="@android:color/transparent"
         android:orientation="horizontal">
-        <LinearLayout
-            android:gravity="center"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="0.2">
-            <ImageView
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:id="@+id/homeCalendar_prevBtn"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/ic_baseline_navigate_before_24"
-                android:contentDescription="prevMonth" />
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="0.6">
-            <TextView
-                android:textColor="@color/toss_black_700"
-                android:id="@+id/homeCalendar_textView_month"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/ps_bold"
-                android:padding="16dp"
-                android:text="YYYY년  MM월"
-                android:textAlignment="center"
-                android:textSize="21dp" />
-        </LinearLayout>
+        <ImageView
+            android:layout_marginEnd="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:id="@+id/homeCalendar_prevBtn"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_baseline_navigate_before_24"
+            android:contentDescription="prevMonth" />
 
-        <LinearLayout
-            android:gravity="center"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="0.2">
-            <ImageView
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:id="@+id/homeCalendar_nextBtn"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/ic_baseline_navigate_next_24"
-                android:contentDescription="NextMonth" />
-        </LinearLayout>
+        <TextView
+            android:textColor="@color/toss_black_700"
+            android:id="@+id/homeCalendar_textView_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ps_bold"
+            android:padding="8dp"
+            android:text="YYYY년  MM월"
+            android:textAlignment="center"
+            android:textSize="21dp" />
+
+        <ImageView
+            android:layout_marginStart="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:id="@+id/homeCalendar_nextBtn"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_baseline_navigate_next_24"
+            android:contentDescription="NextMonth" />
+
     </LinearLayout>
     <!--요일-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <TextView
@@ -154,10 +142,11 @@
 
     <!--달력뷰-->
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_weight="1"
         android:clickable="false"
         android:focusable="false"
         android:overScrollMode="never"
         android:id="@+id/homeCalendar_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dip" />
 </LinearLayout>

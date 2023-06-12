@@ -22,8 +22,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
             android:src="@drawable/wellink_logo" />
 
     </androidx.appcompat.widget.Toolbar>
