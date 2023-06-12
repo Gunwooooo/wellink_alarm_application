@@ -16,26 +16,24 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="15dp"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
+            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
             <ImageView
                 android:src="@drawable/no_image"
                 android:padding="10dp"
                 android:id="@+id/homeSearchDetail_imageView"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"/>
+                android:layout_height="180dp"/>
 
             <TextView
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="8dp"
                 android:id="@+id/homeSearchDetail_textView_itemName"
                 android:gravity="center"
                 android:layout_width="match_parent"
@@ -43,30 +41,31 @@
                 android:text="약 이름"
                 android:fontFamily="@font/ps_regular"
                 android:textColor="@color/toss_black_700"
-                android:textSize="20dp"/>
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/homeSearchDetail_textView_entpName"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="제조업체"
                 android:fontFamily="@font/ps_regular"
                 android:textColor="@color/toss_black_200"
-                android:textSize="20dp"/>
+                android:textSize="16dp"/>
 
             <LinearLayout
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="8dp"
                 android:background="@color/toss_black_100"
                 android:layout_width="match_parent"
-                android:layout_height="15dp"/>
+                android:layout_height="8dp"/>
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/homeSearchDetail_tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:background="@drawable/ripple_white_radius_20"
                 app:tabTextAppearance="@style/tab_text">
                 <!-- TabItem은 탭메뉴 하나를 의미한다. -->

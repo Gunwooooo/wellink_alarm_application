@@ -1,12 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="350dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@drawable/calendar_dialog_background"
     android:padding="16dp"
     android:backgroundTint="@color/white">
     <LinearLayout
-        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -14,24 +13,25 @@
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="복용중인 약을 지울까요?"
-            android:textSize="20dp"
+            android:text="모든 데이터를 초기화 할까요?"
+            android:textSize="18dp"
             android:fontFamily="@font/ps_bold"
             android:textColor="@color/toss_black_700"/>
         <TextView
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="* 해당 약의 오늘 복용 정보가 삭제됩니다."
+            android:text="* 모든 복용 정보와 알람 정보가 삭제됩니다."
             android:textSize="18dp"
             android:fontFamily="@font/ps_regular"
             android:textColor="@color/text_red_200"/>
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="57dp"
         android:orientation="horizontal"
         android:gravity="center">
         <LinearLayout
@@ -39,7 +39,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.48">
             <Button
-                android:id="@+id/homeAlarmDeleteDialog_btn_negative"
+                android:id="@+id/homeAccountResetDialog_btn_negative"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/btn_border_gray"
@@ -49,16 +49,16 @@
                 android:textColor="@color/toss_black_200"
                 android:textSize="18dp" />
         </LinearLayout>
-       <LinearLayout
-           android:layout_width="0dip"
-           android:layout_height="match_parent"
-           android:layout_weight="0.04"/>
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.04"/>
         <LinearLayout
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.48">
             <Button
-                android:id="@+id/homeAlarmDeleteDialog_btn_positive"
+                android:id="@+id/homeAccountResetDialog_btn_positive"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/btn_border_blue"

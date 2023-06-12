@@ -60,7 +60,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/ps_bold"
                                 android:text="관심 약/약물 정보"
-                                android:textColor="@color/toss_black_500"
+                                android:textColor="@color/toss_black_700"
                                 android:textSize="18dp" />
                         </LinearLayout>
 
@@ -76,24 +76,24 @@
                     </LinearLayout>
 
                     <TextView
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
                         android:id="@+id/homeAccount_textView_likeCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/ps_regular"
                         android:text="0개"
-                        android:textColor="@color/toss_black_700"
+                        android:textColor="@color/text_blue_200"
                         android:textSize="27dp" />
 
 
                     <TextView
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
                         android:id="@+id/homeAccount_textView_explain"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/ps_regular"
                         android:text="저장된 약이 없어요"
-                        android:textColor="@color/toss_black_500"
+                        android:textColor="@color/toss_black_200"
                         android:textSize="16dp" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -130,7 +130,7 @@
                             android:layout_height="match_parent"
                             android:fontFamily="@font/ps_bold"
                             android:text="알림 설정"
-                            android:textColor="@color/toss_black_500"
+                            android:textColor="@color/toss_black_700"
                             android:textSize="18dp" />
                     </LinearLayout>
                     <LinearLayout
@@ -145,7 +145,7 @@
                             android:text="벨소리"
                             android:textSize="18dp"
                             android:fontFamily="@font/ps_regular"
-                            android:textColor="@color/toss_black_700"/>
+                            android:textColor="@color/toss_black_600"/>
                         <Switch
                             android:id="@+id/homeAccount_switch_media"
                             tools:ignore="UseSwitchCompatOrMaterialXml"
@@ -164,7 +164,7 @@
                             android:text="진동"
                             android:textSize="18dp"
                             android:fontFamily="@font/ps_regular"
-                            android:textColor="@color/toss_black_700"/>
+                            android:textColor="@color/toss_black_600"/>
                         <Switch
                             android:id="@+id/homeAccount_switch_vibration"
                             tools:ignore="UseSwitchCompatOrMaterialXml"
@@ -196,7 +196,7 @@
                             android:layout_height="match_parent"
                             android:fontFamily="@font/ps_bold"
                             android:text="내 정보 관리"
-                            android:textColor="@color/toss_black_500"
+                            android:textColor="@color/toss_black_700"
                             android:textSize="18dp" />
                     </LinearLayout>
                     <LinearLayout
@@ -211,11 +211,11 @@
                                 android:id="@+id/homeAccount_btn_rename"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="@drawable/btn_border_blue"
+                                android:background="@drawable/btn_border_gray"
                                 android:fontFamily="@font/ps_regular"
                                 android:stateListAnimator="@null"
                                 android:text="이름 변경"
-                                android:textColor="@color/white"
+                                android:textColor="@color/toss_black_200"
                                 android:textSize="18dp" />
                         </LinearLayout>
                         <LinearLayout
@@ -234,7 +234,7 @@
                                 android:fontFamily="@font/ps_regular"
                                 android:stateListAnimator="@null"
                                 android:text="데이터 초기화"
-                                android:textColor="@color/white"
+                                android:textColor="@color/toss_black_200"
                                 android:textSize="18dp" />
                         </LinearLayout>
                     </LinearLayout>

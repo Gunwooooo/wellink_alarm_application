@@ -36,7 +36,7 @@
                         android:text="복용중인 약"
                         android:textSize="18dp"
                         android:fontFamily="@font/ps_bold"
-                        android:textColor="@color/toss_black_500"/>
+                        android:textColor="@color/toss_black_700"/>
                 </LinearLayout>
 
                 <ImageView
@@ -51,23 +51,23 @@
             </LinearLayout>
 
             <TextView
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:id="@+id/homeAlarm_textView_alarmCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0개"
                 android:textSize="27dp"
                 android:fontFamily="@font/ps_regular"
-                android:textColor="@color/toss_black_700"/>
+                android:textColor="@color/text_blue_200"/>
 
             <TextView
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:id="@+id/homeAlarm_textView_explain"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/ps_regular"
                 android:text="현재 복용중인 약이 없어요"
-                android:textColor="@color/toss_black_500"
+                android:textColor="@color/toss_black_200"
                 android:textSize="16dp" />
 
             <androidx.recyclerview.widget.RecyclerView

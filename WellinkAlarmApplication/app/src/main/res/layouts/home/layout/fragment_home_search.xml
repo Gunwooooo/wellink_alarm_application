@@ -9,7 +9,6 @@
     android:weightSum="1"
     android:layout_margin="16dp">
 
-
     <EditText
         android:id="@+id/homeSearch_editText"
         android:imeOptions="actionSearch"
@@ -18,28 +17,21 @@
         android:textSize="18dp"
         android:drawableEnd="@drawable/ic_baseline_search_24"
         android:fontFamily="@font/ps_regular"
-        android:hint="의약품명을 입력해주세요(ex 아스피린)"
+        android:hint="의약품명을 입력하세요."
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="48dp"
         android:background="@drawable/search_edittext_border"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="16dp"
         android:background="@drawable/layout_bottom_border"/>
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="16dp"
+        android:scrollbars="vertical"
+        android:id="@+id/homeSearch_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="15dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <androidx.recyclerview.widget.RecyclerView
-            android:scrollbars="vertical"
-            android:id="@+id/homeSearch_recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

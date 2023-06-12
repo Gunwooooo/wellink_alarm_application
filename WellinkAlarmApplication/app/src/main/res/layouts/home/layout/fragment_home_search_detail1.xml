@@ -10,65 +10,65 @@
     tools:context=".home.HomeSearchDetail1Fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
+    android:padding="16dp"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="█ 이 약은 무슨 약입니까?"
-        android:textSize="20dp"
+        android:text="👉 이 약은 무슨 약입니까?"
+        android:textSize="18dp"
         android:fontFamily="@font/ps_bold"
-        android:textColor="@color/toss_blue_200"/>
+        android:textColor="@color/text_blue_200"/>
 
     <TextView
         android:id="@+id/homeSearchDetail_textView_efcyQusitm"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:lineSpacingExtra="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/toss_black_500"
-        android:textSize="18dp"
+        android:textSize="16dp"
         android:text="효능"
         android:fontFamily="@font/ps_regular"/>
 
     <TextView
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="█ 이 약을 사용하기 전에 반드시 알아야 할 내용은 무엇입니까?"
-        android:textSize="20dp"
+        android:text="👉 이 약을 사용하기 전에 반드시 알아야 할 내용은 무엇입니까?"
+        android:textSize="18dp"
         android:fontFamily="@font/ps_bold"
-        android:textColor="@color/toss_blue_200"/>
+        android:textColor="@color/text_blue_200"/>
 
     <TextView
         android:id="@+id/homeSearchDetail_textView_atpnWarnQesitm"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:lineSpacingExtra="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/toss_black_500"
-        android:textSize="18dp"
+        android:textSize="16dp"
         android:text="효능"
         android:fontFamily="@font/ps_regular"/>
 
     <TextView
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="█ 이 약을 사용하는 동안 주의해야 할 약 또는 음식은 무엇입니까?"
-        android:textSize="20dp"
+        android:text="👉 이 약을 사용하는 동안 주의해야 할 약 또는 음식은 무엇입니까?"
+        android:textSize="18dp"
         android:fontFamily="@font/ps_bold"
-        android:textColor="@color/toss_blue_200"/>
+        android:textColor="@color/text_blue_200"/>
 
     <TextView
         android:id="@+id/homeSearchDetail_textView_intrcQesitm"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:lineSpacingExtra="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/toss_black_500"
-        android:textSize="18dp"
+        android:textSize="16dp"
         android:text="효능"
         android:fontFamily="@font/ps_regular"/>
 

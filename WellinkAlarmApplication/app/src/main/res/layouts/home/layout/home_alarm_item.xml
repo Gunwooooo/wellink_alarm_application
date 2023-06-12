@@ -16,14 +16,14 @@
         android:layout_height="match_parent"
         android:layout_weight="0.09">
         <TextView
-            android:textSize="21dp"
+            android:textSize="18dp"
             android:id="@+id/homeAlarmItem_textView_num"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="1"
             android:fontFamily="@font/ps_regular"
             android:gravity="center"
-            android:textColor="@color/toss_blue_200"/>
+            android:textColor="@color/toss_black_500"/>
     </LinearLayout>
 
     <LinearLayout
@@ -74,35 +74,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="아침"
-                android:textSize="18dp"
-                android:fontFamily="@font/ps_regular"
+                android:textSize="16dp"
+                android:fontFamily="@font/ps_bold"
                 android:textColor="@color/toss_black_150"/>
             <TextView
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="16dp"
                 android:id="@+id/homeAlarmItem_textView_afternoon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="점심"
-                android:textSize="18dp"
-                android:fontFamily="@font/ps_regular"
+                android:textSize="16dp"
+                android:fontFamily="@font/ps_bold"
                 android:textColor="@color/toss_black_150"/>
             <TextView
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="16dp"
                 android:id="@+id/homeAlarmItem_textView_evening"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="저녁"
-                android:textSize="18dp"
-                android:fontFamily="@font/ps_regular"
+                android:textSize="16dp"
+                android:fontFamily="@font/ps_bold"
                 android:textColor="@color/toss_black_150"/>
             <TextView
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="16dp"
                 android:id="@+id/homeAlarmItem_textView_night"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="취침"
-                android:textSize="18dp"
-                android:fontFamily="@font/ps_regular"
+                android:textSize="16dp"
+                android:fontFamily="@font/ps_bold"
                 android:textColor="@color/toss_black_150"/>
         </LinearLayout>
 

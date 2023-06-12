@@ -35,6 +35,7 @@ android {
         main {
             res.srcDirs =
                 [
+                    'src/main/res/layouts/dialog',
                     'src/main/res/layouts/home',
                     'src/main/res/layouts/setAlarm',
                     'src/main/res/layouts/init',
