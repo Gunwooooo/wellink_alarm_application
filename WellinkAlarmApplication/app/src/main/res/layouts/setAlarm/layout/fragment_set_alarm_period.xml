@@ -116,7 +116,7 @@
         android:text="매일 알림을 울려드릴게요!"
         android:fontFamily="@font/ps_regular"
         android:textColor="@color/toss_black_500"
-        android:textSize="16dp"/>
+        android:textSize="17dp"/>
 
     <Button
         android:id="@+id/setAlarmPeriod_btn_next"

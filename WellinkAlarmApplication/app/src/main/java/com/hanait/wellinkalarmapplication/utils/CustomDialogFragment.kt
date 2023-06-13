@@ -17,10 +17,12 @@ import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.*
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
+import com.bumptech.glide.Glide
 import com.hanait.wellinkalarmapplication.R
 import com.hanait.wellinkalarmapplication.model.AlarmData
 import com.hanait.wellinkalarmapplication.db.DatabaseManager
@@ -31,6 +33,8 @@ import java.util.*
 
 //달력 상세 화면 다이어로그
 class CustomDialogFragment(private val layout: Int, private val cal: GregorianCalendar?) : DialogFragment(), View.OnClickListener {
+
+    private val glide by lazy { Glide.with(this) }
 
     //알람 삭제 다이어로그
     private var mDeleteListener: DeleteDialogListener? = null
@@ -100,6 +104,18 @@ class CustomDialogFragment(private val layout: Int, private val cal: GregorianCa
                 val monthTextView = view.findViewById(R.id.homeCalendarDialog_textView_dayOfMonth) as TextView
                 monthTextView.text = "${cal?.get(Calendar.DAY_OF_MONTH).toString()}일"
 
+                //이미지 출력
+                val morningImage = view.findViewById(R.id.homeCalendarDialog_imageView_morning) as ImageView
+                val afternoonImage = view.findViewById(R.id.homeCalendarDialog_imageView_afternoon) as ImageView
+                val eveningImage = view.findViewById(R.id.homeCalendarDialog_imageView_evening) as ImageView
+                val nightImage = view.findViewById(R.id.homeCalendarDialog_imageView_night) as ImageView
+
+                //이미지 넣기
+                glide.load(R.drawable.baseline_access_alarm_24).into(morningImage)
+                glide.load(R.drawable.baseline_wb_sunny_24).into(afternoonImage)
+                glide.load(R.drawable.baseline_cloud_24).into(eveningImage)
+                glide.load(R.drawable.baseline_night_shelter_24).into(nightImage)
+
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////
                 //오늘 날짜 이후로는 selectCalendarItemAlarm으로 데이터 가져와서 출력하기
                 //이전 날짜라면 mCalendarList에서 해당 날짜 데이터만 출력하기
@@ -137,20 +153,20 @@ class CustomDialogFragment(private val layout: Int, private val cal: GregorianCa
                     }
                     for(i in 0 until calendarDataList.size) {
                         when(calendarDataList[i].mtaken) {
-                            1 -> morningArray[1] += "${calendarDataList[i].name}  "
-                            2 -> morningArray[2] += "${calendarDataList[i].name}  "
+                            1 -> morningArray[1] += "${calendarDataList[i].name}   "
+                            2 -> morningArray[2] += "${calendarDataList[i].name}   "
                         }
                         when(calendarDataList[i].ataken) {
-                            1 -> afternoonArray[1] += "${calendarDataList[i].name}  "
-                            2 -> afternoonArray[2] += "${calendarDataList[i].name}  "
+                            1 -> afternoonArray[1] += "${calendarDataList[i].name}   "
+                            2 -> afternoonArray[2] += "${calendarDataList[i].name}   "
                         }
                         when(calendarDataList[i].etaken) {
-                            1 -> eveningArray[1] += "${calendarDataList[i].name}  "
-                            2 -> eveningArray[2] += "${calendarDataList[i].name}  "
+                            1 -> eveningArray[1] += "${calendarDataList[i].name}   "
+                            2 -> eveningArray[2] += "${calendarDataList[i].name}   "
                         }
                         when(calendarDataList[i].ntaken) {
-                            1 -> nightArray[1] += "${calendarDataList[i].name}  "
-                            2 -> nightArray[2] += "${calendarDataList[i].name}  "
+                            1 -> nightArray[1] += "${calendarDataList[i].name}   "
+                            2 -> nightArray[2] += "${calendarDataList[i].name}   "
                         }
                     }
                 }
@@ -176,30 +192,30 @@ class CustomDialogFragment(private val layout: Int, private val cal: GregorianCa
                         }
                         if (mAlarmList[i].mswitch == 1) {
                             when (calendarData?.mtaken) {
-                                0 -> morningArray[0] += "${mAlarmList[i].name}  "
-                                1 -> morningArray[1] += "${mAlarmList[i].name}  "
-                                2 -> morningArray[2] += "${mAlarmList[i].name}  "
+                                0 -> morningArray[0] += "${mAlarmList[i].name}   "
+                                1 -> morningArray[1] += "${mAlarmList[i].name}   "
+                                2 -> morningArray[2] += "${mAlarmList[i].name}   "
                             }
                         }
                         if (mAlarmList[i].aswitch == 1) {
                             when (calendarData?.ataken) {
-                                0 -> afternoonArray[0] += "${mAlarmList[i].name}  "
-                                1 -> afternoonArray[1] += "${mAlarmList[i].name}  "
-                                2 -> afternoonArray[2] += "${mAlarmList[i].name}  "
+                                0 -> afternoonArray[0] += "${mAlarmList[i].name}   "
+                                1 -> afternoonArray[1] += "${mAlarmList[i].name}   "
+                                2 -> afternoonArray[2] += "${mAlarmList[i].name}   "
                             }
                         }
                         if (mAlarmList[i].eswitch == 1) {
                             when (calendarData?.etaken) {
-                                0 -> eveningArray[0] += "${mAlarmList[i].name}  "
-                                1 -> eveningArray[1] += "${mAlarmList[i].name}  "
-                                2 -> eveningArray[2] += "${mAlarmList[i].name}  "
+                                0 -> eveningArray[0] += "${mAlarmList[i].name}   "
+                                1 -> eveningArray[1] += "${mAlarmList[i].name}   "
+                                2 -> eveningArray[2] += "${mAlarmList[i].name}   "
                             }
                         }
                         if (mAlarmList[i].nswitch == 1) {
                             when (calendarData?.ntaken) {
-                                0 -> nightArray[0] += "${mAlarmList[i].name}  "
-                                1 -> nightArray[1] += "${mAlarmList[i].name}  "
-                                2 -> nightArray[2] += "${mAlarmList[i].name}  "
+                                0 -> nightArray[0] += "${mAlarmList[i].name}   "
+                                1 -> nightArray[1] += "${mAlarmList[i].name}   "
+                                2 -> nightArray[2] += "${mAlarmList[i].name}   "
                             }
                         }
                     }
@@ -213,28 +229,28 @@ class CustomDialogFragment(private val layout: Int, private val cal: GregorianCa
 
                 var spannableString = SpannableString("${morningArray[1]}${morningArray[2]}${morningArray[0]}")
 
-                spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#487fee")), 0, morningArray[1].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#51a6cb")), 0, morningArray[1].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 if(morningArray[1].isNotEmpty() && morningArray[2].isNotEmpty()) spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#d0252e")), morningArray[1].length, morningArray[1].length + morningArray[2].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 else if(morningArray[1].isEmpty() && morningArray[2].isNotEmpty()) spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#d0252e")), 0, morningArray[1].length + morningArray[2].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 morningTextView.text = spannableString
 
                 spannableString = SpannableString("${afternoonArray[1]}${afternoonArray[2]}${afternoonArray[0]}")
 
-                spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#487fee")), 0, afternoonArray[1].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#51a6cb")), 0, afternoonArray[1].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 if(afternoonArray[1].isNotEmpty() && afternoonArray[2].isNotEmpty()) spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#d0252e")), afternoonArray[1].length, afternoonArray[1].length + afternoonArray[2].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 else if(afternoonArray[1].isEmpty() && afternoonArray[2].isNotEmpty()) spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#d0252e")), 0, afternoonArray[1].length + afternoonArray[2].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 afternoonTextView.text = spannableString
 
                 spannableString = SpannableString("${eveningArray[1]}${eveningArray[2]}${eveningArray[0]}")
 
-                spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#487fee")), 0, eveningArray[1].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#51a6cb")), 0, eveningArray[1].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 if(eveningArray[1].isNotEmpty() && eveningArray[2].isNotEmpty()) spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#d0252e")), eveningArray[1].length, eveningArray[1].length + eveningArray[2].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 else if(eveningArray[1].isEmpty() && eveningArray[2].isNotEmpty()) spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#d0252e")), 0, eveningArray[1].length + eveningArray[2].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 eveningTextView.text = spannableString
 
                 spannableString = SpannableString("${nightArray[1]}${nightArray[2]}${nightArray[0]}")
 
-                spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#487fee")), 0, nightArray[1].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#51a6cb")), 0, nightArray[1].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 if(nightArray[1].isNotEmpty() && nightArray[2].isNotEmpty()) spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#d0252e")), nightArray[1].length, nightArray[1].length + nightArray[2].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 else if(nightArray[1].isEmpty() && nightArray[2].isNotEmpty()) spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#d0252e")), 0, nightArray[1].length + nightArray[2].length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 nightTextView.text = spannableString

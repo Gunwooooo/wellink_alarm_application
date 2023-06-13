@@ -149,10 +149,10 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
         progressBar.progress = 60
 
         //이미지 넣기
-        glide.load(R.drawable.morning).into(binding.setAlarmTimeImageViewMorning)
-        glide.load(R.drawable.afternoon).into(binding.setAlarmTimeImageViewAfternoon)
-        glide.load(R.drawable.evening).into(binding.setAlarmTimeImageViewEvening)
-        glide.load(R.drawable.night).into(binding.setAlarmTimeImageViewNight)
+        glide.load(R.drawable.baseline_access_alarm_24).into(binding.setAlarmTimeImageViewMorning)
+        glide.load(R.drawable.baseline_wb_sunny_24).into(binding.setAlarmTimeImageViewAfternoon)
+        glide.load(R.drawable.baseline_cloud_24).into(binding.setAlarmTimeImageViewEvening)
+        glide.load(R.drawable.baseline_night_shelter_24).into(binding.setAlarmTimeImageViewNight)
 
         binding.setAlarmTimeBtnNext.setOnClickListener(this)
         binding.setAlarmTimeCardViewMorning.setOnClickListener(this)
