@@ -2,6 +2,7 @@ package com.hanait.wellinkalarmapplication.home
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Point
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -31,6 +32,9 @@ class HomeActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+
 
         setSupportActionBar(binding.homeToolbar)
         supportActionBar?.title = ""

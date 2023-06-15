@@ -3,16 +3,19 @@ package com.hanait.wellinkalarmapplication.home
 
 import android.content.Context
 import android.util.Log
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hanait.wellinkalarmapplication.R
+import com.hanait.wellinkalarmapplication.SplashActivity.Companion._windowHeight
 import com.hanait.wellinkalarmapplication.home.HomeCalendarFragment.Companion.takenArray
 import java.util.*
 
@@ -108,15 +111,32 @@ class CalendarAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
+        // 전체 리사이클러뷰 크기 / 6해서 화면 꽉채우기
+        val itemHeight = (_windowHeight- 48 - 46 - 48 - 60 - 16) / 6
+
+        val itemHeightToPx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, itemHeight, context.resources.displayMetrics).toInt()
         return when(viewType) {
-            0, 1, 2 ->
-                VH(LayoutInflater.from(context).inflate(R.layout.home_calendar_item, parent, false))
-            3, 4, 5 ->
-                VH(LayoutInflater.from(context).inflate(R.layout.home_calendar_item_empty_next, parent, false))
-            6, 7, 8 ->
-                VH(LayoutInflater.from(context).inflate(R.layout.home_calendar_item_empty_prev, parent, false))
-            else ->
-                VH(LayoutInflater.from(context).inflate(R.layout.home_calendar_item, parent, false))
+
+            0, 1, 2 -> {
+                val itemView = LayoutInflater.from(context).inflate(R.layout.home_calendar_item, parent, false)
+                itemView.layoutParams.height = itemHeightToPx
+                VH(itemView)
+            }
+            3, 4, 5 -> {
+                val itemView = LayoutInflater.from(context).inflate(R.layout.home_calendar_item_empty_next, parent, false)
+                itemView.layoutParams.height = itemHeightToPx
+                VH(itemView)
+            }
+            6, 7, 8 -> {
+                val itemView = LayoutInflater.from(context).inflate(R.layout.home_calendar_item_empty_prev, parent, false)
+                itemView.layoutParams.height = itemHeightToPx
+                VH(itemView)
+            }
+            else -> {
+                val itemView = LayoutInflater.from(context).inflate(R.layout.home_calendar_item, parent, false)
+                itemView.layoutParams.height = itemHeightToPx
+                VH(itemView)
+            }
         }
     }
 

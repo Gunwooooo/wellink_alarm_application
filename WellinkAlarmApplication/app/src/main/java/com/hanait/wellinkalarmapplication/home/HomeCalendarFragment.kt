@@ -1,11 +1,13 @@
 package com.hanait.wellinkalarmapplication.home
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.TextView
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.doOnPreDraw
 import androidx.recyclerview.widget.GridLayoutManager
 import com.hanait.wellinkalarmapplication.R
@@ -19,6 +21,7 @@ import com.hanait.wellinkalarmapplication.utils.CustomDialogFragment
 import com.hanait.wellinkalarmapplication.utils.OnSwipeTouchListener
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentHomeCalendarBinding::inflate), View.OnClickListener {
     private val calendarRecyclerList = arrayOfNulls<Pair<String, Int>>(42)
@@ -39,6 +42,10 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
 
     @SuppressLint("ClickableViewAccessibility", "SimpleDateFormat")
     private fun init() {
+
+
+
+
         binding.homeCalendarNextBtn.setOnClickListener(this)
         binding.homeCalendarPrevBtn.setOnClickListener(this)
         binding.homeCalendarRecyclerView.setOnTouchListener(object: OnSwipeTouchListener(context) {

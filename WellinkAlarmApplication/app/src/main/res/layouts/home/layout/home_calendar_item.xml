@@ -1,41 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout
-    android:background="?attr/selectableItemBackground"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="90dp"
     android:orientation="vertical"
     android:id="@+id/homeCalendarItem_view"
+    android:background="?attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true">
     <LinearLayout
+        android:id="@+id/homeCalendarItem_layout_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="1">
-        <LinearLayout
-            android:layout_width="0dip"
+        <TextView
+            android:id="@+id/homeCalendarItem_textView"
+            android:background="@drawable/calendar_item_border"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.86">
-            <TextView
-                android:id="@+id/homeCalendarItem_textView"
-                android:background="@drawable/calendar_item_border"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="test"
-                android:textSize="16dp"
-                android:fontFamily="@font/ps_regular"
-                android:textColor="@color/toss_black_700"/>
-        </LinearLayout>
+            android:text="test"
+            android:textSize="16dp"
+            android:fontFamily="@font/ps_regular"
+            android:textColor="@color/toss_black_700"/>
+
         <LinearLayout
-            android:gravity="right"
+            android:gravity="end"
             android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.14">
+            android:layout_height="match_parent"
+            android:layout_weight="1">
             <ImageView
                 android:padding="2dp"
                 android:visibility="gone"
@@ -48,8 +44,9 @@
     </LinearLayout>
 
     <ImageView
+        android:padding="5dp"
         android:id="@+id/homeCalendarItem_imageView"
         android:layout_gravity="center"
-        android:layout_width="40dp"
-        android:layout_height="40dp" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>
