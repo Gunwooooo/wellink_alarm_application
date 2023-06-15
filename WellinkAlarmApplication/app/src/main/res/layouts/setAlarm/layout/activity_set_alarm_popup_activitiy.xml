@@ -7,33 +7,39 @@
     android:layout_height="match_parent"
     tools:context=".setAlarm.SetAlarmPopupActivity"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="@color/toss_black_600"
     android:weightSum="1">
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.5"/>
+
+
     <TextView
-        android:layout_marginTop="60dp"
         android:id="@+id/setAlarmPopup_textView_time"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="12:32"
         android:textSize="72dp"
-        android:textColor="@color/toss_blue_200"
+        android:textColor="@color/toss_black_150"
         android:fontFamily="@font/ps_regular"/>
 
     <TextView
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:id="@+id/setAlarmPopup_textView_date"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/toss_blue_200"
+        android:textColor="@color/toss_black_150"
         android:text="6월 20일 월요일"
         android:textSize="21dp"
         android:fontFamily="@font/ps_regular"/>
 
     <TextView
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="60dp"
         android:lineSpacingExtra="5dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
@@ -41,56 +47,49 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="OO 드실 시간이에요!"
-        android:textColor="@color/toss_black_700"
-        android:textSize="21dp"
-        android:fontFamily="@font/ps_regular"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.5"/>
+        android:text="OO 드실 시간이에요."
+        android:textColor="@color/toss_black_100"
+        android:textSize="24dp"
+        android:fontFamily="@font/ps_bold"/>
 
     <LinearLayout
         android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="250dp">
+        android:layout_height="350dp"
+        android:id="@+id/setAlarmPopup_rippleBackground_imageView"
+        android:clickable="true"
+        android:focusable="true">
         <com.skyfishjy.library.RippleBackground
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/setAlarmPopup_rippleBackground"
-            app:rb_color="@color/toss_blue_200"
-            app:rb_radius="60dp"
+            app:rb_color="@color/toss_black_120"
+            app:rb_radius="50dp"
             app:rb_rippleAmount="1"
-            app:rb_duration="2000"
+            app:rb_duration="1500"
             app:rb_scale="3">
 
             <ImageView
-                android:id="@+id/setAlarmPopup_rippleBackground_imageView"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_centerInParent="true"
-                android:clickable="true"
-                android:focusable="true"
                 android:src="@drawable/drug" />
-
         </com.skyfishjy.library.RippleBackground>
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.5"/>
 
     <TextView
         android:gravity="center"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/ps_bold"
-        android:text="약을 터치해주세요!"
-        android:textColor="@color/toss_black_700"
-        android:textSize="24dp" />
+        android:text="약을 먹고 터치!"
+        android:textColor="@color/toss_black_150"
+        android:textSize="21dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.5"/>
 </LinearLayout>
