@@ -112,7 +112,7 @@ class CalendarAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         // 전체 리사이클러뷰 크기 / 6해서 화면 꽉채우기
-        val itemHeight = (_windowHeight- 48 - 46 - 48 - 60 - 16) / 6
+        val itemHeight = (_windowHeight- 48 - 46 - 48 - 60 - 32) / 6
 
         val itemHeightToPx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, itemHeight, context.resources.displayMetrics).toInt()
         return when(viewType) {
