@@ -1,0 +1,14 @@
+복약 
+1. escyQusitm 효능
+2. atpnWarnQusitm 주의사항 경고
+3. intrcQesitm  상호작용
+
+
+용법
+1. useMethodQesitm 사용법
+2. deposiMethodQesitm 보관법
+
+
+주의
+2. atpnQesitm 주의사항
+3. seQesitm 부작용
