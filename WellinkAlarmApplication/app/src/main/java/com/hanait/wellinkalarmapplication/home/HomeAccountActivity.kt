@@ -25,8 +25,6 @@ import com.hanait.wellinkalarmapplication.utils.Constants.userName
 import com.hanait.wellinkalarmapplication.utils.CustomDialogFragment
 
 class HomeAccountActivity : AppCompatActivity(), View.OnClickListener, CompoundButton.OnCheckedChangeListener{
-
-
     private lateinit var binding : ActivityHomeAccountBinding
     private lateinit var likeList: ArrayList<Item>
 
@@ -50,7 +48,10 @@ class HomeAccountActivity : AppCompatActivity(), View.OnClickListener, CompoundB
         //등록된 약 정보 가져오기
         likeList = DatabaseManager.getInstance(this, "Alarms.db").selectLikeAll()
 
+        //약/약물등록 개수 및 텍스트 설정
         setTextAlarmCountAndExplain()
+        
+        //관심 약물 리스트 만들기
         recyclerViewCreate()
 
         //toolbar 표시
@@ -59,6 +60,7 @@ class HomeAccountActivity : AppCompatActivity(), View.OnClickListener, CompoundB
         supportActionBar?.title = "내 정보"
     }
 
+    //관심 약/약물 정보 리사이클러뷰 설정
     private fun recyclerViewCreate() {
         val likeView = binding.homeAccountRecyclerView
         val likeAdapter = LikeAdapter(this, likeList)
@@ -70,6 +72,7 @@ class HomeAccountActivity : AppCompatActivity(), View.OnClickListener, CompoundB
                     intent.putExtra("SearchData", likeList[pos - 1] )
                     startActivity(intent)
                 }
+                //관심 약물 삭제
                 @SuppressLint("NotifyDataSetChanged")
                 override fun onDeleteItem(v: View, pos: Int) {
                     DatabaseManager.getInstance(applicationContext, "Alarms.db").deleteLike(likeList[pos - 1].itemSeq!!)
@@ -84,8 +87,10 @@ class HomeAccountActivity : AppCompatActivity(), View.OnClickListener, CompoundB
         likeView.adapter = likeAdapter
     }
 
+    //진동 및 소리 설정 후 SharedPreference에 변경사항 저장
     override fun onCheckedChanged(v: CompoundButton?, isChecked: Boolean) {
         when(v) {
+            //벨소리 설정
             binding.homeAccountSwitchMedia -> {
                 if(isChecked) {
                     isMediaOn = "1"
@@ -95,6 +100,7 @@ class HomeAccountActivity : AppCompatActivity(), View.OnClickListener, CompoundB
                     prefs.setString("media_on", "0")
                 }
             }
+            //진동 설정`
             binding.homeAccountSwitchVibration -> {
                 if(isChecked) {
                     isVibrationOn = "1"
@@ -118,20 +124,22 @@ class HomeAccountActivity : AppCompatActivity(), View.OnClickListener, CompoundB
         binding.homeAccountTextViewExplain.text = "등록된 약/약물이 없어요"
     }
 
+    //클릭 리스너
     override fun onClick(v: View?) {
         when(v) {
+            //데이터 초기화
             binding.homeAccountBtnReset -> {
                 showDialog()
             }
+            //이름 초기화
             binding.homeAccountBtnRename -> {
-                //이름 초기화
-
                 //메인 화면으로 이동
                 val intent = Intent(applicationContext, SetUserNameActivity::class.java)
                 intent.putExtra("SkipSetAlarm", true)
                 startActivity(intent)
                 finish()
             }
+            //관심 약물 추가
             binding.homeAccountAddAlarm -> {
                 val intent = Intent(applicationContext, HomeActivity::class.java)
                 intent.putExtra("GoToSearchFragment", true)

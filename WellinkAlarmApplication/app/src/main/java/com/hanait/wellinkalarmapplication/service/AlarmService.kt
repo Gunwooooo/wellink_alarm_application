@@ -11,7 +11,6 @@ import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.*
 import android.provider.Settings
-import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
@@ -222,7 +221,7 @@ class AlarmService: Service() {
         val message = "배너를 클릭하고 '복용' 버튼을 꼭 눌러주세요."
         val notification = NotificationCompat.Builder(this, AlarmService.CHANNEL_ID)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setSmallIcon(R.drawable.drug)
+            .setSmallIcon(R.drawable.icon_color_pill)
             .setContentTitle(title)
             .setContentText(message)
             .setContentIntent(popupPendingIntent)

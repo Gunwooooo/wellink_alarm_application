@@ -40,7 +40,7 @@ class SearchDetailActivity : AppCompatActivity(), View.OnClickListener {
 
         //약 이미지 넣기
         if(searchData.itemImage == "")
-            binding.homeSearchDetailImageView.setImageResource(R.drawable.no_image)
+            binding.homeSearchDetailImageView.setImageResource(R.drawable.icon_no_color_empty_image)
         else Glide.with(this).load(searchData.itemImage).into(binding.homeSearchDetailImageView)
 
         //약 이름 및 제조업체 명 넣기

@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <ImageView
-                android:src="@drawable/no_image"
+                android:src="@drawable/icon_no_color_empty_image"
                 android:padding="10dp"
                 android:id="@+id/homeSearchDetail_imageView"
                 android:layout_width="match_parent"

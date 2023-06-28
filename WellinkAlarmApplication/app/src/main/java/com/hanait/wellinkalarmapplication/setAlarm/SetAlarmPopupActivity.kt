@@ -29,8 +29,6 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding : ActivitySetAlarmPopupActivitiyBinding
     private var pendingId = 0
     private var pendingIdList: ArrayList<Int> = ArrayList()
-    private var isMediaOnTmp = ""
-    private var isVibrationOnTmp = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,8 +63,9 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
         }, SERVICE_TIME_OUT)
     }
 
+    //약 복용정보 DB에 저장하기
     private fun setCalendarData(pendingId: Int, alarmName: String, taken: Int, calendarData: CalendarData?) {
-        //서비스 시간 정해놓기 (미복용)
+        
         var tmpCalendarData = CalendarData()
         if(calendarData != null) tmpCalendarData = calendarData
         tmpCalendarData.name = alarmName
@@ -122,9 +121,11 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
         window.decorView.systemUiVisibility = newUiOptions
     }
 
+    //클릭 리스너
     @SuppressLint("UnspecifiedImmutableFlag")
     override fun onClick(v: View?) {
         when(v) {
+            //복용 처리 리스너
             binding.setAlarmPopupRippleBackgroundImageView -> {
                 Toast.makeText(this, "약을 복용했습니다.", Toast.LENGTH_SHORT).show()
                 takenFlag = true
@@ -162,6 +163,7 @@ class SetAlarmPopupActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    //알림이 여러개 동시에 울릴 경우 텍스트 연결시키기
     private fun makeAlarmNameAsList() : String {
         var alarmFullName = ""
         for(i in 0 until mPendingIdList.size) {

@@ -29,8 +29,10 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
         init()
     }
 
+    //클릭 리스너
     override fun onClick(v: View?) {
         when(v) {
+            //다음 버튼
             binding.setAlarmTimeBtnNext -> {
                 if(isAllSwitchUnchecked()) {
                     Toast.makeText(context, "시간을 설정하고 스위치를 켜주세요", Toast.LENGTH_SHORT).show()
@@ -53,6 +55,7 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
 
     //스위치 변화 이벤트 감지
     override fun onCheckedChanged(v: CompoundButton?, isChecked: Boolean) {
+        //아래 설명글 변경
         makeExplainText()
     }
 
@@ -148,7 +151,7 @@ class SetAlarmTimeFragment : BaseFragment<FragmentSetAlarmTimeBinding>(FragmentS
         prevFragment = SetAlarmPeriodFragment()
         progressBar.progress = 60
 
-        //이미지 넣기
+        //글라이드로 이미지 넣기
         glide.load(R.drawable.baseline_access_alarm_24).into(binding.setAlarmTimeImageViewMorning)
         glide.load(R.drawable.baseline_wb_sunny_24).into(binding.setAlarmTimeImageViewAfternoon)
         glide.load(R.drawable.baseline_cloud_24).into(binding.setAlarmTimeImageViewEvening)

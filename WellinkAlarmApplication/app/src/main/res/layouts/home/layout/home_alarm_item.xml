@@ -47,7 +47,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:src="@drawable/drug"/>
+                android:src="@drawable/icon_color_pill"/>
             <TextView
                 android:id="@+id/homeAlarmItem_textView_name"
                 android:layout_width="wrap_content"

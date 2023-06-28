@@ -47,7 +47,6 @@ class AlarmReceiver : BroadcastReceiver(){
             }
         }
 
-
         try {
             val intentType = intent.extras?.getString("intentType")
             when(intentType) {

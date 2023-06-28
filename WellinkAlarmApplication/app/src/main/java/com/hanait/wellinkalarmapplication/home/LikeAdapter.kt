@@ -1,18 +1,15 @@
 package com.hanait.wellinkalarmapplication.home
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hanait.wellinkalarmapplication.R
-import com.hanait.wellinkalarmapplication.model.AlarmData
 import com.hanait.wellinkalarmapplication.model.Item
 
 
@@ -52,7 +49,7 @@ class LikeAdapter(var context: Context, var data: ArrayList<Item>) :
 
             //약 이미지 넣기
             if(likeData.itemImage == "")
-                likeImageView.setImageResource(R.drawable.no_image)
+                likeImageView.setImageResource(R.drawable.icon_no_color_empty_image)
             else Glide.with(context).load(likeData.itemImage).into(likeImageView)
 
 

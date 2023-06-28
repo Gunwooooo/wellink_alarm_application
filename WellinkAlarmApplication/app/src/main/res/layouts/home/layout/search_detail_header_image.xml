@@ -10,5 +10,5 @@
         android:fitsSystemWindows="true"
         android:adjustViewBounds="true"
         android:layout_gravity="center"
-        android:src="@drawable/drug" />
+        android:src="@drawable/icon_color_pill" />
 </FrameLayout>

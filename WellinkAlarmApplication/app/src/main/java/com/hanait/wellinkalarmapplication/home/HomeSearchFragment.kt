@@ -41,7 +41,7 @@ class HomeSearchFragment : BaseFragment<FragmentHomeSearchBinding>(FragmentHomeS
 
         model = ViewModelProvider(this)[SearchViewModel::class.java]
 
-
+        //로딩 다이얼로그 출력
         makeProgressDialog()
 
         //1페이지 가져오기
@@ -50,6 +50,7 @@ class HomeSearchFragment : BaseFragment<FragmentHomeSearchBinding>(FragmentHomeS
         //notifyChange 및 데이터 삽입 설정
         setModelObserve()
 
+        //리사이클러뷰 생성
         recyclerViewCreate()
 
         //검색 editText 키보드 검색 버튼 이벤트 구현
@@ -62,6 +63,7 @@ class HomeSearchFragment : BaseFragment<FragmentHomeSearchBinding>(FragmentHomeS
 
                     if(itemName == "") Toast.makeText(context, "검색어를 초기화합니다.", Toast.LENGTH_SHORT).show()
 
+                    //로딩 다이얼로그 생성
                     makeProgressDialog()
 
                     model.loadSearchDataAsItemName(itemName, page)
@@ -83,6 +85,7 @@ class HomeSearchFragment : BaseFragment<FragmentHomeSearchBinding>(FragmentHomeS
         progressDialog.show()
     }
 
+    //데이터 옵저버 설정
     @SuppressLint("NotifyDataSetChanged")
     private fun setModelObserve() {
         model.getAll().observe(this.viewLifecycleOwner, Observer {

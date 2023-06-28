@@ -29,14 +29,15 @@ class SetAlarmPeriodFragment : BaseFragment<FragmentSetAlarmPeriodBinding>(Fragm
 
     override fun onClick(v: View?) {
         when(v) {
+            //다음 버튼
             binding.setAlarmPeriodBtnNext -> {
                 tempAlarmData.period = numberPickerValue
 
                 //다음 프래그먼트 이동
                 val mActivity = activity as SetAlarmActivity
                 mActivity.changeFragment("SetAlarmTimeFragment")
-
             }
+            //주기 설정 버튼
             binding.setAlarmPeriodBtnSecond -> {
                 numberPickerValue = 2
                 binding.setAlarmPeriodNumberPicker.value = 2
@@ -48,6 +49,7 @@ class SetAlarmPeriodFragment : BaseFragment<FragmentSetAlarmPeriodBinding>(Fragm
                 //버튼 활성화 변경
                 changeButtonColor(binding.setAlarmPeriodBtnSecond, binding.setAlarmPeriodBtnFirst)
             }
+            //매일 버튼
             binding.setAlarmPeriodBtnFirst -> {
                 numberPickerValue = 1
 

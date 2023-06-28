@@ -30,9 +30,8 @@ import java.util.*
 
 
 class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(FragmentSetAlarmExpiredBinding::inflate), View.OnClickListener {
-
     var numberPickerValue = 0
-
+    
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -43,11 +42,11 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
     @SuppressLint("SetTextI18n")
     override fun onClick(v: View?) {
         when(v) {
+            //다음 버튼 클릭
             binding.setAlarmExpiredBtnNext -> {
-
+                //전역 변수에 값 넣기
                 tempAlarmData.expired = getExpiredDate()
                 tempAlarmData.expiredInt = numberPickerValue
-                //알람 울리기 설정하기
 
                 //DB에 알람 정보 최종 저장하기
                 insertOrUpdateAlarm()
@@ -58,11 +57,12 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
                 //임시 데이터 삭제
                 tempAlarmData2 = null
 
+                //홈 액티비티로 전환
                 val intent = Intent(activity, HomeActivity::class.java)
                 startActivity(intent)
-
             }
 
+            //만기일 설정 버튼
             binding.setAlarmExpiredBtnSecond -> {
                 numberPickerValue = 2
                 binding.setAlarmExpiredNumberPicker.value = 2
@@ -75,6 +75,7 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
                 //버튼 활성화 변경
                 changeButtonColor(binding.setAlarmExpiredBtnSecond, binding.setAlarmExpiredBtnFirst)
             }
+            //만기일 없이 설정 버튼
             binding.setAlarmExpiredBtnFirst -> {
                 numberPickerValue  = 0
 
@@ -138,7 +139,7 @@ class SetAlarmExpiredFragment : BaseFragment<FragmentSetAlarmExpiredBinding>(Fra
         }
     }
 
-    //약 이름 중복 체크
+    //DB에서 약 이름 중복 체크
     private fun insertOrUpdateAlarm() {
         if(tempAlarmData2 == null) {
             DatabaseManager.getInstance(requireContext(), "Alarms.db")

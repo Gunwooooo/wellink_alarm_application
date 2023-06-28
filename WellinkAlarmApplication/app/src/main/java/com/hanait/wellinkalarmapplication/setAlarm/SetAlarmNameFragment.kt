@@ -20,6 +20,7 @@ class SetAlarmNameFragment : BaseFragment<FragmentSetAlarmNameBinding>(FragmentS
         tempAlarmData = AlarmData()
     }
 
+    //클릭 리스너
     override fun onClick(v: View?) {
         when(v) {
             binding.setAlarmNameBtnNext -> {
@@ -28,7 +29,7 @@ class SetAlarmNameFragment : BaseFragment<FragmentSetAlarmNameBinding>(FragmentS
                     Toast.makeText(context, "약 이름을 입력해주세요", Toast.LENGTH_SHORT).show()
                     return
                 }
-                //약 이름 중복 체크
+                //등록된 약을 DB에서 가져와서 약 이름 중복 체크
                 val mAlarmList = DatabaseManager.getInstance(requireContext(), "Alarms.db").selectAlarmAll()
                 if(tempAlarmData2 == null) {
                     for (i in 0 until mAlarmList.size) {
@@ -39,6 +40,7 @@ class SetAlarmNameFragment : BaseFragment<FragmentSetAlarmNameBinding>(FragmentS
                         }
                     }
                 }
+                //이름 전역변수에 저장 후 fragment 변경
                 tempAlarmData.name = binding.setAlarmNameEditTextAlarmName.text.toString()
                 val mActivity = activity as SetAlarmActivity
                 mActivity.changeFragment("SetAlarmPeriodFragment")

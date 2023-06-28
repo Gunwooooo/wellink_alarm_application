@@ -25,7 +25,7 @@
             android:padding="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/no_image"/>
+            android:src="@drawable/icon_no_color_empty_image"/>
     </LinearLayout>
 
     <LinearLayout

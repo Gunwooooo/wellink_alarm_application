@@ -46,7 +46,7 @@
             android:layout_marginStart="8dp"
             android:layout_width="21dp"
             android:layout_height="21dp"
-            android:src="@drawable/finger"/>
+            android:src="@drawable/icon_color_finger"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -37,8 +37,6 @@ class SplashActivity : AppCompatActivity() {
         //캘린더 높이 계산을 위한 전체 높이 저장
         val displayMetrics = resources.displayMetrics
         _windowHeight = displayMetrics.heightPixels / displayMetrics.density
-        Log.d("로그", "SplashActivity - onCreate : @@@@@@@    $_windowHeight")
-        
         
         mAlarmList = DatabaseManager.getInstance(this, "Alarms.db").selectAlarmAll()
 

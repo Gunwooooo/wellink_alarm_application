@@ -1,7 +1,6 @@
 package com.hanait.wellinkalarmapplication.manual
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.bumptech.glide.Glide
 import com.hanait.wellinkalarmapplication.R
@@ -13,6 +12,6 @@ class ManualFragment3 : BaseFragment<FragmentManual3Binding>(FragmentManual3Bind
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //초기 글라이드로 이미지 불러오기
-        glide.load(R.drawable.manual3).into(binding.manual3ImageView)
+        glide.load(R.drawable.image_color_manual3).into(binding.manual3ImageView)
     }
 }

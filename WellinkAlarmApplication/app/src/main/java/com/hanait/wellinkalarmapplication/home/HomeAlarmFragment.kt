@@ -31,12 +31,18 @@ class HomeAlarmFragment : BaseFragment<FragmentHomeAlarmBinding>(FragmentHomeAla
         super.onViewCreated(view, savedInstanceState)
 
         binding.homeAlarmAddAlarm.setOnClickListener(this)
+        
+        //알림 개수 및 초기 텍스트 설정
         setTextAlarmCountAndExplain()
+        
+        //알림 리스트 recyclerView로 만들기
         recyclerViewCreate()
     }
 
+    //클릭 리스너
     override fun onClick(v: View?) {
         when(v) {
+            //알림 추가 버튼
             binding.homeAlarmAddAlarm-> {
                 tempAlarmData2 = null
                 val intent = Intent(context, SetAlarmActivity::class.java)
@@ -45,6 +51,7 @@ class HomeAlarmFragment : BaseFragment<FragmentHomeAlarmBinding>(FragmentHomeAla
         }
     }
 
+    //리사이클러뷰로 알림 리스트 만들기
     private fun recyclerViewCreate() {
         val alarmView = binding.homeAlarmRecyclerView
         val alarmAdapter =
@@ -58,6 +65,7 @@ class HomeAlarmFragment : BaseFragment<FragmentHomeAlarmBinding>(FragmentHomeAla
                     tempAlarmData2 = mAlarmList[pos - 1]
                     startActivity(intent)
                 }
+                //알림 삭제
                 override fun onDeleteItem(v: View, pos: Int) {
                     showDialog(alarmAdapter, pos)
                 }

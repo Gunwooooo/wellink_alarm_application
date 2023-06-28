@@ -25,6 +25,7 @@ object Constants {
 
     //알림 설정 시 사용하는 임시 데이터
     lateinit var tempAlarmData: AlarmData
+
     //알람 수정 시 사용하는 임시 데이터
     var tempAlarmData2: AlarmData? = null
     //simpleDateFormat

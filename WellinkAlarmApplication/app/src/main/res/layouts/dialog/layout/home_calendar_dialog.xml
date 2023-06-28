@@ -192,7 +192,7 @@
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/pill"
+                    android:src="@drawable/icon_no_color_pill"
                     app:tint="@color/text_blue_200" />
                 <TextView
                     android:layout_marginStart="4dp"
@@ -207,7 +207,7 @@
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/pill"
+                    android:src="@drawable/icon_no_color_pill"
                     app:tint="@color/text_red_200" />
                 <TextView
                     android:layout_marginStart="4dp"
@@ -222,7 +222,7 @@
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/pill"
+                    android:src="@drawable/icon_no_color_pill"
                     app:tint="@color/toss_black_150" />
                 <TextView
                     android:layout_marginStart="4dp"
@@ -245,7 +245,7 @@
         <ImageView
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:src="@drawable/no_results"/>
+            android:src="@drawable/icon_color_empty_results"/>
         <TextView
             android:layout_marginTop="16dp"
             android:textColor="@color/toss_black_700"

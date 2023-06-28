@@ -38,6 +38,7 @@ class SetAlarmActivity : AppCompatActivity() {
         }
     }
 
+    //프레그먼트 전환
     private fun changePrevFragment() {
         supportFragmentManager.beginTransaction().replace(R.id.setAlarm_frameId, prevFragment).commitAllowingStateLoss()
     }
@@ -54,6 +55,7 @@ class SetAlarmActivity : AppCompatActivity() {
     }
 
 
+    //뒤로가기 누를 경우 이전 프레그먼트로 전환
     @Override
     override fun onBackPressed() {
         super.onBackPressed()

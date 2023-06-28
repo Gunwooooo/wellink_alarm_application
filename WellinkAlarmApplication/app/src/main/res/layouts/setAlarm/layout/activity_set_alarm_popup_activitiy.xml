@@ -73,7 +73,7 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_centerInParent="true"
-                android:src="@drawable/drug" />
+                android:src="@drawable/icon_color_pill" />
         </com.skyfishjy.library.RippleBackground>
     </LinearLayout>
 

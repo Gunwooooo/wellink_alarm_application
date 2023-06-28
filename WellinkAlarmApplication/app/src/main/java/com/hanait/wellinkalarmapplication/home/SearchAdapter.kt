@@ -2,7 +2,6 @@ package com.hanait.wellinkalarmapplication.home
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,14 +9,11 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hanait.wellinkalarmapplication.R
 import com.hanait.wellinkalarmapplication.db.DatabaseManager
-import com.hanait.wellinkalarmapplication.model.AlarmData
 import com.hanait.wellinkalarmapplication.model.Item
-import com.hanait.wellinkalarmapplication.model.SearchData
 
 
 class SearchAdapter(var context: Context) :
@@ -51,7 +47,7 @@ class SearchAdapter(var context: Context) :
 
             //약 이미지 넣기
             if(item.itemImage == "")
-                searchItemImageView.setImageResource(R.drawable.no_image)
+                searchItemImageView.setImageResource(R.drawable.icon_no_color_empty_image)
             else Glide.with(context).load(item.itemImage).into(searchItemImageView)
 
             //아이템 클릭

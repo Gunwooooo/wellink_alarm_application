@@ -35,17 +35,17 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         init()
+
         initCalendarList()
+        
+        //오늘 날짜 테두리 표시
         setTodayBorder()
     }
 
     @SuppressLint("ClickableViewAccessibility", "SimpleDateFormat")
     private fun init() {
-
-
-
-
         binding.homeCalendarNextBtn.setOnClickListener(this)
         binding.homeCalendarPrevBtn.setOnClickListener(this)
         binding.homeCalendarRecyclerView.setOnTouchListener(object: OnSwipeTouchListener(context) {
@@ -61,6 +61,7 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
 
     private fun setTodayBorder() {
         //오늘 날짜 테두리 표시
+        //달력 전부 그리기 전에 오늘 날짜 테두리 표시
         binding.homeCalendarRecyclerView.doOnPreDraw {
             val todayPos =
                 GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
@@ -70,6 +71,7 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
         }
     }
 
+    //월별 달력 정보 가져오기
     @SuppressLint("SimpleDateFormat")
     private fun getCalendarAsMonth(cal: Calendar) {
 
@@ -116,6 +118,7 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
         }
     }
 
+    //초기 달력 만들기
     @SuppressLint("SetTextI18n")
     private fun initCalendarList() {
         cal = GregorianCalendar()
@@ -125,9 +128,12 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
         setCalendarList(cal)
     }
 
+    
+    //클릭 리스너
     @SuppressLint("SetTextI18n")
     override fun onClick(v: View?) {
         when(v) {
+            //다음 달로 변경
             binding.homeCalendarPrevBtn -> {
                 cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) -1 , 1)
                 setCalendarList(cal)
@@ -135,6 +141,7 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
                 binding.homeCalendarTextViewMonth.text = "${cal.get(Calendar.YEAR)}년  ${cal.get(Calendar.MONTH) + 1}월"
                 setTodayBorder()
             }
+            //이전 달로 변경
             binding.homeCalendarNextBtn -> {
                 cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, 1)
                 setCalendarList(cal)
@@ -177,6 +184,7 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
         recyclerViewCreate()
     }
 
+    //리사이클러뷰로 달력 그리기
     private fun recyclerViewCreate() {
         val calendarView = binding.homeCalendarRecyclerView
         val calendarAdapter =
@@ -208,6 +216,7 @@ class HomeCalendarFragment : BaseFragment<FragmentHomeCalendarBinding>(FragmentH
         calendarView.adapter = calendarAdapter
     }
 
+    //해당 날짜 복용 정보 다이얼로그 표시
     fun showDialog(dayOfMonth: Int) {
         val calendar = GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), dayOfMonth, 0, 0, 0)
         val customDialog = CustomDialogFragment(R.layout.home_calendar_dialog, calendar)

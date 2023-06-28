@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/like_toolbar_like"
-        android:icon="@drawable/mark"
+        android:icon="@drawable/icon_color_book_mark"
         android:title="like"
         app:showAsAction="always" />
 </menu>

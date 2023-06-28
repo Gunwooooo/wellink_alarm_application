@@ -2,7 +2,6 @@ package com.hanait.wellinkalarmapplication.home
 
 
 import android.content.Context
-import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -85,9 +83,9 @@ class CalendarAdapter(
                     return
                 }
                 if(takenArray[index][0] == 0 ) return
-                else if(takenArray[index][1] > 0 && takenArray[index][2] == 0) glide.load(R.drawable.check).into(dayImageView)
-                else if(takenArray[index][1] > 0 && takenArray[index][2] > 0) glide.load(R.drawable.warn).into(dayImageView)
-                else glide.load(R.drawable.cancel).into(dayImageView)
+                else if(takenArray[index][1] > 0 && takenArray[index][2] == 0) glide.load(R.drawable.icon_color_check).into(dayImageView)
+                else if(takenArray[index][1] > 0 && takenArray[index][2] > 0) glide.load(R.drawable.icon_color_warn).into(dayImageView)
+                else glide.load(R.drawable.icon_color_cancel).into(dayImageView)
             }
         }
         fun setEmptyDayNextTextView(day: String?, color:Int) {

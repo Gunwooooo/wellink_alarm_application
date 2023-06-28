@@ -9,7 +9,7 @@ import com.hanait.wellinkalarmapplication.manual.*
 class MainViewPagerFragmentAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
 
     // 1. ViewPager2에 연결할 Fragment 들을 생성
-    private val fragmentList = listOf(ManualFragment1(), ManualFragment2(), ManualFragment3(), ManualFragment5())
+    private val fragmentList = listOf(ManualFragment1(), ManualFragment2(), ManualFragment3(), ManualFragment4())
 
     // 2. ViesPager2에서 노출시킬 Fragment 의 갯수 설정
     override fun getItemCount(): Int {
